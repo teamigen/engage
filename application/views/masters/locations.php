@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <label>Name of the Location</label>
                                             <input class="form-control" type="text" name="name_of_church"
-                                                placeholder="Name of the Region" id="name_of_church">
+                                                placeholder="Name of the Location" id="name_of_church">
                                         </div>
                                         
                                         
@@ -86,19 +86,19 @@
         
                                             <tbody>
                                             <tr>
-                                                <td>South Kerala</td>
+                                                <td>Nalamchira</td>
 
                                                 <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
                                                 
                                             </tr>
                                             <tr>
-                                                <td>North Kerala</td>
+                                                <td>Karakkodu</td>
 
                                                 <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
                                                 
                                             </tr>
                                             <tr>
-                                                <td>Tamil Nadu</td>
+                                                <td>Sreekariyam</td>
 
                                                 <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
                                                 

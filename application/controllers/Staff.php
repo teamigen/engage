@@ -5,12 +5,18 @@ class Staff extends CI_Controller {
 
 	public function create()
 	{
-		$data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-		$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
-		$this->load->view('stations/create', $data);
+		$this->load->view('staff/create');
+		$this->load->view('templates/footer');
+	}
+    public function manage()
+	{
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/nav');
+		$this->load->view('staff/manage');
 		$this->load->view('templates/footer');
 	}
     public function monthreport(){
@@ -49,19 +55,7 @@ class Staff extends CI_Controller {
 		$this->load->view('reports/previousreports', $data);
 		$this->load->view('templates/footer');
     }
-    public function manage()
-	{
-		$data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-		$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
-		$data['stations'] = $this->Station_model->getallactivestations();
-		$data['states'] = $this->Station_model->getallactivestates();
-		$data['districts'] = $this->Station_model->getallactivedistricts();
-
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('stations/manage', $data);
-		$this->load->view('templates/footer');
-	}
+    
 	public function saveregion(){
 		// echo "hasdfs";
 		// die();
