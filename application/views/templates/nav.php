@@ -140,6 +140,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="<?= base_url(); ?>masters/locations" class=" waves-effect">
+                                    <i class="ri-map-pin-user-line"></i>
+                                    <span>Locations</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="apps-chat.html" class=" waves-effect">
                                     <i class="ri-attachment-line"></i>
                                     <span>Notices</span>
@@ -147,28 +153,28 @@
                             </li>
                             
                             <!-- Regional Staff View -->
-                            <li class="menu-title">Regional Level</li>
-                            <li>
-                                <a href="apps-chat.html" class=" waves-effect">
-                                    <i class="ri-basketball-fill"></i>
+                            <!-- <li class="menu-title">Regional Level</li> -->
+                            <!-- <li> -->
+                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
+                                    <!-- <i class="ri-basketball-fill"></i> -->
                                     <!-- Regional Staff View Reports -->
-                                    <span>RSV Reports</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="apps-chat.html" class=" waves-effect">
-                                    <i class="ri-football-fill"></i>
+                                    <!-- <span>RSV Reports</span> -->
+                                <!-- </a> -->
+                            <!-- </li> -->
+                            <!-- <li> -->
+                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
+                                    <!-- <i class="ri-football-fill"></i> -->
                                     <!--Cumilative Regional Reports -->
-                                    <span>Cumilative Reports</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="apps-chat.html" class=" waves-effect">
-                                    <i class="ri-leaf-line"></i>
+                                    <!-- <span>Cumilative Reports</span> -->
+                                <!-- </a> -->
+                            <!-- </li> -->
+                            <!-- <li> -->
+                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
+                                    <!-- <i class="ri-leaf-line"></i> -->
                                     <!-- Regional Staff View Reports -->
-                                    <span>Region Reports</span>
-                                </a>
-                            </li>
+                                    <!-- <span>Region Reports</span> -->
+                                <!-- </a> -->
+                            <!-- </li> -->
                             <!-- For Admin Only -->
                             <li class="menu-title">Admin Level</li>
                             <li>
@@ -183,9 +189,8 @@
                                     <span>Reports</span>
                                 </a>
                                 <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="<?= base_url(); ?>staff/adminmonthreport">Month Report</a></li>
-                                    <li><a href="<?= base_url(); ?>staff/adminweekreport">Weekly Report</a></li>
-                                    <li><a href="<?= base_url(); ?>staff/adminpreviousreports">Previous Reports</a></li>
+                                    <li><a href="<?= base_url(); ?>staff/adminmonthreport">Staff Report</a></li>
+                                    <li><a href="#">Regional Staff Report</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -200,13 +205,13 @@
                             </li>
 
                             <li>
-                                <a href="<?= base_url(); ?>stations/manage" class=" waves-effect">
+                                <a href="<?= base_url(); ?>masters/stations" class=" waves-effect">
                                     <i class="ri-map-pin-user-line"></i>
                                     <span>Stations</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url(); ?>stations/region" class=" waves-effect">
+                                <a href="<?= base_url(); ?>masters/regions" class=" waves-effect">
                                     <i class="ri-map-pin-user-line"></i>
                                     <span>Regions</span>
                                 </a>

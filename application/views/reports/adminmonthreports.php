@@ -145,225 +145,160 @@
                             <div class="row">
                                 
                                     <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:5px;">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Accepted Christ <span style="float:right;">2</span> 
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:5px;">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Decision for Baptism <span style="float:right;">2</span> 
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:5px;">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Baptisms <span style="float:right;">2</span> 
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:5px;">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Holy Spirit Received by <span style="float:right;">6</span> 
                                     </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:5px;">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Ministry Committments <span style="float:right; ">1</span> 
                                     </div>
                                     </div>
                                 
                             </div>
-                                            <form action="#">
-                                            <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Number of CGPF Meetings</label>
-                                            <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                placeholder="No of CGPF Meetings" id="no_of_cgpf_meetings">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Number of House Visits</label>
-                                            <input class="form-control" type="text" name="no_of_house_visits"
-                                                placeholder="No of House Visits" id="no_of_house_visits">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Number of Hostel Visits</label>
-                                            <input class="form-control" type="text" name="no_of_hostel_visits"
-                                                placeholder="No of Hostel Visits" id="no_of_hostel_visits">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Number of Personal Evangelisms</label>
-                                            <input class="form-control" type="text" name="no_of_personal_evangelism"
-                                                placeholder="No of Personal Evangelisms" id="no_of_personal_evangelism">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-6">
-
-                                        <div class="form-group">
-                                            <label>Accepted Christ</label>
-                                            <input class="form-control" type="text" name="no_of_accepted_christ"
-                                                placeholder="Accepted Christ" id="no_of_accepted_christ">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Decision for Baptism</label>
-                                            <input class="form-control" type="text" name="no_of_baptism_decision"
-                                                placeholder="Baptism Decisions" id="no_of_baptism_decision">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>No of Baptisms</label>
-                                            <input class="form-control" type="text" name="no_of_baptisms"
-                                                placeholder="No. of Baptisms" id="no_of_baptisms">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Holyspirt Received</label>
-                                            <input class="form-control" type="text" name="no_of_holyspirit_received"
-                                                placeholder="Holyspirit Received" id="no_of_holyspirit_received">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Ministry Commitments</label>
-                                            <input class="form-control" type="text" name="no_of_ministry_commitments"
-                                                placeholder="Ministry Commitments" id="no_of_ministry_commitments">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Existing Student Councils</label>
-                                            <input class="form-control" type="text" name="existing_student_councils"
-                                                placeholder="Existing Student Councils" id="existing_student_councils">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>New Student Councils</label>
-                                            <input class="form-control" type="text" name="new_student_councils"
-                                                placeholder="New Student Councils" id="new_student_councils">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label>Existing CGPF</label>
-                                            <input class="form-control" type="text" name="existing_cgpf"
-                                                placeholder="Existing CGPF" id="existing_cgpf">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>New CGPF</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="New CGPF" id="new_cgpf">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="padding-bottom:30px; padding-top:30px;">
-                                    <hr>
-                                    <div class="col-lg-6" style="font-weight: bold; font-size:18px;">Church Visits</div>
-                                    <div class="col-lg-6" style="text-align: right; font-weight: bold; font-size:18px;"></div>
-                                    <hr>
-                                </div>
-                                <div class="row">
+                            <hr>
+                            <div class="row">
                                 
-                                    <div class="col-lg-6">
-                                        
-                                        <div class="form-group mb-4">
-                                            <label>First Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="First Sunday">
-                                            <option selected>Select Church</option>   
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label>Second Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Second Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
-                                        </div>
-
-                                    
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Existing Student Councils<span style="float:right;">4</span> 
                                     </div>
-                                    <div class="col-lg-6">
-                                       
-
-                                    <div class="form-group mb-4">
-                                            <label>Third Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Third Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label>Fourth Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Fourth Sunday">
-                                            <option selected>Select Church</option>      
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label>Fifth Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Fifth Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
-                                        </div>
                                     </div>
-                                </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        New Student Councils <span style="float:right;">2</span> 
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Existing CGPF <span style="float:right;">2</span> 
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        New CGPF <span style="float:right;">1</span> 
+                                    </div>
+                                    </div>
+                                   
+                                
+                            </div>
+                            <hr>
+                            <div class="row">
+                                
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        First Sunday: AG Church, Kulathur
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Second Sunday: IPC Sreekariyam
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Third Sunday: IPC Tabor
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Fourth Sunday: Sharon Fellowship Church, Pattom
+                                    </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Fifth Sunday: Life Fellowship, Mannanthala
+                                    </div>
+                                    </div>
+                                
+                            </div>
+                                            <form action="#">
+                                            
+                                
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-6" style="font-weight: bold; font-size:18px;">Special Programs</div>
-                                    <div class="col-lg-6" style="text-align: right; font-weight: bold; font-size:18px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
+                                    <!-- <div class="col-lg-6" style="text-align: right; font-weight: bold; font-size:18px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div> -->
                                 </div>
                                 <hr>
                                 <div class="event1 events">
                                 <div class="row">
-                                
-                                    <div class="col-lg-6">
-                                        
-                                        <div class="form-group mb-4">
-                                            <label>Date of Program</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" data-provide="datepicker"
-                                                    data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i
-                                                            class="mdi mdi-calendar"></i></span>
-                                                </div>
-                                            </div><!-- input-group -->
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Event Name</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="Event Name" id="new_cgpf">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Event Location</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="Event Location" id="new_cgpf">
-                                        </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                               <strong style="font-size: 18px;"> Date of Program</strong><br />
+                                1 August 2024
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;">  Event Name</strong><br />
+                                One Day Retreat
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Event Location</strong><br />
+                                Marthoma Retreat Centre
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Resource Person</strong><br />
+                                Dr. K. Muralidhar
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Attendance</strong><br />
+                                340
+                                </div>
+                                   
                                     
-                                    </div>
-                                    <div class="col-lg-6">
-                                       
-
-                                        <div class="form-group">
-                                            <label>Resource Person</label>
-                                            <input class="form-control" type="text" name="resource_person"
-                                                placeholder="Resource Person" id="resource_person">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Attendance</label>
-                                            <input class="form-control" type="text" name="event_attendance"
-                                                placeholder="Attendance" id="event_attendance">
-                                        </div>
-                                         <div class="form-group">
-                                            <label>Event Photos</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile" multiple>Choose file</label>
-                                        </div>
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
                                         </div>
                                     </div>
+                                </div>
+                                                
+                                        <hr>
+                                        </div>
+                                        <hr>
+                                <div class="event1 events">
+                                <div class="row">
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                               <strong style="font-size: 18px;"> Date of Program</strong><br />
+                                1 August 2024
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;">  Event Name</strong><br />
+                                One Day Retreat
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Event Location</strong><br />
+                                Marthoma Retreat Centre
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Resource Person</strong><br />
+                                Dr. K. Muralidhar
+                                </div>
+                                <div class="col-lg-2" style="margin-bottom:20px;">
+                                <strong style="font-size: 18px;"> Attendance</strong><br />
+                                340
+                                </div>
+                                   
+                                    
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
@@ -379,9 +314,85 @@
                                         <hr>
                                         </div>
                                         <div class="row">
+                                            <div class="col-lg-12">
+                                            <div class="table-responsive">
+                                            <table class="table mb-0">
+        
+                                                <thead class="thead-light">
+                                                    <tr>
+                                                        <th>Week</th>
+                                                        <th>Date of Event</th>
+                                                        <th>Name of Group</th>
+                                                        <th>Leader</th>
+                                                        <th>Attendance</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>2 Aug 2024</td>
+                                                        <td>Nalamchira Group</td>
+                                                        <td>Ebenezer Varghese</td>
+                                                        <td>14</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-lg-12" style="text-align: right;">
-                                                <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
+                                                <button type="button" class="btn btn-success waves-effect waves-light">Approve</button>
+                                                <button type="button" class="btn btn-danger waves-effect waves-light">Reject</button>
                                             </div>
                                         </div>
                                             </form>
