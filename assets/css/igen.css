@@ -1,0 +1,28 @@
+.greentxt{
+    color: green;
+    font-weight:bold;
+}
+table.dataTable thead th,
+        table.dataTable tbody td {
+            white-space: nowrap;
+        }
+
+    /* Dropzone */
+.dropzone {
+    min-height: 230px;
+    border: 2px dashed #ced4da;
+    background: #fff;
+    border-radius: 6px;
+}
+  
+    .dz-message {
+      font-size: 24px;
+      width: 100%;
+    }
+    .events {
+        background-color: #f8f8f8;
+        border: 1px solid #666;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom:30px;
+    }
