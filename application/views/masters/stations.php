@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -25,7 +25,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="" style="margin-right:20px;">
-                                  
+
                                 </li>
 
 
@@ -37,105 +37,166 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                        <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Create Station</h4>
-                                        <p class="card-title-desc">Create a New Station</p>
-        
-                                        <form action="#">
-                                        <div class="form-group">
-                                            <label>Name of the Station</label>
-                                            <input class="form-control" type="text" name="name_of_church"
-                                                placeholder="Name of the Region" id="name_of_church">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Region</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Region</option>       
-                                            <option value="">South Kerala</option>
-                                            <option value="">North Kerala</option>
-                                            <option value="">Tamil Nadu</option>
-                                                </select>
-                                        </div>
-                                        
-                                        
-                                            <div class="form-group">
-                                            <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
-                                            
-        
-                                        </form>
-        
-                                    </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Create Station</h4>
+                            <p class="card-title-desc">Create a New Station</p>
+
+                            <form action="#" id="saveStation" method="post">
+                                <div id="stationMessage"></div>
+                                <div class="form-group">
+                                    <label>Name of the Station</label>
+                                    <input class="form-control" type="text" name="stationName" placeholder="Name of the Station" id="stationName">
                                 </div>
-    
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Stations</h4>
-                                        <p class="card-title-desc">List of Stations</p>
-        
-                                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                            <tr>
-                                                <th>Station Name</th>
-                                                <th>Region</th>
 
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-        
-        
-                                            <tbody>
-                                            <tr>
-                                                <td>Trivandrum</td>
-                                                <td>South Kerala</td>
-
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Kozhikode</td>
-                                                <td>North Kerala</td>
-
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Erode</td>
-                                                <td>Tamil Nadu</td>
-
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-
-                                           
-                                           
-                                           
-                                            </tbody>
-                                        </table>
-        
-                                    </div>
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input class="form-control" type="text" name="stationSlug" placeholder="Station Slug" id="stationSlug">
                                 </div>
-    
-                            </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+
+                                <div class="form-group">
+                                    <label>Region</label>
+                                    <select name="selectedRegion" class="form-control select2" id="selectedRegion" placeholder="Select Region">
+                                        <option selected>Select Region</option>
+                                        <?php if (!empty($regions)): ?>
+                                            <?php foreach ($regions as $region): ?>
+                                                <option value="<?= $region->regionId ?>"><?= $region->regionName ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Stations</h4>
+                            <p class="card-title-desc">List of Stations</p>
+
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Station Name</th>
+                                        <th>Region</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Trivandrum</td>
+                                        <td>South Kerala</td>
+
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Kozhikode</td>
+                                        <td>North Kerala</td>
+
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Erode</td>
+                                        <td>Tamil Nadu</td>
+
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
 
 
 
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
+
+
+
+<script>
+
+$(document).ready(function() {
+    $('#saveStation').submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: '<?php echo base_url('stations/savestation'); ?>', // Controller action URL
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                
+                var response = JSON.parse(response);
+
+                if (response.success) {
+                    
+                    $('#stationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
+                    $('#saveStation').trigger("reset"); 
+                } else {
+                 
+                    var errorMessage = "<div class='alert alert-danger'>";
+                    for (var key in response.error) {
+                        if (response.error.hasOwnProperty(key)) {
+                            errorMessage += "<p>" + response.error[key] + "</p>";
+                        }
+                    }
+                    errorMessage += "</div>";
+                    $('#stationMessage').html(errorMessage);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+          
+                $('#stationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+            }
+        });
+    });
+
+   
+    $('#stationName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, ''); 
+        $('#stationSlug').val(filteredText.toLowerCase());
+    });
+});
+
+
+</script>
+
+
 <!-- JAVASCRIPT -->
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
 <script src="<?= base_url(); ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

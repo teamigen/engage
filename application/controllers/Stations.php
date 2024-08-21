@@ -1,47 +1,51 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Stations extends CI_Controller {
+class Stations extends CI_Controller
+{
 
-	public function create()
-	{
-		$data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-		$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+    public function create()
+    {
+        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive','countryName', 'asc');
+        $data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('stations/create', $data);
+        $this->load->view('templates/footer');
+    }
 
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('stations/create', $data);
-		$this->load->view('templates/footer');
-	}
     public function manage()
-	{
-		$data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-		$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
-		$data['stations'] = $this->Station_model->getallactivestations();
-		$data['states'] = $this->Station_model->getallactivestates();
-		$data['districts'] = $this->Station_model->getallactivedistricts();
+    {
+        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
+        $data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+        $data['stations'] = $this->Station_model->getallactivestations();
+        $data['states'] = $this->Station_model->getallactivestates();
+        $data['districts'] = $this->Station_model->getallactivedistricts();
 
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('stations/manage', $data);
-		$this->load->view('templates/footer');
-	}
-	public function saveregion(){
-		// echo "hasdfs";
-		// die();
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('stations/manage', $data);
+        $this->load->view('templates/footer');
+    }
 
-		if (!$this->input->is_ajax_request()) {
+
+    public function saveregion()
+    {
+      
+
+        if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
-        // Get field value from POST data
-        $regionName = $this->security->xss_clean($this->input->post('regionName')); // Sanitize input
+        $regionName = $this->security->xss_clean($this->input->post('regionName')); 
+        $regionSlug = $this->security->xss_clean($this->input->post('regionSlug')); 
 
         $data = array(
             'regionName' => $regionName,
-            'regionActive' => 1
+            'regionStatus' => 1,
+            'regionSlug' =>  $regionSlug 
         );
-		// Save data using model
+        // Save data using model
         $regionName = $this->Common_model->insert('eg_region', $data);
 
         $response = array(
@@ -50,25 +54,30 @@ class Stations extends CI_Controller {
         );
 
         echo json_encode($response);
-	}
-	public function savestation(){
+    }
 
-		if (!$this->input->is_ajax_request()) {
+
+    public function savestation()
+    {
+
+        if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
-        // Get field value from POST data
-        $stationName = $this->security->xss_clean($this->input->post('stationName')); // Sanitize input
-        $districtId = $this->security->xss_clean($this->input->post('districtId')); // Sanitize input
-        $regionId = $this->security->xss_clean($this->input->post('regionId')); // Sanitize input
+        
+        $stationName = $this->security->xss_clean($this->input->post('stationName')); 
+        // $districtId = $this->security->xss_clean($this->input->post('districtid')); 
+        $regionId = $this->security->xss_clean($this->input->post('selectedRegion')); 
+        $stationSlug = $this->security->xss_clean($this->input->post('stationSlug')); 
 
         $data = array(
             'stationName' => $stationName,
-            'districtId' => $districtId,
-            'regionId' => $regionId,
-            'stationActive' => 1
+            // 'districtId' => $districtId,
+            'selectedRegion' => $regionId,
+            'stationStatus' => 1,
+            'stationSlug' => $stationSlug
         );
-		// Save data using model
+        // Save data using model
         $stationName = $this->Common_model->insert('eg_station', $data);
 
         $response = array(
@@ -77,12 +86,15 @@ class Stations extends CI_Controller {
         );
 
         echo json_encode($response);
-	}
-	public function savecountry(){
-		// echo "hasdfs";
-		// die();
+    }
 
-		if (!$this->input->is_ajax_request()) {
+
+    public function savecountry()
+    {
+        // echo "hasdfs";
+        // die();
+
+        if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
@@ -93,7 +105,7 @@ class Stations extends CI_Controller {
             'countryName' => $countryName,
             'countryActive' => 1
         );
-		// Save data using model
+        // Save data using model
         $countryName = $this->Common_model->insert('eg_country', $data);
 
         $response = array(
@@ -102,12 +114,16 @@ class Stations extends CI_Controller {
         );
 
         echo json_encode($response);
-	}
-	public function savestate(){
-		// echo "hasdfs";
-		// die();
+    }
 
-		if (!$this->input->is_ajax_request()) {
+
+
+    public function savestate()
+    {
+        // echo "hasdfs";
+        // die();
+
+        if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
@@ -117,10 +133,10 @@ class Stations extends CI_Controller {
 
         $data = array(
             'stateName' => $stateName,
-			'countryId' => $countryId,
+            'countryId' => $countryId,
             'stateActive' => 1
         );
-		// Save data using model
+        // Save data using model
         $countryName = $this->Common_model->insert('eg_state', $data);
 
         $response = array(
@@ -129,12 +145,16 @@ class Stations extends CI_Controller {
         );
 
         echo json_encode($response);
-	}
-	public function savedistrict(){
-		// echo "hasdfs";
-		// die();
+    }
 
-		if (!$this->input->is_ajax_request()) {
+
+
+    public function savedistrict()
+    {
+        // echo "hasdfs";
+        // die();
+
+        if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
@@ -144,10 +164,10 @@ class Stations extends CI_Controller {
 
         $data = array(
             'districtName' => $districtName,
-			'stateId' => $stateId,
+            'stateId' => $stateId,
             'districtActive' => 1
         );
-		// Save data using model
+        // Save data using model
         $districtName = $this->Common_model->insert('eg_district', $data);
 
         $response = array(
@@ -156,14 +176,19 @@ class Stations extends CI_Controller {
         );
 
         echo json_encode($response);
-	}
-	public function getstates($countryId) {
-        $states = $this->Common_model->getvalue('eg_state','countryId',$countryId, 'stateName', 'asc');
+    }
+
+
+    public function getstates($countryId)
+    {
+        $states = $this->Common_model->getvalue('eg_state', 'countryId', $countryId, 'stateName', 'asc');
         echo json_encode($states);
     }
-	public function getdistricts($stateId) {
-        $districts = $this->Common_model->getvalue('eg_district','stateId', $stateId, 'districtName', 'asc');
+
+
+    public function getdistricts($stateId)
+    {
+        $districts = $this->Common_model->getvalue('eg_district', 'stateId', $stateId, 'districtName', 'asc');
         echo json_encode($districts);
     }
-	
 }

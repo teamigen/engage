@@ -19,6 +19,8 @@ class Station_model extends CI_Model {
         // die();
         return $query->result();
     }
+
+
     public function getallactivedistricts(){
         $this->db->select('*');
         $this->db->from('eg_district as ed');
@@ -52,5 +54,16 @@ class Station_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function getallactiveregions()
+{
+    $this->db->select('*');
+    $this->db->from('eg_region');
+    $this->db->where('regionStatus', 1);
+    $this->db->order_by('regionName', 'asc');
+    $query = $this->db->get();
+    return $query->result();
+}
+
     
 }

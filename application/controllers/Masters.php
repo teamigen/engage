@@ -19,9 +19,14 @@ class Masters extends CI_Controller {
 	}
 	public function stations()
 	{
+		$this->load->model('Station_model'); 
+		$regions = $this->Station_model->getallactiveregions(); 
+		
+		$data['regions'] = $regions; 
+	
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
-		$this->load->view('masters/stations');
+		$this->load->view('masters/stations', $data); 
 		$this->load->view('templates/footer');
 	}
 	public function locations()
