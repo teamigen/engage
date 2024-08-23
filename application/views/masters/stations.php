@@ -145,55 +145,52 @@
 
 
 <script>
+    $(document).ready(function() {
+        $('#saveStation').submit(function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var formData = new FormData(this);
 
-$(document).ready(function() {
-    $('#saveStation').submit(function(e) {
-        e.preventDefault(); // Prevent the default form submission
-        var formData = new FormData(this);
+            $.ajax({
+                url: '<?php echo base_url('stations/savestation'); ?>', // Controller action URL
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
 
-        $.ajax({
-            url: '<?php echo base_url('stations/savestation'); ?>', // Controller action URL
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                
-                var response = JSON.parse(response);
+                    var response = JSON.parse(response);
 
-                if (response.success) {
-                    
-                    $('#stationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
-                    $('#saveStation').trigger("reset"); 
-                } else {
-                 
-                    var errorMessage = "<div class='alert alert-danger'>";
-                    for (var key in response.error) {
-                        if (response.error.hasOwnProperty(key)) {
-                            errorMessage += "<p>" + response.error[key] + "</p>";
+                    if (response.success) {
+
+                        $('#stationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
+                        $('#saveStation').trigger("reset");
+                    } else {
+
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                errorMessage += "<p>" + response.error[key] + "</p>";
+                            }
                         }
+                        errorMessage += "</div>";
+                        $('#stationMessage').html(errorMessage);
                     }
-                    errorMessage += "</div>";
-                    $('#stationMessage').html(errorMessage);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    $('#stationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-          
-                $('#stationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
-            }
+            });
+        });
+
+
+        $('#stationName').keyup(function() {
+            var originalText = $(this).val();
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#stationSlug').val(filteredText.toLowerCase());
         });
     });
-
-   
-    $('#stationName').keyup(function() {
-        var originalText = $(this).val();
-        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, ''); 
-        $('#stationSlug').val(filteredText.toLowerCase());
-    });
-});
-
-
 </script>
 
 

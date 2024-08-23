@@ -43,275 +43,276 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Add New Staff </h4>
-                            <p class="card-title-desc">Add New Staff Member
-                            </p>
+                            <h4 class="card-title">Add New Staff</h4>
+
                             <hr>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Name of the Staff</label>
-                                        <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                            placeholder="Name of the Staff" id="na_of_cgpf_meetings">
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Date of Joining</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Station</label>
-                                        <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Station</option>
-                                            <option value="">Trivandrum</option>
-                                            <option value="">Kollam</option>
-                                            <option value="">Erode</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Staff Type</label>
-                                        <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Staff Type</option>
-                                            <option value="">Station Staff</option>
-                                            <option value="">Regional Staff</option>
-                                            <option value="">Office Staff</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Region</label>
-                                        <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Region</option>
-                                            <option value="">South Kerala</option>
-                                            <option value="">North Kerala</option>
-                                            <option value="">Tamil Nadu</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Office Location</label>
-                                        <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Office</option>
-                                            <option value="">Head Office</option>
-                                            <option value="">Malabar Camp Centre</option>
+                            <form action="" method="post" id="saveStaff">
+                                <div id="staffMessage"></div>
 
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Date of Exiting</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>ID Card Number</label>
-                                        <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                            placeholder="ID Card Number" id="na_of_cgpf_meetings">
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Date of Birth</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Anniversary</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label>Station</label>
-                                        <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Region">
-                                            <option selected>Select Station</option>
-                                            <option value="">Trivandrum</option>
-                                            <option value="">Kollam</option>
-                                            <option value="">Erode</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <hr>
-                            <h6>Family Details</h6>
-                            <hr>
-                            <form action="#">
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input class="form-control" type="text" name="name_of_member"
-                                                placeholder="Name" id="name_of_member">
+                                            <label for="staffName">Name of the Staff</label>
+                                            <input class="form-control" type="text" name="staffName" placeholder="Name of the Staff" id="staffName">
                                         </div>
-
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label>Relation</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
-                                                <option selected>Select Relation</option>
-                                                <option value="">Spouse</option>
-                                                <option value="">Son</option>
-                                                <option value="">Daughter</option>
+                                            <label for="staffName">Slug</label>
+                                            <input class="form-control" type="text" name="staffSlug" placeholder="Name of the Staff" id="staffSlug">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="station">Station</label>
+                                            <select name="station" class="form-control select2" id="station">
+                                                <option selected>Select Station</option>
+                                                <option value="1">Trivandrum</option>
+                                                <option value="2">Kollam</option>
+                                                <option value="3">Erode</option>
                                             </select>
                                         </div>
-
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label>Age</label>
-                                            <input class="form-control" type="text" name="phone_cgpf_member"
-                                                placeholder="Age" id="phone_cgpf_member">
+                                            <label for="familyRegion">Region</label>
+                                            <select name="region" id="region" class="form-control select2">
+                                                <option selected>Select Region</option>
+                                                <?php if (!empty($regions)): ?>
+                                                    <?php foreach ($regions as $region): ?>
+                                                        <option value="<?php echo $region->regionId; ?>"><?php echo $region->regionName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No regions available</option>
+                                                <?php endif; ?>
+                                            </select>
                                         </div>
-
                                     </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label>Occupation</label>
-                                            <input class="form-control" type="text" name="email_of_cgpf_member"
-                                                placeholder="Occupation" id="email_of_cgpf_member">
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
-
 
 
                                 </div>
+
+                                <!-- Additional Information -->
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="staffType">Staff Type</label>
+                                            <select name="staffType" class="form-control select2" id="staffType">
+                                                <option selected>Select Staff Type</option>
+                                                <option value="1">Station Staff</option>
+                                                <option value="2">Regional Staff</option>
+                                                <option value="3">Office Staff</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="officeLocation">Office Location</label>
+                                            <select name="officeLocation" id="officeLocation" class="form-control select2">
+                                                <option selected>Select Location</option>
+                                                <?php if (!empty($locations)): ?>
+                                                    <?php foreach ($locations as $location): ?>
+                                                        <option value="<?php echo $location->locationId; ?>"><?php echo $location->locationName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No Locations available</option>
+                                                <?php endif; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="joiningDate">Date of Joining</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="joiningDate" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exitingDate">Date of Exiting</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="exitingDate" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
                                 <hr>
-                                <h6>Transfer Details</h6>
+                                <h6>Authentication Details</h6>
                                 <hr>
-                                <form action="#">
-                                    <div class="row">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input class="form-control" type="text" name="username" placeholder="Username" id="username">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input class="form-control" type="password" name="password" placeholder="Password" id="password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <h6>Contact Details</h6>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="whatsappNumber">Whatsapp Number</label>
+                                            <input class="form-control" type="text" name="whatsappNumber" placeholder="Whatsapp Number" id="whatsappNumber">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="alternateWhatsappNumber">Alternate Whatsapp Number</label>
+                                            <input class="form-control" type="text" name="alternateWhatsappNumber" placeholder="Alternate Whatsapp Number" id="alternateWhatsappNumber">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <h6>Family Details</h6>
+                                <hr>
+                                <div id="familyDetailsContainer">
+                                    <div class="row family-detail">
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label>Effective Date</label>
+                                                <label for="familyName">Name</label>
+                                                <input class="form-control" type="text" name="familyName[]" placeholder="Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="familyRegion">Region</label>
+                                                <select name="familyRegion[]" class="form-control select2">
+                                                    <option selected>Select Region</option>
+                                                    <?php if (!empty($regions)): ?>
+                                                        <?php foreach ($regions as $region): ?>
+                                                            <option value="<?php echo $region->regionId; ?>"><?php echo $region->regionName; ?></option>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        <option value="">No regions available</option>
+                                                    <?php endif; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="familyAge">Age</label>
+                                                <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label for="familyOccupation">Occupation</label>
+                                                <input class="form-control" type="text" name="familyOccupation[]" placeholder="Occupation">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
+                                            <i class="mdi mdi-alarm-plus add-family" style="font-style: normal;">&nbsp;</i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <hr>
+
+
+                                <h6>Transfer Details</h6>
+                                <hr>
+                                <div id="transferDetailsContainer">
+                                    <div class="row transfer-detail">
+                                        <div class="col-lg-3">
+                                            <div class="form-group">
+                                                <label for="transferDate">Effective Date</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                    <input type="text" class="form-control" id="transferDate" data-provide="datepicker" data-date-format="dd M, yyyy">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label>From</label>
-                                                <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
+                                                <label for="fromStation">From</label>
+                                                <select name="fromStation[]" class="form-control select2" id="fromStation">
                                                     <option selected>From Station</option>
-                                                    <option value="">Trivandrum</option>
-                                                    <option value="">Kollam</option>
+                                                    <option value="1">Trivandrum</option>
+                                                    <option value="2">Kollam</option>
                                                 </select>
                                             </div>
-
                                         </div>
+
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <label>To</label>
-                                                <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
+                                                <label for="toStation">To</label>
+                                                <select name="toStation[]" class="form-control select2" id="toStation">
                                                     <option selected>To Station</option>
-                                                    <option value="">Mumbai</option>
-                                                    <option value="">Delhi</option>
+                                                    <option value="1">Mumbai</option>
+                                                    <option value="2">Delhi</option>
+                                                    <option value="2">Kochi</option>
                                                 </select>
                                             </div>
-
                                         </div>
 
-                                        <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
-
-
-
+                                        <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
+                                            <i class="mdi mdi-alarm-plus add-transfer" style="font-style: normal;">&nbsp;</i>
+                                        </div>
                                     </div>
-                                    <hr>
-                                    <h6>Authentication Details</h6>
-                                    <hr>
-                                    <form action="#">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                        placeholder="Name of the Staff" id="na_of_cgpf_meetings">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label>Password</label>
-                                                    <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                        placeholder="Name of the Staff" id="na_of_cgpf_meetings">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <h6>Authentication Details</h6>
-                                        <hr>
-                                        <form action="#">
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="form-group">
-                                                        <label>Whatsapp Number</label>
-                                                        <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                            placeholder="Whatsapp Number" id="na_of_cgpf_meetings">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="form-group">
-                                                        <label>Alternate Whatsapp Number</label>
-                                                        <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                            placeholder="Alternate Whatsapp Number" id="na_of_cgpf_meetings">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr>
+                                </div>
+
+
+
+                                <hr>
 
 
 
 
-                                            <div class="row">
-                                                <div class="col-lg-12" style="text-align: right;">
-                                                    <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                                    <!-- <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button> -->
-                                                </div>
-                                            </div>
-                                        </form>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-12 text-right">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                        <!-- <button type="button" class="btn btn-secondary waves-effect m-l-5">Cancel</button> -->
+                                    </div>
+                                </div>
+
+                            </form>
+
+
                         </div>
+
 
 
                     </div>
@@ -326,6 +327,85 @@
 
 
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        document.querySelector('#familyDetailsContainer').addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-family')) {
+                const container = document.querySelector('#familyDetailsContainer');
+                const newDetail = container.querySelector('.family-detail').cloneNode(true);
+
+
+                newDetail.querySelectorAll('input').forEach(input => input.value = '');
+                newDetail.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+                container.appendChild(newDetail);
+            }
+        });
+
+
+        document.querySelector('#transferDetailsContainer').addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-transfer')) {
+                const container = document.querySelector('#transferDetailsContainer');
+                const newDetail = container.querySelector('.transfer-detail').cloneNode(true);
+
+
+                newDetail.querySelectorAll('input').forEach(input => input.value = '');
+                newDetail.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+
+                newDetail.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+
+                container.appendChild(newDetail);
+
+
+                $('.select2').select2();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#saveStaff').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this); 
+
+            $.ajax({
+                url: '<?php echo base_url("Staff/insertStaffDetails"); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false, 
+                contentType: false, 
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#staffMessage').html('<div class="alert alert-success">Staff details saved successfully!</div>');
+                    } else {
+                        $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
+                }
+            });
+        });
+    });
+
+
+
+
+    $('#staffName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#staffSlug').val(filteredText.toLowerCase());
+    });
+</script>
+
+
 <!-- JAVASCRIPT -->
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
 <script src="<?= base_url(); ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

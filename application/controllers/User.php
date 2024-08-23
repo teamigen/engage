@@ -12,6 +12,8 @@ class User extends CI_Controller {
 		$this->load->view('users/create', $data);
 		$this->load->view('templates/footer');
 	}
+
+	
     public function manage()
 	{
 		$this->load->view('templates/header');

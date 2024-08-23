@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -25,7 +25,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="" style="margin-right:20px;">
-                                  
+
                                 </li>
 
 
@@ -37,102 +37,152 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                        <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Create Group</h4>
-                                        <p class="card-title-desc">Manage Groups in the Location</p>
-        
-                                        <form action="#">
-                                        <div class="form-group">
-                                            <label>Name of Group</label>
-                                            <input class="form-control" type="text" name="name_of_church"
-                                                placeholder="Name of Group" id="name_of_church">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Location</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Meeting Place</label>
-                                            <input class="form-control" type="text" name="name_of_pastor"
-                                                placeholder="Meeting Place" id="name_of_pastor">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Type of Group</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Type of Group">
-                                            <option selected>Select Type of Group</option>       
-                                            <option value="">Evangelistic Group</option>
-                                            <option value="">Evangelistic Group</option>
-                                                </select>
-                                        </div>
-                                        
-                                            <div class="form-group">
-                                            <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
-                                            
-        
-                                        </form>
-        
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Weekly Groups</h4>
-                                        <p class="card-title-desc">Weekly Groups in the Station</p>
-        
-                                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                            <tr>
-                                                <th>Group Name</th>
-                                                <th>Location</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-        
-        
-                                            <tbody>
-                                            <tr>
-                                                <td>Nalamchira Group</td>
-                                                <td>Nalamchira</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>CET Group</td>
-                                                <td>Sreekariyam</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            
 
-                                           
-                                           
-                                           
-                                            </tbody>
-                                        </table>
-        
-                                    </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Create Group</h4>
+                            <p class="card-title-desc">Manage Groups in the Location</p>
+
+                            <form action="#" id="saveGroup" method="post">
+                                <div id="groupMessage"></div>
+                                <div class="form-group">
+                                    <label>Name of Group</label>
+                                    <input class="form-control" type="text" name="groupName"
+                                        placeholder="Name of Group" id="groupName">
                                 </div>
-    
-                            </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input class="form-control" type="text" name="groupSlug"
+                                        placeholder="Name of Group" id="groupSlug">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="churchLocation">Location</label>
+                                    <select name="groupLocation" id="groupLocation" class="form-control select2">
+                                        <option selected>Select Location</option>
+                                        <?php if (!empty($locations)): ?>
+                                            <?php foreach ($locations as $location): ?>
+                                                <option value="<?php echo $location->locationId; ?>"><?php echo $location->locationName; ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="">No Locations available</option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Meeting Place</label>
+                                    <input class="form-control" type="text" name="meetingPlace"
+                                        placeholder="Meeting Place" id="meetingPlace">
+                                </div>
+                                <div class="form-group">
+                                    <label>Type of Group</label>
+                                    <select name="groupType" class="form-control select2" id="groupType" placeholder="Type of Group">
+                                        <option selected>Select Type of Group</option>
+                                        <option value="Evangelistic Group 1">Evangelistic Group 1</option>
+                                        <option value="Evangelistic Group 2">Evangelistic Group 2</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Weekly Groups</h4>
+                            <p class="card-title-desc">Weekly Groups in the Station</p>
+
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Group Name</th>
+                                        <th>Location</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Nalamchira Group</td>
+                                        <td>Nalamchira</td>
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>CET Group</td>
+                                        <td>Sreekariyam</td>
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script>
+    $(document).ready(function() {
+        $('#saveGroup').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this); 
+
+            $.ajax({
+                url: '<?php echo base_url("Weeklygroups/insertGroup"); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false, 
+                contentType: false, 
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#groupMessage').html('<div class="alert alert-success">Group details saved successfully!</div>');
+                    } else {
+                        $('#groupMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#groupMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
+                }
+            });
+        });
+    });
+
+
+
+
+    $('#groupName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#groupSlug').val(filteredText.toLowerCase());
+    });
+</script>
 
 
 

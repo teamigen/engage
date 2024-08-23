@@ -31,12 +31,14 @@ class Common_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
     function getvalue($table,$prime,$id, $orderby, $ascdes){
         $this->db->where($prime, $id);
         $this->db->order_by($orderby, $ascdes);
         $query = $this->db->get($table);
         return $query->result();
     }
+    
     public function get_data() {
         // Replace with your actual data fetching logic
         $data = array(

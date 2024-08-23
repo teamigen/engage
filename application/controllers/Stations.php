@@ -69,7 +69,6 @@ class Stations extends CI_Controller
         // $districtId = $this->security->xss_clean($this->input->post('districtid')); 
         $regionId = $this->security->xss_clean($this->input->post('selectedRegion')); 
         $stationSlug = $this->security->xss_clean($this->input->post('stationSlug')); 
-
         $data = array(
             'stationName' => $stationName,
             // 'districtId' => $districtId,
@@ -79,7 +78,6 @@ class Stations extends CI_Controller
         );
         // Save data using model
         $stationName = $this->Common_model->insert('eg_station', $data);
-
         $response = array(
             'success' => $stationName,
             'message' => $stationName ? 'Field saved successfully!' : 'An error occurred while saving.'

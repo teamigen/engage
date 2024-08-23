@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -25,7 +25,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="" style="margin-right:20px;">
-                                  
+
                                 </li>
 
 
@@ -37,127 +37,219 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                        <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Create Church</h4>
-                                        <p class="card-title-desc">Manage Churches in the Location</p>
-        
-                                        <form action="#">
-                                        <div class="form-group">
-                                            <label>Name of Church</label>
-                                            <input class="form-control" type="text" name="name_of_church"
-                                                placeholder="Name of Church" id="name_of_church">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Location</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
-                                                </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Name of Pastor</label>
-                                            <input class="form-control" type="text" name="name_of_pastor"
-                                                placeholder="Name of Pastor" id="name_of_pastor">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Mobile Number</label>
-                                            <input class="form-control" type="text" name="phone_of_pastor"
-                                                placeholder="Phone of Pastor" id="phone_of_pastor">
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                            <div class="form-group">
-                                            <label>Contact Person</label>
-                                            <input class="form-control" type="text" name="name_of_pastor"
-                                                placeholder="Contact Person Name" id="name_of_pastor">
-                                        </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                            <label>Mobile Number</label>
-                                            <input class="form-control" type="text" name="phone_of_pastor"
-                                                placeholder="Phone of Contact Person" id="phone_of_pastor">
-                                            </div>
-                                            <div class="col-md-2" style="font-weight: bold; font-size:18px; padding-top:35px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;"></i>&nbsp;<i class="ri-delete-bin-6-line" style="font-style: normal;"></i></div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                            <div class="form-group">
-                                            <input class="form-control" type="text" name="name_of_pastor"
-                                                placeholder="Contact Person Name" id="name_of_pastor">
-                                        </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                            <input class="form-control" type="text" name="phone_of_pastor"
-                                                placeholder="Phone of Contact Person" id="phone_of_pastor">
-                                            </div>
-                                            <div class="col-md-2" style="font-weight: bold; font-size:18px; padding-top:15px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;"></i>&nbsp;<i class="ri-delete-bin-6-line" style="font-style: normal;"></i></div>
-                                        </div>
-                                            <div class="form-group">
-                                            <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
-                                            
-        
-                                        </form>
-        
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Churches</h4>
-                                        <p class="card-title-desc">Churches in the Station</p>
-        
-                                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                            <tr>
-                                                <th>Church Name</th>
-                                                <th>Location</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-        
-        
-                                            <tbody>
-                                            <tr>
-                                                <td>Shalom AG Church</td>
-                                                <td>Nalamchira</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>IPC Peniel</td>
-                                                <td>Sreekariyam</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            
 
-                                           
-                                           
-                                           
-                                            </tbody>
-                                        </table>
-        
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Create Church</h4>
+                            <p class="card-title-desc">Manage Churches in the Location</p>
+
+                            <form action="#" id="saveChurch" method="post">
+                                <div class="form-group">
+                                    <label for="churchName">Name of Church</label>
+                                    <input class="form-control" type="text" name="churchName" placeholder="Name of Church" id="churchName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="churchSlug">Slug</label>
+                                    <input class="form-control" type="text" name="churchSlug" placeholder="Slug" id="churchSlug" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="churchLocation">Church Location</label>
+                                    <select name="churchLocation" id="churchLocation" class="form-control select2">
+                                        <option selected>Select Location</option>
+                                        <?php if (!empty($locations)): ?>
+                                            <?php foreach ($locations as $location): ?>
+                                                <option value="<?php echo $location->locationId; ?>"><?php echo $location->locationName; ?></option>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="">No Locations available</option>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pastorName">Name of Pastor</label>
+                                    <input class="form-control" type="text" name="pastorName" placeholder="Name of Pastor" id="pastorName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mobileNumber">Mobile Number</label>
+                                    <input class="form-control" type="text" name="mobileNumber" placeholder="Mobile Number" id="mobileNumber" required>
+                                </div>
+
+                                <hr>
+
+                                <div id="contactPersonsContainer">
+                                    <div class="row contact-person">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Contact Person</label>
+                                                <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label>Mobile Number</label>
+                                                <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>&nbsp;</label>
+                                                <button type="button" class="remove-contact-person"><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-    
-                            </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-success waves-effect waves-light add-contact-person">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Churches</h4>
+                            <p class="card-title-desc">Churches in the Station</p>
+
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Church Name</th>
+                                        <th>Location</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>Shalom AG Church</td>
+                                        <td>Nalamchira</td>
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>IPC Peniel</td>
+                                        <td>Sreekariyam</td>
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+
+                                    </tr>
+
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script>
+    $(document).ready(function() {
+
+        $('.select2').select2();
+
+
+        function addContactPerson() {
+            const contactHtml = `
+                    <div class="row contact-person">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Contact Person</label>
+                                <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Mobile Number</label>
+                                <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="button" class="remove-contact-person"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+            $('#contactPersonsContainer').append(contactHtml);
+        }
+
+
+        $(document).on('click', '.add-contact-person', function() {
+            addContactPerson();
+        });
+
+
+        $(document).on('click', '.remove-contact-person', function() {
+            $(this).closest('.contact-person').remove();
+        });
+
+
+        $('#saveChurch').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '<?php echo base_url("Church/insertChurch"); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#staffMessage').html('<div class="alert alert-success">Staff details saved successfully!</div>');
+                    } else {
+                        $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
+                }
+            });
+        });
+    });
+
+
+
+
+    $('#churchName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#churchSlug').val(filteredText.toLowerCase());
+    });
+    
+</script>
+
+
 
 
 

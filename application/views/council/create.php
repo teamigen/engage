@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -25,7 +25,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="" style="margin-right:20px;">
-                                  
+
                                 </li>
 
 
@@ -37,122 +37,166 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                    <h4 class="card-title">Student Council </h4>
-                            <p class="card-title-desc">Create New Student Council
-                            </p>
-                            <hr>
-                            <div class="row">
-                                <div class="col-lg-3">
-                                <div class="form-group">
-                                            <label>Name of Council</label>
-                                            <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                placeholder="Name of CGPF" id="no_of_cgpf_meetings">
-                                        </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="form-group">
-                                            <label>Location</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
-                                                </select>
-                                        </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="form-group">
-                                            <label>Institute</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Institute</option>       
-                                            <option value="">Mar Ivanios College</option>
-                                                </select>
-                                        </div>
-                                </div>
-                                <div class="col-lg-3">
-                                <div class="form-group">
-                                                <label>Date Range</label>
-                                                <div>
-                                                    <div class="input-daterange input-group" data-provide="datepicker" data-date-format="dd M, yyyy" data-date-autoclose="true">
-                                                        <input type="text" class="form-control" name="start">
-                                                        <input type="text" class="form-control" name="end">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                </div>
-                               
-                            </div>
-                            <hr>
-                                            <form action="#">
-                                            <div class="row">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="#" id="saveStudentCouncil" method="post">
+                                <h4 class="card-title">Student Council</h4>
+                                <p class="card-title-desc">Create New Student Council</p>
+                                <hr>
+                                <div class="row">
                                     <div class="col-lg-3">
-                                    <div class="form-group">
-                                            <label>Member Name</label>
-                                            <input class="form-control" type="text" name="name_of_member"
-                                                placeholder="Name of the Member" id="name_of_member">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-lg-3">
-                                    <div class="form-group">
-                                            <label>Designation</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
-                                            <option selected>Select Designation</option>       
-                                            <option value="">Secretary</option>
-                                            <option value="">Joint Secretary</option>
-                                            <option value="">Treasurer</option>
-                                                </select>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-lg-3">
-                                    <div class="form-group">
-                                            <label>Mobile / Whatsapp Number</label>
-                                            <input class="form-control" type="text" name="phone_cgpf_member"
-                                                placeholder="Mobile / Whatsapp Number" id="phone_cgpf_member">
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="col-lg-2">
                                         <div class="form-group">
-                                            <label>Email</label>
-                                            <input class="form-control" type="text" name="email_of_cgpf_member"
-                                                placeholder="Email" id="email_of_cgpf_member">
+                                            <label>Name of Council</label>
+                                            <input class="form-control" type="text" name="councilName" placeholder="Name of Council" id="councilName">
                                         </div>
-                                        
                                     </div>
-                                    <div class="col-lg-1"  style="font-weight: bold; font-size:18px; padding-top:35px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;"></i>&nbsp;<i class="ri-delete-bin-6-line" style="font-style: normal;"></i></div>
-
-
-                                    
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Slug</label>
+                                            <input class="form-control" type="text" name="councilSlug" placeholder="Council Slug" id="councilSlug">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <select name="councilLocation" class="form-control select2" id="councilLocation">
+                                                <option selected>Select Location</option>
+                                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Institute</label>
+                                            <select name="councilInstitute" class="form-control select2" id="councilInstitute">
+                                                <option selected>Select Institute</option>
+                                                <option value="Mar Ivanios College">Mar Ivanios College</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Date Range</label>
+                                            <div class="input-daterange input-group" data-provide="datepicker" data-date-format="dd M, yyyy" data-date-autoclose="true">
+                                                <input type="text" class="form-control" name="startDate">
+                                                <input type="text" class="form-control" name="endDate">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
-                                
-                                
-                                
-                                
-                                        <div class="row">
-                                            <div class="col-lg-12" style="text-align: right;">
-                                                <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                                <!-- <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button> -->
-                                            </div>
-                                        </div>
-                                            </form>
-                                        </div>
-        
-                                       
+                                <div id="memberContainer">
+                                  
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                     </div>
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+<script>
+  $(document).ready(function () {
+    
+    $('#councilName').keyup(function () {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#councilSlug').val(filteredText.toLowerCase());
+    });
+
+    function addMemberRow() {
+        var memberRow = `
+            <div class="row member-row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Member Name</label>
+                        <input class="form-control" type="text" name="memberName[]" placeholder="Name of the Member">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Designation</label>
+                        <select name="designation[]" class="form-control select2">
+                            <option selected>Select Designation</option>
+                            <option value="Secretary">Secretary</option>
+                            <option value="Joint Secretary">Joint Secretary</option>
+                            <option value="Treasurer">Treasurer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Mobile / Whatsapp Number</label>
+                        <input class="form-control" type="text" name="cgpfNumber[]" placeholder="Mobile / Whatsapp Number">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" type="email" name="memberEmail[]" placeholder="Email">
+                    </div>
+                </div>
+                <div class="col-lg-1" style="padding-top:35px;">
+                    <i class="mdi mdi-alarm-plus add-member" style="cursor: pointer;"></i>&nbsp;
+                    <i class="ri-delete-bin-6-line remove-member" style="cursor: pointer;"></i>
+                </div>
+            </div>`;
+        $('#memberContainer').append(memberRow);
+    }
+
+    addMemberRow();
+
+   
+    $('#memberContainer').on('click', '.add-member', function () {
+        addMemberRow();
+    });
+
+    $('#memberContainer').on('click', '.remove-member', function () {
+        $(this).closest('.member-row').remove();
+    });
+
+    // Handle form submission
+    $('#saveStudentCouncil').submit(function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: '<?php echo base_url("Council/insertCouncil"); ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    $('#staffMessage').html('<div class="alert alert-success">Council details saved successfully!</div>');
+                } else {
+                    $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
+            }
+        });
+    });
+});
+
+</script>
 
 
 
