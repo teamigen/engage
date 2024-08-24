@@ -7,35 +7,14 @@ class Masters extends CI_Controller
 	public function index()
 	{
 		$this->load->model('ChurchModel');
-
-
-		// $data['regions'] = $this->Station_model->getallactiveregions();
-		// $data['stations'] = $this->Station_model->getallactivestations();
 		$data['locations'] = $this->ChurchModel->getallactivelocations();
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/create');
 		$this->load->view('templates/footer');
 	}
-	public function regions()
-	{
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('masters/regions');
-		$this->load->view('templates/footer');
-	}
-	public function stations()
-	{
-		$this->load->model('Station_model');
-		$regions = $this->Station_model->getallactiveregions();
-
-		$data['regions'] = $regions;
-
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('masters/stations', $data);
-		$this->load->view('templates/footer');
-	}
+	
+	
 	public function locations()
 	{
 		$this->load->view('templates/header');

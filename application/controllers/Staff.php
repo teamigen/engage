@@ -9,7 +9,9 @@ class Staff extends CI_Controller
         $data['regions'] = $this->Station_model->getallactiveregions();
         $data['stations'] = $this->Station_model->getallactivestations();
         $data['locations'] = $this->Station_model->getallactivelocations();
+        $data['offices'] = $this->Station_model->getallactiveoffices();
 
+        // var_dump($data);
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');

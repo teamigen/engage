@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Regions</h4>
+                        <h4 class="mb-0">Stations</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -42,31 +42,39 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Create Region</h4>
-                            <p class="card-title-desc">Create a New Region</p>
 
-                            <form class="needs-validation" id="saveRegion" method="post" enctype="multipart/form-data">
-                                <div id="regionMessage"></div>
+                            <h4 class="card-title">Create Station</h4>
+                            <p class="card-title-desc">Create a New Station</p>
+
+                            <form action="#" id="saveStation" method="post">
+                                <div id="stationMessage"></div>
                                 <div class="form-group">
-                                    <label>Name of the Region</label>
-                                    <input class="form-control" type="text" name="regionName"
-                                        placeholder="Name of the Region" id="regionName">
+                                    <label>Name of the Station</label>
+                                    <input class="form-control" type="text" name="stationName" placeholder="Name of the Station" id="stationName">
                                 </div>
+
                                 <div class="form-group">
                                     <label>Slug</label>
-                                    <input class="form-control" type="text" name="regionSlug"
-                                        placeholder="Name of the Region" id="regionSlug" readonly>
+                                    <input class="form-control" type="text" name="stationSlug" placeholder="Station Slug" id="stationSlug">
                                 </div>
 
-
-
+                                <div class="form-group">
+                                    <label>Region</label>
+                                    <select name="selectedRegion" class="form-control select2" id="selectedRegion" placeholder="Select Region">
+                                        <option selected>Select Region</option>
+                                        <?php if (!empty($regions)): ?>
+                                            <?php foreach ($regions as $region): ?>
+                                                <option value="<?= $region->regionId ?>"><?= $region->regionName ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                 </div>
-
-
                             </form>
+
 
                         </div>
                     </div>
@@ -76,37 +84,32 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Regions</h4>
-                            <p class="card-title-desc">List of Regions</p>
+                            <h4 class="card-title">Stations</h4>
+                            <p class="card-title-desc">List of Stations</p>
 
                             <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
+                                    
                                     <tr>
-                                        <th>Region Name</th>
+                                        <th>Station Name</th>
+                                        <th>Region</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
+                                <?php foreach($stations as $st) { ?>
                                     <tr>
-                                        <td>South Kerala</td>
+                                        <td><?= $st->stationName; ?></td>
+                                        <td><?= $st->regionName; ?></td>
 
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i>&nbsp;&nbsp;<i class="ri-delete-bin-line"></i></td>
 
                                     </tr>
-                                    <tr>
-                                        <td>North Kerala</td>
-
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Tamil Nadu</td>
-
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
+                                    <?php } ?>
+                                    
 
 
 
@@ -129,56 +132,55 @@
 
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
 
-<script>
 
+
+<script>
     $(document).ready(function() {
-        $('#saveRegion').submit(function(e) {
-            e.preventDefault();
+        $('#saveStation').submit(function(e) {
+            e.preventDefault(); // Prevent the default form submission
             var formData = new FormData(this);
+
             $.ajax({
-                url: '<?php echo base_url('stations/saveregion'); ?>',
+                url: '<?php echo base_url('stations/savestation'); ?>', // Controller action URL
                 type: 'POST',
                 data: formData,
                 cache: false,
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    alert(response);
-                    var response = JSON.parse(response)
+
+                    var response = JSON.parse(response);
+
                     if (response.success) {
 
-                        $('#saveRegion').trigger("reset");
-                        $('#regionMessage').html(response.success).addClass('alert alert-success');
+                        $('#stationMessage').html('<div class="alert alert-success"><p>Station Successfully Created!</p></div>');
+                        $('#saveStation').trigger("reset");
                     } else {
-                        var errors = response.error;
-                        var errorMessage = "";
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                errorMessage += "<p>" + errors[key] + "</p>";
+
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                errorMessage += "<p>" + response.error[key] + "</p>";
                             }
                         }
-                        $('#regionMessage').html(errorMessage).addClass('alert alert-danger');
+                        errorMessage += "</div>";
+                        $('#stationMessage').html(errorMessage);
                     }
                 },
-
-                
                 error: function(jqXHR, textStatus, errorThrown) {
 
-                    console.error('AJAX Error:', textStatus, errorThrown);
-                    $('#message').html('<hr><h6 style="color:red; margin-top:10px; margin-bottom:10px">There is an error! Please try later!</h6><hr>');
+                    $('#stationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                 }
             });
         });
-    });
 
-    $(document).ready(function() {
-        $('#regionName').keyup(function() {
+
+        $('#stationName').keyup(function() {
             var originalText = $(this).val();
-            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, ''); 
-            $('#regionSlug').val(filteredText.toLowerCase());
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#stationSlug').val(filteredText.toLowerCase());
         });
     });
-
 </script>
 
 

@@ -3,6 +3,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Stations extends CI_Controller
 {
+    public function index()
+	{
+		$this->load->model('Station_model');
+		$regions = $this->Station_model->getallactiveregions();
+		$data['stations'] = $this->Station_model->getallactivestations();
+
+		$data['regions'] = $regions;
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/nav');
+		$this->load->view('stations/stations', $data);
+		$this->load->view('templates/footer');
+	}
 
     public function create()
     {
@@ -13,7 +26,14 @@ class Stations extends CI_Controller
         $this->load->view('stations/create', $data);
         $this->load->view('templates/footer');
     }
-
+    public function regions()
+	{
+        $data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+		$this->load->view('templates/header');
+		$this->load->view('templates/nav');
+		$this->load->view('stations/regions', $data);
+		$this->load->view('templates/footer');
+	}
     public function manage()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -42,7 +62,7 @@ class Stations extends CI_Controller
 
         $data = array(
             'regionName' => $regionName,
-            'regionStatus' => 1,
+            'regionActive' => 1,
             'regionSlug' =>  $regionSlug 
         );
         // Save data using model

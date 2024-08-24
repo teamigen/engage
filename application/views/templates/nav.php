@@ -205,13 +205,13 @@
                             </li>
 
                             <li>
-                                <a href="<?= base_url(); ?>masters/stations" class=" waves-effect">
+                                <a href="<?= base_url(); ?>stations" class=" waves-effect">
                                     <i class="ri-map-pin-user-line"></i>
                                     <span>Stations</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="<?= base_url(); ?>masters/regions" class=" waves-effect">
+                                <a href="<?= base_url(); ?>stations/regions" class=" waves-effect">
                                     <i class="ri-map-pin-user-line"></i>
                                     <span>Regions</span>
                                 </a>

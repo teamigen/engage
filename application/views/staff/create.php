@@ -69,10 +69,14 @@
                                         <div class="form-group">
                                             <label for="station">Station</label>
                                             <select name="station" class="form-control select2" id="station">
+                                            <?php if (!empty($stations)): ?>
                                                 <option selected>Select Station</option>
-                                                <option value="1">Trivandrum</option>
-                                                <option value="2">Kollam</option>
-                                                <option value="3">Erode</option>
+                                                <?php  foreach($stations as $st):  ?>
+                                                <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                <?php endforeach; ?>
+                                                <?php else: ?>
+                                                <option value="">No Stations Available</option>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -98,7 +102,7 @@
                                 <!-- Additional Information -->
                                 <div class="row">
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffType">Staff Type</label>
                                             <select name="staffType" class="form-control select2" id="staffType">
@@ -111,21 +115,22 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
-                                                <option selected>Select Location</option>
-                                                <?php if (!empty($locations)): ?>
-                                                    <?php foreach ($locations as $location): ?>
-                                                        <option value="<?php echo $location->locationId; ?>"><?php echo $location->locationName; ?></option>
+                                                <option selected>Select Office</option>
+                                                <?php if (!empty($offices)): ?>
+                                                    <?php foreach ($offices as $off): ?>
+                                                        <option value="<?php echo $off->officeId; ?>"><?php echo $off->officeLocation; ?></option>
                                                     <?php endforeach; ?>
                                                 <?php else: ?>
-                                                    <option value="">No Locations available</option>
+                                                    <option value="">No Offices available</option>
                                                 <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-6"></div>
 
 
 
@@ -133,7 +138,7 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="joiningDate" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                <input type="text" class="form-control" id="joiningDate" name="joiningDate" data-provide="datepicker" data-date-format="dd M, yyyy">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                 </div>
@@ -209,16 +214,14 @@
 
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label for="familyRegion">Region</label>
+                                                <label for="familyRegion">Relation</label>
                                                 <select name="familyRegion[]" class="form-control select2">
-                                                    <option selected>Select Region</option>
-                                                    <?php if (!empty($regions)): ?>
-                                                        <?php foreach ($regions as $region): ?>
-                                                            <option value="<?php echo $region->regionId; ?>"><?php echo $region->regionName; ?></option>
-                                                        <?php endforeach; ?>
-                                                    <?php else: ?>
-                                                        <option value="">No regions available</option>
-                                                    <?php endif; ?>
+                                                    <option selected>Select Relation</option>
+                                                    <option value="1">Spouse</option>
+                                                    <option value="2">Son</option>
+                                                    <option value="2">Daughter</option>
+                                                       
+                                                    
                                                 </select>
                                             </div>
                                         </div>
