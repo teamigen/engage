@@ -6,10 +6,12 @@ class Staff extends CI_Controller
     public function create()
     {
         $this->load->model('Station_model');
+
         $data['regions'] = $this->Station_model->getallactiveregions();
         $data['stations'] = $this->Station_model->getallactivestations();
         $data['locations'] = $this->Station_model->getallactivelocations();
         $data['offices'] = $this->Station_model->getallactiveoffices();
+
 
         // var_dump($data);
 
@@ -21,12 +23,18 @@ class Staff extends CI_Controller
 
     public function manage()
     {
+        $this->load->model('StaffModel');
+
+        $data['staffs'] = $this->StaffModel->getallstaffdetails();
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
-        $this->load->view('staff/manage');
+        $this->load->view('staff/manage', $data);  
         $this->load->view('templates/footer');
     }
+
+
+
     public function monthreport()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -230,6 +238,9 @@ class Staff extends CI_Controller
         $this->load->model('Family_model');
         $this->load->model('Transfer_model');
     }
+
+
+
     public function insertStaffDetails()
     {
         $staffData = [
@@ -241,6 +252,8 @@ class Staff extends CI_Controller
             'officeLocation' => $this->input->post('officeLocation'),
             'joiningDate' => $this->input->post('joiningDate') ? date('Y-m-d', strtotime($this->input->post('joiningDate'))) : null,
             'exitingDate' => $this->input->post('exitingDate') ? date('Y-m-d', strtotime($this->input->post('exitingDate'))) : null,
+            'dateofbirth' => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : null,
+            'dateofAnniversary' => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : null,
             'username' => $this->input->post('username'),
             'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
             'whatsappNumber' => $this->input->post('whatsappNumber'),
@@ -285,4 +298,54 @@ class Staff extends CI_Controller
 
         echo json_encode(['status' => 'success']);
     }
+
+
+    public function delete($staffId)
+{
+   
+    $this->load->model('StaffModel');
+
+    
+    if (is_numeric($staffId)) {
+      
+        $result = $this->StaffModel->delete_staff($staffId);
+
+      
+        if ($result) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    } else {
+        echo json_encode(['success' => false]);
+    }
+
+    
+}
+
+public function edit($staffId)
+{
+   
+    $this->load->model('StaffModel');
+    
+    
+    $data['staff'] = $this->StaffModel->get_staff_by_id($staffId);
+ 
+    if ($data['staff']) {
+        
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('staff/edit', $data);
+        $this->load->view('templates/footer');
+    } else {
+        show_404(); 
+    }
+
+    
+}
+
+
+
+
+
 }

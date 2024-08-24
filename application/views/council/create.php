@@ -169,7 +169,7 @@
         $(this).closest('.member-row').remove();
     });
 
-    // Handle form submission
+   
     $('#saveStudentCouncil').submit(function (event) {
         event.preventDefault();
 

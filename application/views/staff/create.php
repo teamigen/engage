@@ -54,13 +54,13 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffName">Name of the Staff</label>
-                                            <input class="form-control" type="text" name="staffName" placeholder="Name of the Staff" id="staffName">
+                                            <input class="form-control" type="text" name="staffName" placeholder="Name of the Staff" id="staffName" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffName">Slug</label>
-                                            <input class="form-control" type="text" name="staffSlug" placeholder="Name of the Staff" id="staffSlug">
+                                            <input class="form-control" type="text" name="staffSlug" placeholder="Slug" id="staffSlug" readonly>
                                         </div>
                                     </div>
 
@@ -69,17 +69,18 @@
                                         <div class="form-group">
                                             <label for="station">Station</label>
                                             <select name="station" class="form-control select2" id="station">
-                                            <?php if (!empty($stations)): ?>
-                                                <option selected>Select Station</option>
-                                                <?php  foreach($stations as $st):  ?>
-                                                <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
-                                                <?php endforeach; ?>
+                                                <?php if (!empty($stations)): ?>
+                                                    <option selected>Select Station</option>
+                                                    <?php foreach ($stations as $st):  ?>
+                                                        <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                    <?php endforeach; ?>
                                                 <?php else: ?>
-                                                <option value="">No Stations Available</option>
+                                                    <option value="">No Stations Available</option>
                                                 <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="familyRegion">Region</label>
@@ -107,9 +108,9 @@
                                             <label for="staffType">Staff Type</label>
                                             <select name="staffType" class="form-control select2" id="staffType">
                                                 <option selected>Select Staff Type</option>
-                                                <option value="1">Station Staff</option>
-                                                <option value="2">Regional Staff</option>
-                                                <option value="3">Office Staff</option>
+                                                <option value="Station Staff">Station Staff</option>
+                                                <option value="Regional Staff">Regional Staff</option>
+                                                <option value="Office Staff">Office Staff</option>
 
                                             </select>
                                         </div>
@@ -149,7 +150,29 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Exiting</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="exitingDate" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                <input type="text" class="form-control" id="exitingDate" data-provide="datepicker" data-date-format="dd M, yyyy" name="exitingDate">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="joiningDate">Date of Birth</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exitingDate">Date of Anniversary</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="dateofAnniversary" data-provide="datepicker" data-date-format="dd M, yyyy" name="dateofAnniversary">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                 </div>
@@ -201,6 +224,7 @@
 
 
 
+
                                 <h6>Family Details</h6>
                                 <hr>
                                 <div id="familyDetailsContainer">
@@ -214,14 +238,12 @@
 
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label for="familyRegion">Relation</label>
-                                                <select name="familyRegion[]" class="form-control select2">
+                                                <label for="familyRelation">Relation</label>
+                                                <select name="familyRelation[]" class="form-control select2">
                                                     <option selected>Select Relation</option>
                                                     <option value="1">Spouse</option>
                                                     <option value="2">Son</option>
-                                                    <option value="2">Daughter</option>
-                                                       
-                                                    
+                                                    <option value="3">Daughter</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -241,16 +263,12 @@
                                         </div>
 
                                         <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
-                                            <i class="mdi mdi-alarm-plus add-family" style="font-style: normal;">&nbsp;</i>
+                                            <i class="mdi mdi-alarm-plus add-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
                                         </div>
                                     </div>
                                 </div>
 
-
-
-                                <hr>
-
-
+                                <!-- Transfer Details Section -->
                                 <h6>Transfer Details</h6>
                                 <hr>
                                 <div id="transferDetailsContainer">
@@ -259,7 +277,7 @@
                                             <div class="form-group">
                                                 <label for="transferDate">Effective Date</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" id="transferDate" data-provide="datepicker" data-date-format="dd M, yyyy">
+                                                    <input type="text" class="form-control" name="transferDate[]" data-provide="datepicker" data-date-format="dd M, yyyy">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                                     </div>
@@ -270,28 +288,29 @@
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label for="fromStation">From</label>
-                                                <select name="fromStation[]" class="form-control select2" id="fromStation">
+                                                <select name="fromStation[]" class="form-control select2">
                                                     <option selected>From Station</option>
                                                     <option value="1">Trivandrum</option>
                                                     <option value="2">Kollam</option>
                                                 </select>
                                             </div>
                                         </div>
+                                      
 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label for="toStation">To</label>
-                                                <select name="toStation[]" class="form-control select2" id="toStation">
+                                                <select name="toStation[]" class="form-control select2">
                                                     <option selected>To Station</option>
-                                                    <option value="1">Mumbai</option>
-                                                    <option value="2">Delhi</option>
-                                                    <option value="2">Kochi</option>
+                                                    <option value="3">Mumbai</option>
+                                                    <option value="4">Delhi</option>
+                                                    <option value="5">Kochi</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
-                                            <i class="mdi mdi-alarm-plus add-transfer" style="font-style: normal;">&nbsp;</i>
+                                            <i class="mdi mdi-alarm-plus add-transfer" style="font-style: normal; cursor: pointer;">&nbsp;</i>
                                         </div>
                                     </div>
                                 </div>
@@ -334,55 +353,122 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        document.querySelector('#familyDetailsContainer').addEventListener('click', function(e) {
-            if (e.target.classList.contains('add-family')) {
-                const container = document.querySelector('#familyDetailsContainer');
-                const newDetail = container.querySelector('.family-detail').cloneNode(true);
-
-
-                newDetail.querySelectorAll('input').forEach(input => input.value = '');
-                newDetail.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-
-                container.appendChild(newDetail);
-            }
-        });
-
-
-        document.querySelector('#transferDetailsContainer').addEventListener('click', function(e) {
-            if (e.target.classList.contains('add-transfer')) {
-                const container = document.querySelector('#transferDetailsContainer');
-                const newDetail = container.querySelector('.transfer-detail').cloneNode(true);
-
-
-                newDetail.querySelectorAll('input').forEach(input => input.value = '');
-                newDetail.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-
-                newDetail.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-
-                container.appendChild(newDetail);
-
-
-                $('.select2').select2();
-            }
-        });
+  $(document).ready(function() {
+    
+    $(document).on('click', '.add-family', function() {
+        var familyDetailHTML = `
+            <div class="row family-detail">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="familyName">Name</label>
+                        <input class="form-control" type="text" name="familyName[]" placeholder="Name">
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="familyRegion">Relation</label>
+                        <select name="familyRegion[]" class="form-control select2">
+                            <option selected>Select Relation</option>
+                            <option value="1">Spouse</option>
+                            <option value="2">Son</option>
+                            <option value="3">Daughter</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="familyAge">Age</label>
+                        <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="familyOccupation">Occupation</label>
+                        <input class="form-control" type="text" name="familyOccupation[]" placeholder="Occupation">
+                    </div>
+                </div>
+                <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
+                    <i class="mdi mdi-alarm-minus remove-family" style="font-style: normal;">&nbsp;</i>
+                </div>
+            </div>`;
+        
+        $('#familyDetailsContainer').append(familyDetailHTML);
+       
+        $('.select2').select2();
     });
+
+  
+    $(document).on('click', '.remove-family', function() {
+        $(this).closest('.family-detail').remove();
+    });
+
+
+    $(document).on('click', '.add-transfer', function() {
+        var transferDetailHTML = `
+            <div class="row transfer-detail">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="transferDate">Effective Date</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="transferDate[]" data-provide="datepicker" data-date-format="dd M, yyyy">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="fromStation">From</label>
+                        <select name="fromStation[]" class="form-control select2">
+                            <option selected>From Station</option>
+                            <option value="1">Trivandrum</option>
+                            <option value="2">Kollam</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label for="toStation">To</label>
+                        <select name="toStation[]" class="form-control select2">
+                            <option selected>To Station</option>
+                            <option value="1">Mumbai</option>
+                            <option value="2">Delhi</option>
+                            <option value="3">Kochi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
+                    <i class="mdi mdi-alarm-minus remove-transfer" style="font-style: normal;">&nbsp;</i>
+                </div>
+            </div>`;
+        
+        $('#transferDetailsContainer').append(transferDetailHTML);
+        
+        $('.select2').select2();
+        
+        $('[data-provide="datepicker"]').datepicker();
+    });
+
+  
+    $(document).on('click', '.remove-transfer', function() {
+        $(this).closest('.transfer-detail').remove();
+    });
+});
+
 </script>
 
 <script>
     $(document).ready(function() {
         $('#saveStaff').submit(function(event) {
             event.preventDefault();
-
-            var formData = new FormData(this); 
-
+            var formData = new FormData(this);
             $.ajax({
                 url: '<?php echo base_url("Staff/insertStaffDetails"); ?>',
                 type: 'POST',
                 data: formData,
-                processData: false, 
-                contentType: false, 
+                processData: false,
+                contentType: false,
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
@@ -405,6 +491,8 @@
         var originalText = $(this).val();
         var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
         $('#staffSlug').val(filteredText.toLowerCase());
+        $('#username').val(filteredText.toLowerCase());
+
     });
 </script>
 

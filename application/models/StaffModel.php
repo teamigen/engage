@@ -17,6 +17,28 @@ class StaffModel extends CI_Model {
      
         $this->db->insert('staff_transfers', $transferData);
     }
+
+    public function getallstaffdetails()
+    {
+        $this->db->select('staff.*, eg_station.stationName'); 
+        $this->db->from('staff');
+        $this->db->join('eg_station', 'staff.station = eg_station.stationId', 'left'); 
+        $this->db->order_by('staff.staffName', 'asc'); 
+        $query = $this->db->get(); 
+        return $query->result_array(); 
+    }
+
+    public function delete_staff($staffId)
+{
+   
+    $this->db->where('staffId', $staffId);
+    return $this->db->delete('staff');
+}
+
+    
+
+    
+    
 }
 
 ?>
