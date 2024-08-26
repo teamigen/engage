@@ -47,7 +47,7 @@
 
                             <hr>
 
-                            <form action="" method="post" id="saveStaff">
+                            <form action="" method="post" id="saveStaff" enctype="multipart/form-data">
                                 <div id="staffMessage"></div>
 
                                 <div class="row">
@@ -120,14 +120,10 @@
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
-                                                <option selected>Select Office</option>
-                                                <?php if (!empty($offices)): ?>
-                                                    <?php foreach ($offices as $off): ?>
-                                                        <option value="<?php echo $off->officeId; ?>"><?php echo $off->officeLocation; ?></option>
-                                                    <?php endforeach; ?>
-                                                <?php else: ?>
-                                                    <option value="">No Offices available</option>
-                                                <?php endif; ?>
+                                            <option selected>Select Location</option>
+                                                    <option value="Sreekariyam">Sreekariyam</option>
+                                                 
+                                           
                                             </select>
                                         </div>
                                     </div>
@@ -241,9 +237,9 @@
                                                 <label for="familyRelation">Relation</label>
                                                 <select name="familyRelation[]" class="form-control select2">
                                                     <option selected>Select Relation</option>
-                                                    <option value="1">Spouse</option>
-                                                    <option value="2">Son</option>
-                                                    <option value="3">Daughter</option>
+                                                    <option value="Spouse">Spouse</option>
+                                                    <option value="Son">Son</option>
+                                                    <option value="Daughter">Daughter</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -268,7 +264,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Transfer Details Section -->
+
                                 <h6>Transfer Details</h6>
                                 <hr>
                                 <div id="transferDetailsContainer">
@@ -289,22 +285,31 @@
                                             <div class="form-group">
                                                 <label for="fromStation">From</label>
                                                 <select name="fromStation[]" class="form-control select2">
-                                                    <option selected>From Station</option>
-                                                    <option value="1">Trivandrum</option>
-                                                    <option value="2">Kollam</option>
+                                                    <?php if (!empty($stations)): ?>
+                                                        <option selected>Select Station</option>
+                                                        <?php foreach ($stations as $st):  ?>
+                                                            <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        <option value="">No Stations Available</option>
+                                                    <?php endif; ?>
                                                 </select>
                                             </div>
                                         </div>
-                                      
+
 
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label for="toStation">To</label>
                                                 <select name="toStation[]" class="form-control select2">
-                                                    <option selected>To Station</option>
-                                                    <option value="3">Mumbai</option>
-                                                    <option value="4">Delhi</option>
-                                                    <option value="5">Kochi</option>
+                                                    <?php if (!empty($stations)): ?>
+                                                        <option selected>Select Station</option>
+                                                        <?php foreach ($stations as $st):  ?>
+                                                            <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        <option value="">No Stations Available</option>
+                                                    <?php endif; ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -353,10 +358,10 @@
 
 
 <script>
-  $(document).ready(function() {
-    
-    $(document).on('click', '.add-family', function() {
-        var familyDetailHTML = `
+    $(document).ready(function() {
+
+        $(document).on('click', '.add-family', function() {
+            var familyDetailHTML = `
             <div class="row family-detail">
                 <div class="col-lg-3">
                     <div class="form-group">
@@ -366,12 +371,12 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <label for="familyRegion">Relation</label>
-                        <select name="familyRegion[]" class="form-control select2">
+                        <label for="familyRelation">Relation</label>
+                        <select name="familyRelation[]" class="form-control select2">
                             <option selected>Select Relation</option>
-                            <option value="1">Spouse</option>
-                            <option value="2">Son</option>
-                            <option value="3">Daughter</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
                         </select>
                     </div>
                 </div>
@@ -388,23 +393,23 @@
                     </div>
                 </div>
                 <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
-                    <i class="mdi mdi-alarm-minus remove-family" style="font-style: normal;">&nbsp;</i>
+                    <i class="mdi mdi-close-thick remove-family" style="font-style: normal;cursor: pointer">&nbsp;</i>
                 </div>
             </div>`;
-        
-        $('#familyDetailsContainer').append(familyDetailHTML);
-       
-        $('.select2').select2();
-    });
 
-  
-    $(document).on('click', '.remove-family', function() {
-        $(this).closest('.family-detail').remove();
-    });
+            $('#familyDetailsContainer').append(familyDetailHTML);
+
+            $('.select2').select2();
+        });
 
 
-    $(document).on('click', '.add-transfer', function() {
-        var transferDetailHTML = `
+        $(document).on('click', '.remove-family', function() {
+            $(this).closest('.family-detail').remove();
+        });
+
+
+        $(document).on('click', '.add-transfer', function() {
+            var transferDetailHTML = `
             <div class="row transfer-detail">
                 <div class="col-lg-3">
                     <div class="form-group">
@@ -421,42 +426,51 @@
                     <div class="form-group">
                         <label for="fromStation">From</label>
                         <select name="fromStation[]" class="form-control select2">
-                            <option selected>From Station</option>
-                            <option value="1">Trivandrum</option>
-                            <option value="2">Kollam</option>
+                               <?php if (!empty($stations)): ?>
+                                                    <option selected>Select Station</option>
+                                                    <?php foreach ($stations as $st):  ?>
+                                                        <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No Stations Available</option>
+                                                <?php endif; ?>
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-3">
                     <div class="form-group">
                         <label for="toStation">To</label>
                         <select name="toStation[]" class="form-control select2">
-                            <option selected>To Station</option>
-                            <option value="1">Mumbai</option>
-                            <option value="2">Delhi</option>
-                            <option value="3">Kochi</option>
+                             <?php if (!empty($stations)): ?>
+                                                    <option selected>Select Station</option>
+                                                    <?php foreach ($stations as $st):  ?>
+                                                        <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No Stations Available</option>
+                                                <?php endif; ?>
                         </select>
                     </div>
                 </div>
                 <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
-                    <i class="mdi mdi-alarm-minus remove-transfer" style="font-style: normal;">&nbsp;</i>
+                    <i class="mdi mdi-close-thick remove-transfer" style="font-style: normal; cursor: pointer">&nbsp;</i>
                 </div>
             </div>`;
-        
-        $('#transferDetailsContainer').append(transferDetailHTML);
-        
-        $('.select2').select2();
-        
-        $('[data-provide="datepicker"]').datepicker();
-    });
 
-  
-    $(document).on('click', '.remove-transfer', function() {
-        $(this).closest('.transfer-detail').remove();
-    });
-});
+            $('#transferDetailsContainer').append(transferDetailHTML);
 
+            $('.select2').select2();
+
+            $('[data-provide="datepicker"]').datepicker();
+        });
+
+
+        $(document).on('click', '.remove-transfer', function() {
+            $(this).closest('.transfer-detail').remove();
+        });
+    });
 </script>
+
 
 <script>
     $(document).ready(function() {
@@ -478,11 +492,15 @@
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Response Text:', jqXHR.responseText);
+                    console.log('Status:', textStatus);
+                    console.log('Error Thrown:', errorThrown);
                     $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
                 }
             });
         });
     });
+
 
 
 

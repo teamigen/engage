@@ -65,7 +65,7 @@
                                                 <td>
                                                     <a href="<?= base_url('Staff/edit/' . ($staff['staffSlug'])) ?>" class="edit-row" data-id="<?= ($staff['staffSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
                                                     <a href="javascript:void(0);" class="delete-row" data-id="<?= ($staff['staffId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
-                                                 
+
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

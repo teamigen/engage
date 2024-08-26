@@ -18,5 +18,11 @@ class Transfer_model extends CI_Model
 
         return $this->db->trans_status();
     }
+
+    public function get_transfer_by_staff($staffId) {
+        $this->db->where('staffId', $staffId);
+        $query = $this->db->get('staff_transfers'); 
+        return $query->result();
+    }
 }
 ?>

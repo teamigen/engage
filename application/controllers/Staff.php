@@ -10,7 +10,7 @@ class Staff extends CI_Controller
         $data['regions'] = $this->Station_model->getallactiveregions();
         $data['stations'] = $this->Station_model->getallactivestations();
         $data['locations'] = $this->Station_model->getallactivelocations();
-        $data['offices'] = $this->Station_model->getallactiveoffices();
+
 
 
         // var_dump($data);
@@ -29,7 +29,7 @@ class Staff extends CI_Controller
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
-        $this->load->view('staff/manage', $data);  
+        $this->load->view('staff/manage', $data);
         $this->load->view('templates/footer');
     }
 
@@ -243,9 +243,11 @@ class Staff extends CI_Controller
 
     public function insertStaffDetails()
     {
+        $staffName = $this->input->post('staffName');
+        $staffSlug = $this->generateUniqueSlug($this->input->post('staffSlug'));
         $staffData = [
-            'staffName' => $this->input->post('staffName'),
-            'staffSlug' => $this->input->post('staffSlug'),
+            'staffName' => $staffName,
+            'staffSlug' => $staffSlug,
             'station' => $this->input->post('station'),
             'region' => $this->input->post('region'),
             'staffType' => $this->input->post('staffType'),
@@ -263,16 +265,19 @@ class Staff extends CI_Controller
         $staffId = $this->StaffModel->insertStaff($staffData);
 
         $familyNames = $this->input->post('familyName');
-        $familyRegions = $this->input->post('familyRegion');
+        $familyRelations = $this->input->post('familyRelation');
         $familyAges = $this->input->post('familyAge');
         $familyOccupations = $this->input->post('familyOccupation');
+
+
+
 
         if (!empty($familyNames)) {
             foreach ($familyNames as $index => $name) {
                 $familyData = [
                     'staffId' => $staffId,
                     'familyName' => $name,
-                    'familyRegion' => $familyRegions[$index],
+                    'familyRelation' => $familyRelations[$index],
                     'familyAge' => $familyAges[$index],
                     'familyOccupation' => $familyOccupations[$index],
                 ];
@@ -280,17 +285,17 @@ class Staff extends CI_Controller
             }
         }
 
-        $fromStations = $this->input->post('fromStation');
-        $toStations = $this->input->post('toStation');
-        $transferDates = $this->input->post('transferDate');
+        $fromStations = $this->input->post('fromStation') ?? null;
+        $toStations = $this->input->post('toStation') ?? null;
+        $transferDates = $this->input->post('transferDate') ?? null;
 
         if (!empty($fromStations)) {
             foreach ($fromStations as $index => $fromStation) {
                 $transferData = [
                     'staffId' => $staffId,
                     'fromStation' => $fromStation,
-                    'toStation' => $toStations[$index],
-                    'transferDate' => $transferDates[$index] ? date('Y-m-d', strtotime($transferDates[$index])) : null,
+                    'toStation' => $toStations[$index] ?? null,
+                    'transferDate' => isset($transferDates[$index]) && !empty($transferDates[$index]) ? date('Y-m-d', strtotime($transferDates[$index])) : null,
                 ];
                 $this->StaffModel->insertTransferDetails($transferData);
             }
@@ -299,53 +304,141 @@ class Staff extends CI_Controller
         echo json_encode(['status' => 'success']);
     }
 
+    private function generateUniqueSlug($slug)
+    {
+        $originalSlug = $slug;
+        $i = 1;
+
+        while ($this->StaffModel->slugExists($slug)) {
+            $slug = $originalSlug . '-' . $i;
+            $i++;
+        }
+
+        return $slug;
+    }
+
+
 
     public function delete($staffId)
-{
-   
-    $this->load->model('StaffModel');
+    {
 
-    
-    if (is_numeric($staffId)) {
-      
-        $result = $this->StaffModel->delete_staff($staffId);
+        $this->load->model('StaffModel');
 
-      
-        if ($result) {
-            echo json_encode(['success' => true]);
+
+        if (is_numeric($staffId)) {
+
+            $result = $this->StaffModel->delete_staff($staffId);
+
+
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false]);
+            }
         } else {
             echo json_encode(['success' => false]);
         }
-    } else {
-        echo json_encode(['success' => false]);
     }
 
-    
-}
 
-public function edit($staffId)
-{
-   
-    $this->load->model('StaffModel');
-    
-    
-    $data['staff'] = $this->StaffModel->get_staff_by_id($staffId);
- 
-    if ($data['staff']) {
-        
-        $this->load->view('templates/header');
-        $this->load->view('templates/nav');
-        $this->load->view('staff/edit', $data);
-        $this->load->view('templates/footer');
-    } else {
-        show_404(); 
+
+
+    public function edit($staffSlug)
+    {
+        $this->load->model('StaffModel');
+        $this->load->model('Station_model');
+        $this->load->model('Family_model');
+        $this->load->model('Transfer_model');
+
+        $data['staff'] = $this->StaffModel->get_staff_by_slug($staffSlug);
+
+        if (!empty($data['staff'])) {
+            $staffId = $data['staff']['staffId'];
+
+            $data['family_details'] = $this->Family_model->get_family_by_staff($staffId) ?? [];
+            $data['transfer_details'] = $this->Transfer_model->get_transfer_by_staff($staffId) ?? [];
+
+            $data['regions'] = $this->Station_model->getallactiveregions();
+            $data['stations'] = $this->Station_model->getallactivestations();
+            $data['locations'] = $this->Station_model->getallactivelocations();
+
+            $this->load->view('templates/header');
+            $this->load->view('templates/nav');
+            $this->load->view('staff/edit', $data);
+            $this->load->view('templates/footer');
+        } else {
+            show_404();
+        }
     }
-
-    
-}
-
-
+    public function updateStaffDetails()
+    {
+        $staffId = $this->input->post('staffId');
 
 
+        $this->load->model('StaffModel');
 
+
+        $currentStaffData = $this->StaffModel->getStaffById($staffId);
+
+        $staffData = [
+            'staffName' => $this->input->post('staffName') ?? $currentStaffData->staffName,
+            'staffSlug' => $this->generateUniqueSlug($this->input->post('staffSlug')) ?? $currentStaffData->staffSlug,
+            'station' => $this->input->post('station') ?? $currentStaffData->station,
+            'region' => $this->input->post('region') ?? $currentStaffData->region,
+            'staffType' => $this->input->post('staffType') ?? $currentStaffData->staffType,
+            'officeLocation' => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
+            'joiningDate' => $this->input->post('joiningDate') ? date('Y-m-d', strtotime($this->input->post('joiningDate'))) : $currentStaffData->joiningDate,
+            'exitingDate' => $this->input->post('exitingDate') ? date('Y-m-d', strtotime($this->input->post('exitingDate'))) : $currentStaffData->exitingDate,
+            'dateofbirth' => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : $currentStaffData->dateofbirth,
+            'dateofAnniversary' => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : $currentStaffData->dateofAnniversary,
+            'username' => $this->input->post('username') ?? $currentStaffData->username,
+            'password' => !empty($this->input->post('password')) ? password_hash($this->input->post('password'), PASSWORD_BCRYPT) : $currentStaffData->password,
+            'whatsappNumber' => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
+            'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber') ?? $currentStaffData->alternateWhatsappNumber,
+        ];
+
+
+        $this->StaffModel->updateStaff($staffId, $staffData);
+
+
+        $familyNames = $this->input->post('familyName') ?? [];
+        $familyRelations = $this->input->post('familyRelation') ?? [];
+        $familyAges = $this->input->post('familyAge') ?? [];
+        $familyOccupations = $this->input->post('familyOccupation') ?? [];
+
+        if (!empty($familyNames)) {
+            $this->StaffModel->deleteFamilyDetails($staffId);
+            foreach ($familyNames as $index => $name) {
+                $familyData = [
+                    'staffId' => $staffId,
+                    'familyName' => $name,
+                    'familyRelation' => $familyRelations[$index] ?? null,
+                    'familyAge' => $familyAges[$index] ?? null,
+                    'familyOccupation' => $familyOccupations[$index] ?? null,
+                ];
+                $this->StaffModel->insertFamilyDetails($familyData);
+            }
+        }
+
+
+        $fromStations = $this->input->post('fromStation') ?? [];
+        $toStations = $this->input->post('toStation') ?? [];
+        $transferDates = $this->input->post('transferDate') ?? [];
+
+        if (!empty($fromStations)) {
+            $this->StaffModel->deleteTransferDetails($staffId);
+            foreach ($fromStations as $index => $fromStation) {
+                $transferData = [
+                    'staffId' => $staffId,
+                    'fromStation' => $fromStation,
+                    'toStation' => $toStations[$index] ?? null,
+                    'transferDate' => isset($transferDates[$index]) && !empty($transferDates[$index]) ? date('Y-m-d', strtotime($transferDates[$index])) : null,
+                ];
+                $this->StaffModel->insertTransferDetails($transferData);
+            }
+        }
+
+
+        redirect('staff/manage');
+    }
 }
