@@ -4,36 +4,55 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Stations extends CI_Controller
 {
     public function index()
-	{
-		$this->load->model('Station_model');
-		$regions = $this->Station_model->getallactiveregions();
-		$data['stations'] = $this->Station_model->getallactivestations();
+    {
+        $this->load->model('Station_model');
+        $regions = $this->Station_model->getallactiveregions();
+        $data['stations'] = $this->Station_model->getstations();
 
-		$data['regions'] = $regions;
+        $data['regions'] = $regions;
 
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('stations/stations', $data);
-		$this->load->view('templates/footer');
-	}
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('stations/stations', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function edit($stationSlug)
+    {
+        $this->load->model('Station_model');
+        $regions = $this->Station_model->getallactiveregions();
+        $data['stations'] = $this->Station_model->getstations();
+
+        $data['regions'] = $regions;
+
+        $data['stn'] = $this->Station_model->get_station_by_slug($stationSlug);
+
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('stations/edit_station', $data);
+        $this->load->view('templates/footer');
+    }
 
     public function create()
     {
-        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive','countryName', 'asc');
+        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
         $data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('stations/create', $data);
         $this->load->view('templates/footer');
     }
+
+
     public function regions()
-	{
+    {
         $data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
-		$this->load->view('templates/header');
-		$this->load->view('templates/nav');
-		$this->load->view('stations/regions', $data);
-		$this->load->view('templates/footer');
-	}
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('stations/regions', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function manage()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -50,20 +69,21 @@ class Stations extends CI_Controller
 
 
     public function saveregion()
+
     {
-      
+
 
         if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
-        $regionName = $this->security->xss_clean($this->input->post('regionName')); 
-        $regionSlug = $this->security->xss_clean($this->input->post('regionSlug')); 
+        $regionName = $this->security->xss_clean($this->input->post('regionName'));
+        $regionSlug = $this->security->xss_clean($this->input->post('regionSlug'));
 
         $data = array(
             'regionName' => $regionName,
             'regionActive' => 1,
-            'regionSlug' =>  $regionSlug 
+            'regionSlug' =>  $regionSlug
         );
         // Save data using model
         $regionName = $this->Common_model->insert('eg_region', $data);
@@ -84,11 +104,11 @@ class Stations extends CI_Controller
             exit('No direct script access allowed');
         }
 
-        
-        $stationName = $this->security->xss_clean($this->input->post('stationName')); 
+
+        $stationName = $this->security->xss_clean($this->input->post('stationName'));
         // $districtId = $this->security->xss_clean($this->input->post('districtid')); 
-        $regionId = $this->security->xss_clean($this->input->post('selectedRegion')); 
-        $stationSlug = $this->security->xss_clean($this->input->post('stationSlug')); 
+        $regionId = $this->security->xss_clean($this->input->post('selectedRegion'));
+        $stationSlug = $this->security->xss_clean($this->input->post('stationSlug'));
         $data = array(
             'stationName' => $stationName,
             // 'districtId' => $districtId,
@@ -109,21 +129,20 @@ class Stations extends CI_Controller
 
     public function savecountry()
     {
-        // echo "hasdfs";
-        // die();
+
 
         if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
-        // Get field value from POST data
+     
         $countryName = $this->security->xss_clean($this->input->post('countryName')); // Sanitize input
 
         $data = array(
             'countryName' => $countryName,
             'countryActive' => 1
         );
-        // Save data using model
+
         $countryName = $this->Common_model->insert('eg_country', $data);
 
         $response = array(
@@ -146,8 +165,8 @@ class Stations extends CI_Controller
         }
 
         // Get field value from POST data
-        $stateName = $this->security->xss_clean($this->input->post('stateName')); // Sanitize input
-        $countryId = $this->security->xss_clean($this->input->post('countryId')); // Sanitize input
+        $stateName = $this->security->xss_clean($this->input->post('stateName')); 
+        $countryId = $this->security->xss_clean($this->input->post('countryId')); 
 
         $data = array(
             'stateName' => $stateName,
@@ -169,17 +188,15 @@ class Stations extends CI_Controller
 
     public function savedistrict()
     {
-        // echo "hasdfs";
-        // die();
+
 
         if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
         }
 
-        // Get field value from POST data
-        $districtName = $this->security->xss_clean($this->input->post('districtName')); // Sanitize input
-        $stateId = $this->security->xss_clean($this->input->post('stateId')); // Sanitize input
 
+        $districtName = $this->security->xss_clean($this->input->post('districtName'));
+        $stateId = $this->security->xss_clean($this->input->post('stateId'));
         $data = array(
             'districtName' => $districtName,
             'stateId' => $stateId,
@@ -208,5 +225,50 @@ class Stations extends CI_Controller
     {
         $districts = $this->Common_model->getvalue('eg_district', 'stateId', $stateId, 'districtName', 'asc');
         echo json_encode($districts);
+    }
+
+    public function updateStation()
+    {
+        $stationId = $this->input->post('stationId');
+
+       
+        $this->load->model('Station_model');
+
+      
+        $currentStationData = $this->Station_model->get_station_by_slug($stationId);
+
+      
+        $stationData = [
+            'stationName' => $this->input->post('stationName') ?? $currentStationData['stationName'],
+            'stationSlug' => $this->input->post('stationSlug') ?? $currentStationData['stationSlug'],
+            'selectedRegion' => $this->input->post('selectedRegion') ?? $currentStationData['selectedRegion'],
+        ];
+
+      
+        $this->Station_model->update('eg_station', $stationData, ['stationId' => $stationId]);
+
+        
+        redirect('');
+    }
+
+    public function delete($stationId)
+    {
+
+        $this->load->model('StaffModel');
+
+
+        if (is_numeric($stationId)) {
+
+            $result = $this->Station_model->delete_station($stationId);
+
+
+            if ($result) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false]);
+            }
+        } else {
+            echo json_encode(['success' => false]);
+        }
     }
 }

@@ -46,76 +46,90 @@
                             <h4 class="card-title">Edit Staff</h4>
 
                             <hr>
-
-
                             <form action="<?= base_url('staff/updateStaffDetails') ?>" method="post" id="saveStaff" enctype="multipart/form-data">
                                 <div id="staffMessage"></div>
 
+                                <input type="hidden" name="staffId" value="<?= htmlspecialchars($staff['staffId'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                                 <div class="row">
-                                    <input type="hidden" name="staffId" value="<?= htmlspecialchars($staff['staffId'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffName">Name of the Staff</label>
-                                            <input type="text" name="staffName" id="staffName" value="<?= htmlspecialchars($staff['staffName'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                            <input class="form-control" type="text" name="staffName" id="staffName" value="<?= htmlspecialchars($staff['staffName'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label for="staffSlug">Slug</label>
-                                            <input type="text" name="staffSlug" id="staffSlug" value="<?= htmlspecialchars($staff['staffSlug'] ?? '', ENT_QUOTES, 'UTF-8') ?>" readonly>
+                                            <label for="staffName">Slug</label>
+                                            <input class="form-control" type="text" name="staffSlug" id="staffSlug" value="<?= htmlspecialchars($staff['staffSlug'] ?? '', ENT_QUOTES, 'UTF-8') ?>" readonly>
                                         </div>
                                     </div>
+
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="station">Station</label>
-                                            <select name="station" class="form-control select2" id="station">
-                                                <?php if (!empty($stations)): ?>
-                                                    <option value="">Select Station</option>
-                                                    <?php foreach ($stations as $st): ?>
-                                                        <option value="<?= $st->stationId; ?>" <?= ($st->stationId == $staff['station']) ? 'selected' : ''; ?>>
-                                                            <?= $st->stationName; ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                <?php else: ?>
-                                                    <option value="">No Stations Available</option>
-                                                <?php endif; ?>
-                                            </select>
+
+                                            <div class="input-group">
+                                                <select name="station" class="form-control select2" id="station">
+                                                    <?php if (!empty($stations)): ?>
+                                                        <option value="">Select Station</option>
+                                                        <?php foreach ($stations as $st): ?>
+                                                            <option value="<?= $st->stationId; ?>" <?= ($st->stationId == $staff['station']) ? 'selected' : ''; ?>>
+                                                                <?= $st->stationName; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        <option value="">No Stations Available</option>
+                                                    <?php endif; ?>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label for="region">Region</label>
-                                            <select name="region" id="region" class="form-control select2">
-                                                <option value="">Select Region</option>
-                                                <?php if (!empty($regions)): ?>
-                                                    <?php foreach ($regions as $region): ?>
-                                                        <option value="<?= $region->regionId; ?>" <?= ($region->regionId == $staff['region']) ? 'selected' : ''; ?>>
-                                                            <?= $region->regionName; ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                <?php else: ?>
-                                                    <option value="">No regions available</option>
-                                                <?php endif; ?>
-                                            </select>
+                                            <label for="familyRegion">Region</label>
+                                            <div class="input-group">
+                                                <select name="region" id="region" class="form-control select2">
+                                                    <option value="">Select Region</option>
+                                                    <?php if (!empty($regions)): ?>
+                                                        <?php foreach ($regions as $region): ?>
+                                                            <option value="<?= $region->regionId; ?>" <?= ($region->regionId == $staff['region']) ? 'selected' : ''; ?>>
+                                                                <?= $region->regionName; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                        <option value="">No regions available</option>
+                                                    <?php endif; ?>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+
+
                                 </div>
 
                                 <div class="row">
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffType">Staff Type</label>
-                                            <select name="staffType" class="form-control select2" id="staffType">
-                                                <option value="">Select Staff Type</option>
-                                                <option value="Station Staff" <?= ($staff['staffType'] == 'Station Staff') ? 'selected' : ''; ?>>Station Staff</option>
-                                                <option value="Regional Staff" <?= ($staff['staffType'] == 'Regional Staff') ? 'selected' : ''; ?>>Regional Staff</option>
-                                                <option value="Office Staff" <?= ($staff['staffType'] == 'Office Staff') ? 'selected' : ''; ?>>Office Staff</option>
-                                            </select>
+                                            <div class="input-group">
+                                                <select name="staffType" class="form-control select2" id="staffType">
+                                                    <option value="">Select Staff Type</option>
+                                                    <option value="Station Staff" <?= ($staff['staffType'] == 'Station Staff') ? 'selected' : ''; ?>>Station Staff</option>
+                                                    <option value="Regional Staff" <?= ($staff['staffType'] == 'Regional Staff') ? 'selected' : ''; ?>>Regional Staff</option>
+                                                    <option value="Office Staff" <?= ($staff['staffType'] == 'Office Staff') ? 'selected' : ''; ?>>Office Staff</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
+
+
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
                                                 <option value="">Select Office</option>
                                                 <?php if (!empty($offices)): ?>
@@ -130,7 +144,10 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6"></div>
+                                </div>
+
+                                <div class="col-lg-6"></div>
+                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
@@ -153,37 +170,16 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input type="text" name="username" id="username" value="<?= htmlspecialchars($staff['username'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="password">Password</label>
-                                            <input type="password" name="password" id="password" value="<?= htmlspecialchars($staff['password'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="whatsappNumber">WhatsApp Number</label>
-                                            <input type="text" name="whatsappNumber" id="whatsappNumber" value="<?= htmlspecialchars($staff['whatsappNumber'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label for="alternateWhatsappNumber">Alternate WhatsApp Number</label>
-                                            <input type="text" name="alternateWhatsappNumber" id="alternateWhatsappNumber" value="<?= htmlspecialchars($staff['alternateWhatsappNumber'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-                                        </div>
-                                    </div>
-                                </div>
+
+
+
+
 
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="dateofbirth">Date of Birth</label>
                                             <div class="input-group">
@@ -194,7 +190,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="dateofAnniversary">Date of Anniversary</label>
                                             <div class="input-group">
@@ -206,6 +202,53 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-lg-12">
+                                        <h6>Authentication Details</h6>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" name="username" id="username" value="<?= htmlspecialchars($staff['username'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" name="password" id="password" value="<?= htmlspecialchars($staff['password'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-4">
+                                    <div class="col-lg-12">
+                                        <h6>Contact Details</h6>
+                                    </div>
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="whatsappNumber">WhatsApp Number</label>
+                                            <input class="form-control" type="text" name="whatsappNumber" id="whatsappNumber" value="<?= htmlspecialchars($staff['whatsappNumber'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="alternateWhatsappNumber">Alternate WhatsApp Number</label>
+                                            <input class="form-control" type="text" name="alternateWhatsappNumber" id="alternateWhatsappNumber" value="<?= htmlspecialchars($staff['alternateWhatsappNumber'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+
 
                                 <h6>Family Details</h6>
                                 <hr>
@@ -222,10 +265,11 @@
                                                 <div class="form-group">
                                                     <label for="familyRelation">Relation</label>
                                                     <select name="familyRelation[]" class="form-control select2">
+                                                        <option selected>Select Relation</option>
                                                         <option value="Spouse" <?= ($family->familyRelation ?? '') == 'Spouse' ? 'selected' : ''; ?>>Spouse</option>
-                                                        <option value="Child" <?= ($family->familyRelation ?? '') == 'Child' ? 'selected' : ''; ?>>Child</option>
-                                                        <option value="Parent" <?= ($family->familyRelation ?? '') == 'Parent' ? 'selected' : ''; ?>>Parent</option>
-                                                        <option value="Other" <?= ($family->familyRelation ?? '') == 'Other' ? 'selected' : ''; ?>>Other</option>
+                                                        <option value="Son" <?= ($family->familyRelation ?? '') == 'Son' ? 'selected' : ''; ?>>Son</option>
+                                                        <option value="Daughter" <?= ($family->familyRelation ?? '') == 'Parent' ? 'selected' : ''; ?>>Daughter</option>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -238,7 +282,7 @@
                                             <div class="col-lg-2">
                                                 <div class="form-group">
                                                     <label for="familyOccupation">Occupation</label>
-                                                    <input class="form-control" type="text" name="familyOccupation[]" value="<?= htmlspecialchars($family->Occupation ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Occupation">
+                                                    <input class="form-control" type="text" name="familyOccupation[]" value="<?= htmlspecialchars($family->familyOccupation ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Occupation">
                                                 </div>
                                             </div>
                                             <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
@@ -260,13 +304,25 @@
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label for="fromStation">From Station</label>
-                                                    <input class="form-control" type="text" name="fromStation[]" value="<?= htmlspecialchars($transfer->fromStation ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="From Station">
+                                                    <select name="fromStation[]" class="form-control select2">
+                                                        <?php foreach ($stations as $station): ?>
+                                                            <option value="<?= $station->stationId ?>" <?= ($transfer->fromStation ?? '') == $station->stationId ? 'selected' : ''; ?>>
+                                                                <?= htmlspecialchars($station->stationName, ENT_QUOTES, 'UTF-8'); ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="form-group">
                                                     <label for="toStation">To Station</label>
-                                                    <input class="form-control" type="text" name="toStation[]" value="<?= htmlspecialchars($transfer->toStation ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="To Station">
+                                                    <select name="toStation[]" class="form-control select2">
+                                                        <?php foreach ($stations as $station): ?>
+                                                            <option value="<?= $station->stationId ?>" <?= ($transfer->toStation ?? '') == $station->stationId ? 'selected' : ''; ?>>
+                                                                <?= htmlspecialchars($station->stationName, ENT_QUOTES, 'UTF-8'); ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -315,93 +371,117 @@
 
 <script>
     $(document).ready(function() {
-       
+
         $('.select2').select2();
-        $('[data-provide="datepicker"]').datepicker();
 
         function initializeSelect2() {
             $('.select2').select2();
         }
 
-     
-        $('#addFamilyRow').click(function() {
+        $(document).on('click', '#addFamilyRow', function() {
             var familyDetailHTML = `
-                <div class="row family-detail">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="familyName">Name</label>
-                            <input class="form-control" type="text" name="familyName[]" placeholder="Name">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="familyRelation">Relation</label>
-                            <select name="familyRelation[]" class="form-control select2">
-                                <option value="Spouse">Spouse</option>
-                                <option value="Child">Child</option>
-                                <option value="Parent">Parent</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="familyAge">Age</label>
-                            <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label for="familyContact">Occupation</label>
-                            <input class="form-control" type="text" name="familyOccupation[]" placeholder="Occupation">
-                        </div>
-                    </div>
-                    <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
-                        <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
-                    </div>
-                </div>`;
+        <div class="row family-detail">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="familyName">Name</label>
+                    <input class="form-control" type="text" name="familyName[]" placeholder="Name">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="familyRelation">Relation</label>
+                    <select name="familyRelation[]" class="form-control select2">
+                       <option selected>Select Relation</option>
+                        <option value="Spouse">Spouse</option>
+                        <option value="Son">Son</option>
+                        <option value="Daughter">Daughter</option>
+                       
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="familyAge">Age</label>
+                    <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="familyOccupation">Occupation</label>
+                    <input class="form-control" type="text" name="familyOccupation[]" placeholder="Occupation">
+                </div>
+            </div>
+            <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
+                <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+            </div>
+        </div>`;
             $('#familyDetailsContainer').append(familyDetailHTML);
-            initializeSelect2(); 
+            initializeSelect2();
         });
 
-     
         $(document).on('click', '.remove-family', function() {
             $(this).closest('.family-detail').remove();
         });
 
-     
-        $('#addTransferRow').click(function() {
+        $(document).on('click', '#addTransferRow', function() {
             var transferDetailHTML = `
-                <div class="row transfer-detail">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="fromStation">From Station</label>
-                            <input class="form-control" type="text" name="fromStation[]" placeholder="From Station">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="toStation">To Station</label>
-                            <input class="form-control" type="text" name="toStation[]" placeholder="To Station">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label for="transferDate">Transfer Date</label>
-                            <input class="form-control" type="date" name="transferDate[]" placeholder="Transfer Date">
-                        </div>
-                    </div>
-                    <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
-                        <i class="mdi mdi-close-thick remove-transfer" style="font-style: normal; cursor: pointer;">&nbsp;</i>
-                    </div>
-                </div>`;
+        <div class="row transfer-detail">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="fromStation">From Station</label>
+                    <select name="fromStation[]" class="form-control select2">
+                 <?php if (!empty($stations)): ?>
+                                                    <option selected>Select Station</option>
+                                                    <?php foreach ($stations as $st):  ?>
+                                                        <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No Stations Available</option>
+                                                <?php endif; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="toStation">To Station</label>
+                    <select name="toStation[]" class="form-control select2">
+                      <?php if (!empty($stations)): ?>
+                                                    <option selected>Select Station</option>
+                                                    <?php foreach ($stations as $st):  ?>
+                                                        <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <option value="">No Stations Available</option>
+                                                <?php endif; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label for="transferDate">Transfer Date</label>
+                    <input class="form-control" type="date" name="transferDate[]" placeholder="Transfer Date">
+                </div>
+            </div>
+            <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
+                <i class="mdi mdi-close-thick remove-transfer" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+            </div>
+        </div>`;
             $('#transferDetailsContainer').append(transferDetailHTML);
-           
+            initializeSelect2();
         });
 
         $(document).on('click', '.remove-transfer', function() {
             $(this).closest('.transfer-detail').remove();
         });
+    });
+
+
+    $('#staffName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#staffSlug').val(filteredText.toLowerCase());
+        $('#username').val(filteredText.toLowerCase());
+
     });
 </script>
 

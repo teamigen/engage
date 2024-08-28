@@ -45,6 +45,8 @@ class Staff extends CI_Controller
         $this->load->view('reports/monthreports', $data);
         $this->load->view('templates/footer');
     }
+
+
     public function adminmonthreport()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -77,6 +79,7 @@ class Staff extends CI_Controller
     }
 
     public function saveregion()
+
     {
         // echo "hasdfs";
         // die();
@@ -243,6 +246,16 @@ class Staff extends CI_Controller
 
     public function insertStaffDetails()
     {
+        $this->load->model('StaffModel');
+    
+        $whatsappNumber = $this->input->post('whatsappNumber');
+    
+        
+        if ($this->StaffModel->checkWhatsAppNumberExists($whatsappNumber)) {
+            echo json_encode(['success' => false, 'message' => 'WhatsApp number already exists!']);
+            return;
+        }
+    
         $staffName = $this->input->post('staffName');
         $staffSlug = $this->generateUniqueSlug($this->input->post('staffSlug'));
         $staffData = [
@@ -258,20 +271,17 @@ class Staff extends CI_Controller
             'dateofAnniversary' => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : null,
             'username' => $this->input->post('username'),
             'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-            'whatsappNumber' => $this->input->post('whatsappNumber'),
+            'whatsappNumber' => $whatsappNumber,
             'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber'),
         ];
-
+    
         $staffId = $this->StaffModel->insertStaff($staffData);
-
+    
         $familyNames = $this->input->post('familyName');
         $familyRelations = $this->input->post('familyRelation');
         $familyAges = $this->input->post('familyAge');
         $familyOccupations = $this->input->post('familyOccupation');
-
-
-
-
+    
         if (!empty($familyNames)) {
             foreach ($familyNames as $index => $name) {
                 $familyData = [
@@ -284,11 +294,11 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertFamilyDetails($familyData);
             }
         }
-
+    
         $fromStations = $this->input->post('fromStation') ?? null;
         $toStations = $this->input->post('toStation') ?? null;
         $transferDates = $this->input->post('transferDate') ?? null;
-
+    
         if (!empty($fromStations)) {
             foreach ($fromStations as $index => $fromStation) {
                 $transferData = [
@@ -300,9 +310,11 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertTransferDetails($transferData);
             }
         }
-
-        echo json_encode(['status' => 'success']);
+    
+        echo json_encode(['success' => true, 'message' => 'Staff details saved successfully!']);
+        redirect('staff/manage');
     }
+    
 
     private function generateUniqueSlug($slug)
     {
@@ -357,7 +369,6 @@ class Staff extends CI_Controller
 
             $data['family_details'] = $this->Family_model->get_family_by_staff($staffId) ?? [];
             $data['transfer_details'] = $this->Transfer_model->get_transfer_by_staff($staffId) ?? [];
-
             $data['regions'] = $this->Station_model->getallactiveregions();
             $data['stations'] = $this->Station_model->getallactivestations();
             $data['locations'] = $this->Station_model->getallactivelocations();
@@ -370,7 +381,9 @@ class Staff extends CI_Controller
             show_404();
         }
     }
+
     public function updateStaffDetails()
+
     {
         $staffId = $this->input->post('staffId');
 
@@ -409,6 +422,7 @@ class Staff extends CI_Controller
         if (!empty($familyNames)) {
             $this->StaffModel->deleteFamilyDetails($staffId);
             foreach ($familyNames as $index => $name) {
+                
                 $familyData = [
                     'staffId' => $staffId,
                     'familyName' => $name,

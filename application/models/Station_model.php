@@ -20,6 +20,17 @@ class Station_model extends CI_Model
         return $query->result();
     }
 
+    public function getstations()
+    {
+        $this->db->select('*');
+        $this->db->from('eg_station as es');
+        $this->db->join('eg_region as er', 'er.regionId  = es.selectedRegion', 'left');
+        $this->db->order_by('stationName', 'asc');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
 
     public function getallactivedistricts()
     {
@@ -37,6 +48,7 @@ class Station_model extends CI_Model
 
 
     public function getallactiveregions()
+
     {
         $this->db->select('*');
         $this->db->from('eg_region');
@@ -45,6 +57,7 @@ class Station_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
 
 
     public function getallactivelocations()
@@ -58,6 +71,7 @@ class Station_model extends CI_Model
     }
 
     public function getallactiveoffices()
+
     {
         $this->db->select('*');
         $this->db->from('office_location');
@@ -68,16 +82,32 @@ class Station_model extends CI_Model
     }
 
 
-   
+
     public function save_location($data)
     {
         $this->db->where('locationSlug', $data['locationSlug']);
         $existingLocation = $this->db->get('eg_location')->row();
 
         if ($existingLocation) {
-            return false; 
+            return false;
         } else {
             return $this->db->insert('eg_location', $data);
         }
+    }
+
+
+    public function get_station_by_slug($stationSlug)
+    {
+        return $this->db->select('*')
+            ->from('eg_station')
+            ->where('stationSlug', $stationSlug)
+            ->get()
+            ->row_array();
+    }
+
+    public function update($table, $data, $where)
+    {
+        $this->db->where($where);
+        return $this->db->update($table, $data);
     }
 }

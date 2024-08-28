@@ -39,49 +39,53 @@ class StaffModel extends CI_Model
         return $this->db->delete('staff');
     }
 
-    public function get_staff_by_slug($staffSlug) {
+    public function get_staff_by_slug($staffSlug)
+    {
         return $this->db->select('*')
-                        ->from('staff')
-                        ->where('staffSlug', $staffSlug) 
-                        ->get()
-                        ->row_array(); 
+            ->from('staff')
+            ->where('staffSlug', $staffSlug)
+            ->get()
+            ->row_array();
     }
 
     public function slugExists($slug)
-{
-    $this->db->where('staffSlug', $slug);
-    $query = $this->db->get('staff'); 
-    return $query->num_rows() > 0;
-}
-
-
-public function getStaffById($staffId)
     {
-       
+        $this->db->where('staffSlug', $slug);
+        $query = $this->db->get('staff');
+        return $query->num_rows() > 0;
+    }
+
+
+    public function getStaffById($staffId)
+    {
+
         $this->db->where('staffId', $staffId);
         $query = $this->db->get('staff');
-     
+
         return $query->row();
     }
 
     public function updateStaff($staffId, $staffData)
     {
         $this->db->where('staffId', $staffId);
-        return $this->db->update('staff', $staffData); 
+        return $this->db->update('staff', $staffData);
     }
 
     public function deleteFamilyDetails($staffId)
     {
         $this->db->where('staffId', $staffId);
-        return $this->db->delete('staff_family'); 
+        return $this->db->delete('staff_family');
     }
     public function deleteTransferDetails($staffId)
     {
         $this->db->where('staffId', $staffId);
-        return $this->db->delete('staff_transfers'); 
+        return $this->db->delete('staff_transfers');
     }
-    
 
-    
+    public function checkWhatsAppNumberExists($whatsappNumber)
+    {
+        $this->db->where('whatsappNumber', $whatsappNumber);
+        $query = $this->db->get('staff');
+        return $query->num_rows() > 0;
+    }
 }
-

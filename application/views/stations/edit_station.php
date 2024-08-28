@@ -43,19 +43,20 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Create Station</h4>
+                            <h4 class="card-title">Edit Station</h4>
                             <p class="card-title-desc">Create a New Station</p>
 
-                            <form action="#" id="saveStation" method="post">
+                            <form action="<?= base_url('Stations/updatestation') ?>" id="saveStation" method="post">
+                                <input type="hidden" name="stationId" value="<?= htmlspecialchars($stn['stationId'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                                 <div id="stationMessage"></div>
                                 <div class="form-group">
                                     <label>Name of the Station</label>
-                                    <input class="form-control" type="text" name="stationName" placeholder="Name of the Station" id="stationName">
+                                    <input class="form-control" type="text" name="stationName" id="stationName" value="<?= htmlspecialchars($stn['stationName'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Slug</label>
-                                    <input class="form-control" type="text" name="stationSlug" placeholder="Station Slug" id="stationSlug">
+                                    <input class="form-control" type="text" name="stationSlug" id="stationSlug" value="<?= htmlspecialchars($stn['stationSlug'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                 </div>
 
                                 <div class="form-group">
@@ -64,14 +65,18 @@
                                         <option selected>Select Region</option>
                                         <?php if (!empty($regions)): ?>
                                             <?php foreach ($regions as $region): ?>
-                                                <option value="<?= $region->regionId ?>"><?= $region->regionName ?></option>
+                                                <option value="<?= $region->regionId; ?>" <?= ($region->regionId == $stn['selectedRegion']) ? 'selected' : ''; ?>>
+                                                    <?= $region->regionName; ?>
+                                                </option>
                                             <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <option value="">No regions available</option>
                                         <?php endif; ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save Changes</button>
                                 </div>
                             </form>
 
@@ -136,65 +141,15 @@
 
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
 
-
-
-<script>
-    $(document).ready(function() {
-        $('#saveStation').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: '<?php echo base_url('stations/savestation'); ?>',
-                type: 'POST',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-
-                    var response = JSON.parse(response);
-
-                    if (response.success) {
-
-                        $('#stationMessage').html('<div class="alert alert-success"><p>Station Successfully Created!</p></div>');
-                        $('#saveStation').trigger("reset");
-                    } else {
-
-                        var errorMessage = "<div class='alert alert-danger'>";
-                        for (var key in response.error) {
-                            if (response.error.hasOwnProperty(key)) {
-                                errorMessage += "<p>" + response.error[key] + "</p>";
-                            }
-                        }
-                        errorMessage += "</div>";
-                        $('#stationMessage').html(errorMessage);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                    $('#stationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
-                }
-            });
-        });
-
-
-        $('#stationName').keyup(function() {
-            var originalText = $(this).val();
-            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
-            $('#stationSlug').val(filteredText.toLowerCase());
-        });
-    });
-</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
             deleteButton.addEventListener('click', function() {
-                var stationId = this.getAttribute('data-id');
+                var staffId = this.getAttribute('data-id');
                 if (confirm('Are you sure you want to delete this row?')) {
 
-                    fetch('<?= base_url(); ?>Stations/delete/' + stationId, {
+                    fetch('<?= base_url(); ?>Staff/delete/' + staffId, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -204,7 +159,7 @@
                         .then(data => {
                             if (data.success) {
 
-                                document.getElementById('row-' + stationId).remove();
+                                document.getElementById('row-' + staffId).remove();
                             } else {
                                 alert('Failed to delete the row.');
                             }
@@ -216,6 +171,19 @@
     });
 </script>
 
+
+
+<script>
+    $(document).ready(function() {
+
+        $('#stationName').keyup(function() {
+            var originalText = $(this).val();
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#stationSlug').val(filteredText.toLowerCase());
+        });
+
+    });
+</script>
 
 
 <!-- JAVASCRIPT -->

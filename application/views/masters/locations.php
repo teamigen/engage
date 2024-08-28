@@ -60,9 +60,6 @@
                                         placeholder="Name of the Location" id="locationSlug" readonly>
                                 </div>
 
-
-
-
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                 </div>
@@ -85,7 +82,6 @@
                                 <thead>
                                     <tr>
                                         <th>Location Name</th>
-
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -94,13 +90,11 @@
                                 <tbody>
                                     <tr>
                                         <td>Nalamchira</td>
-
                                         <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
 
                                     </tr>
                                     <tr>
                                         <td>Karakkodu</td>
-
                                         <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
 
                                     </tr>
@@ -110,9 +104,6 @@
                                         <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
 
                                     </tr>
-
-
-
 
                                 </tbody>
                             </table>
@@ -144,7 +135,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '<?php echo base_url('Masters/savelocation'); ?>', 
+                url: '<?php echo base_url('Masters/savelocation'); ?>',
                 type: 'POST',
                 data: formData,
                 cache: false,
