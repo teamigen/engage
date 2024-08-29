@@ -105,9 +105,46 @@ class Station_model extends CI_Model
             ->row_array();
     }
 
+
+    
+    public function get_region_by_slug($regionSlug)
+    {
+        return $this->db->select('*')
+            ->from('eg_region')
+            ->where('regionSlug', $regionSlug)
+            ->get()
+            ->row_array();
+    }
+
     public function update($table, $data, $where)
     {
         $this->db->where($where);
         return $this->db->update($table, $data);
     }
+
+    public function delete_station($stationId)
+    {
+
+        $this->db->where('stationId', $stationId);
+        return $this->db->delete('eg_station');
+    }
+
+    public function delete_region($regionId)
+    {
+
+        $this->db->where('regionId', $regionId);
+        return $this->db->delete('eg_region');
+    }
+
+    public function getregions()
+    {
+        $this->db->select('*');
+        $this->db->from('eg_region');
+        $this->db->order_by('regionName', 'asc');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
+
 }

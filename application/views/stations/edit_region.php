@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Regions</h4>
+                        <h4 class="mb-0">Edit Regions</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -42,27 +42,27 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Create Region</h4>
-                            <p class="card-title-desc">Create a New Region</p>
+                            <h4 class="card-title">Edit Region</h4>
+                            <p class="card-title-desc">Edit Region</p>
 
-                            <form class="needs-validation" id="saveRegion" method="post" enctype="multipart/form-data">
+                            <form class="needs-validation" action="<?= base_url('Stations/updateregion') ?>" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="regionId" value="<?= htmlspecialchars($rgn['regionId'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                                 <div id="regionMessage"></div>
                                 <div class="form-group">
                                     <label>Name of the Region</label>
-                                    <input class="form-control" type="text" name="regionName"
-                                        placeholder="Name of the Region" id="regionName">
+                                    <input class="form-control" type="text" name="regionName" id="regionName" value="<?= htmlspecialchars($rgn['regionName'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+
                                 </div>
                                 <div class="form-group">
                                     <label>Slug</label>
-                                    <input class="form-control" type="text" name="regionSlug"
-                                        placeholder="Region Slug" id="regionSlug" readonly>
+                                    <input class="form-control" type="text" name="regionSlug" id="regionSlug" value="<?= htmlspecialchars($rgn['regionSlug'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
                                 </div>
 
 
 
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save Changes</button>
                                 </div>
 
 
@@ -102,10 +102,6 @@
                                         </tr>
                                     <?php } ?>
 
-
-
-
-
                                 </tbody>
                             </table>
 
@@ -125,45 +121,36 @@
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#saveRegion').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: '<?php echo base_url('stations/saveregion'); ?>',
-                type: 'POST',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    alert(response);
-                    var response = JSON.parse(response)
-                    if (response.success) {
-                        $('#saveRegion').trigger("reset");
-                        $('#regionMessage').html('<p>Region Successfully Created!</p>').addClass('alert alert-success');
-                    } else {
-                        var errors = response.error;
-                        var errorMessage = "";
-                        for (var key in errors) {
-                            if (errors.hasOwnProperty(key)) {
-                                errorMessage += "<p>" + errors[key] + "</p>";
+    document.addEventListener('DOMContentLoaded', function() {
+
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                var regionId = this.getAttribute('data-id');
+                if (confirm('Are you sure you want to delete this row?')) {
+
+                    fetch('<?= base_url(); ?>Stations/deleteRegion/' + regionId, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+
+                                document.getElementById('row-' + regionId).remove();
+                            } else {
+                                alert('Failed to delete the row.');
                             }
-                        }
-                        $('#regionMessage').html(errorMessage).addClass('alert alert-danger');
-                    }
-                },
-
-
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                    console.error('AJAX Error:', textStatus, errorThrown);
-                    $('#message').html('<hr><h6 style="color:red; margin-top:10px; margin-bottom:10px">There is an error! Please try later!</h6><hr>');
+                        })
+                        .catch(error => console.error('Error:', error));
                 }
             });
         });
     });
+</script>
 
+<script>
     $(document).ready(function() {
         $('#regionName').keyup(function() {
             var originalText = $(this).val();
@@ -172,7 +159,6 @@
         });
     });
 </script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 

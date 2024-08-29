@@ -38,7 +38,7 @@ class Staff extends CI_Controller
     public function monthreport()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-        //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
@@ -50,7 +50,7 @@ class Staff extends CI_Controller
     public function adminmonthreport()
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-        //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
@@ -247,15 +247,15 @@ class Staff extends CI_Controller
     public function insertStaffDetails()
     {
         $this->load->model('StaffModel');
-    
+
         $whatsappNumber = $this->input->post('whatsappNumber');
-    
-        
+
+
         if ($this->StaffModel->checkWhatsAppNumberExists($whatsappNumber)) {
             echo json_encode(['success' => false, 'message' => 'WhatsApp number already exists!']);
             return;
         }
-    
+
         $staffName = $this->input->post('staffName');
         $staffSlug = $this->generateUniqueSlug($this->input->post('staffSlug'));
         $staffData = [
@@ -274,14 +274,14 @@ class Staff extends CI_Controller
             'whatsappNumber' => $whatsappNumber,
             'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber'),
         ];
-    
+
         $staffId = $this->StaffModel->insertStaff($staffData);
-    
+
         $familyNames = $this->input->post('familyName');
         $familyRelations = $this->input->post('familyRelation');
         $familyAges = $this->input->post('familyAge');
         $familyOccupations = $this->input->post('familyOccupation');
-    
+
         if (!empty($familyNames)) {
             foreach ($familyNames as $index => $name) {
                 $familyData = [
@@ -294,11 +294,11 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertFamilyDetails($familyData);
             }
         }
-    
+
         $fromStations = $this->input->post('fromStation') ?? null;
         $toStations = $this->input->post('toStation') ?? null;
         $transferDates = $this->input->post('transferDate') ?? null;
-    
+
         if (!empty($fromStations)) {
             foreach ($fromStations as $index => $fromStation) {
                 $transferData = [
@@ -310,11 +310,11 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertTransferDetails($transferData);
             }
         }
-    
+
         echo json_encode(['success' => true, 'message' => 'Staff details saved successfully!']);
         redirect('staff/manage');
     }
-    
+
 
     private function generateUniqueSlug($slug)
     {
@@ -394,19 +394,19 @@ class Staff extends CI_Controller
         $currentStaffData = $this->StaffModel->getStaffById($staffId);
 
         $staffData = [
-            'staffName' => $this->input->post('staffName') ?? $currentStaffData->staffName,
-            'staffSlug' => $this->generateUniqueSlug($this->input->post('staffSlug')) ?? $currentStaffData->staffSlug,
-            'station' => $this->input->post('station') ?? $currentStaffData->station,
-            'region' => $this->input->post('region') ?? $currentStaffData->region,
-            'staffType' => $this->input->post('staffType') ?? $currentStaffData->staffType,
-            'officeLocation' => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
-            'joiningDate' => $this->input->post('joiningDate') ? date('Y-m-d', strtotime($this->input->post('joiningDate'))) : $currentStaffData->joiningDate,
-            'exitingDate' => $this->input->post('exitingDate') ? date('Y-m-d', strtotime($this->input->post('exitingDate'))) : $currentStaffData->exitingDate,
-            'dateofbirth' => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : $currentStaffData->dateofbirth,
-            'dateofAnniversary' => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : $currentStaffData->dateofAnniversary,
-            'username' => $this->input->post('username') ?? $currentStaffData->username,
-            'password' => !empty($this->input->post('password')) ? password_hash($this->input->post('password'), PASSWORD_BCRYPT) : $currentStaffData->password,
-            'whatsappNumber' => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
+
+            'staffName'              => $this->input->post('staffName') ?? $currentStaffData->staffName,
+            'station'                => $this->input->post('station') ?? $currentStaffData->station,
+            'region'                 => $this->input->post('region') ?? $currentStaffData->region,
+            'staffType'              => $this->input->post('staffType') ?? $currentStaffData->staffType,
+            'officeLocation'         => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
+            'joiningDate'            => $this->input->post('joiningDate') ? date('Y-m-d', strtotime($this->input->post('joiningDate'))) : $currentStaffData->joiningDate,
+            'exitingDate'            => $this->input->post('exitingDate') ? date('Y-m-d', strtotime($this->input->post('exitingDate'))) : $currentStaffData->exitingDate,
+            'dateofbirth'            => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : $currentStaffData->dateofbirth,
+            'dateofAnniversary'      => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : $currentStaffData->dateofAnniversary,
+            'username'               => $this->input->post('username') ?? $currentStaffData->username,
+            'password'                => !empty($this->input->post('password')) ? password_hash($this->input->post('password'), PASSWORD_BCRYPT) : $currentStaffData->password,
+            'whatsappNumber'          => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
             'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber') ?? $currentStaffData->alternateWhatsappNumber,
         ];
 
@@ -422,7 +422,7 @@ class Staff extends CI_Controller
         if (!empty($familyNames)) {
             $this->StaffModel->deleteFamilyDetails($staffId);
             foreach ($familyNames as $index => $name) {
-                
+
                 $familyData = [
                     'staffId' => $staffId,
                     'familyName' => $name,
@@ -448,6 +448,7 @@ class Staff extends CI_Controller
                     'toStation' => $toStations[$index] ?? null,
                     'transferDate' => isset($transferDates[$index]) && !empty($transferDates[$index]) ? date('Y-m-d', strtotime($transferDates[$index])) : null,
                 ];
+
                 $this->StaffModel->insertTransferDetails($transferData);
             }
         }

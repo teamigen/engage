@@ -37,7 +37,6 @@
             </div>
             <!-- end page title -->
 
-
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card">
@@ -186,12 +185,18 @@
         });
     });
 </script>
+
+
 <script>
+    
     document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+
             deleteButton.addEventListener('click', function() {
+
                 var stationId = this.getAttribute('data-id');
+
                 if (confirm('Are you sure you want to delete this row?')) {
 
                     fetch('<?= base_url(); ?>Stations/delete/' + stationId, {
@@ -214,6 +219,7 @@
             });
         });
     });
+
 </script>
 
 

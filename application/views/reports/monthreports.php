@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -66,12 +66,15 @@
 
 
                                         <script>
-                                            $(document).ready(function () {
+                                            $(document).ready(function() {
                                                 // Get current month and year
-                                                var currentMonthYear = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+                                                var currentMonthYear = new Date().toLocaleString('en-US', {
+                                                    month: 'long',
+                                                    year: 'numeric'
+                                                });
                                                 $('.dispmnth').text(currentMonthYear);
 
-                                                $('#monthSelect').change(function () {
+                                                $('#monthSelect').change(function() {
                                                     var selectedMonth = $(this).val();
                                                     $('.dispmnth').text(selectedMonth);
                                                 });
@@ -91,13 +94,13 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                    <h4 class="card-title">REPORT FOR THE MONTH OF <span class="dispmnth"
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">REPORT FOR THE MONTH OF <span class="dispmnth"
                                     style="text-transform: uppercase;"></span></h4>
                             <p class="card-title-desc">Ministry Report in Detail
                             </p>
@@ -108,8 +111,8 @@
                                 </div>
                             </div>
                             <hr>
-                                            <form action="#">
-                                            <div class="row">
+                            <form action="#">
+                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
@@ -200,49 +203,49 @@
                                     <hr>
                                 </div>
                                 <div class="row">
-                                
+
                                     <div class="col-lg-6">
-                                        
+
                                         <div class="form-group mb-4">
                                             <label>First Sunday</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="First Sunday">
-                                            <option selected>Select Church</option>   
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
+                                                <option selected>Select Church</option>
+                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Second Sunday</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Second Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
+                                                <option selected>Select Church</option>
+                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            </select>
                                         </div>
 
-                                    
+
                                     </div>
                                     <div class="col-lg-6">
-                                       
 
-                                    <div class="form-group mb-4">
+
+                                        <div class="form-group mb-4">
                                             <label>Third Sunday</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Third Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
+                                                <option selected>Select Church</option>
+                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Fourth Sunday</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Fourth Sunday">
-                                            <option selected>Select Church</option>      
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
+                                                <option selected>Select Church</option>
+                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Fifth Sunday</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Fifth Sunday">
-                                            <option selected>Select Church</option>       
-                                            <option value="">Shalom AG Church, Vadasserikkara</option>
-                                                </select>
+                                                <option selected>Select Church</option>
+                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -253,84 +256,84 @@
                                 </div>
                                 <hr>
                                 <div class="event1 events">
-                                <div class="row">
-                                
-                                    <div class="col-lg-6">
-                                        
-                                        <div class="form-group mb-4">
-                                            <label>Date of Program</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" data-provide="datepicker"
-                                                    data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i
-                                                            class="mdi mdi-calendar"></i></span>
-                                                </div>
-                                            </div><!-- input-group -->
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Event Name</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="Event Name" id="new_cgpf">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Event Location</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="Event Location" id="new_cgpf">
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-lg-6">
-                                       
+                                    <div class="row">
 
-                                        <div class="form-group">
-                                            <label>Resource Person</label>
-                                            <input class="form-control" type="text" name="resource_person"
-                                                placeholder="Resource Person" id="resource_person">
+                                        <div class="col-lg-6">
+
+                                            <div class="form-group mb-4">
+                                                <label>Date of Program</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" data-provide="datepicker"
+                                                        data-date-format="dd M, yyyy">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><i
+                                                                class="mdi mdi-calendar"></i></span>
+                                                    </div>
+                                                </div><!-- input-group -->
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Event Name</label>
+                                                <input class="form-control" type="text" name="new_cgpf"
+                                                    placeholder="Event Name" id="new_cgpf">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Event Location</label>
+                                                <input class="form-control" type="text" name="new_cgpf"
+                                                    placeholder="Event Location" id="new_cgpf">
+                                            </div>
+
                                         </div>
-                                        <div class="form-group">
-                                            <label>Attendance</label>
-                                            <input class="form-control" type="text" name="event_attendance"
-                                                placeholder="Attendance" id="event_attendance">
-                                        </div>
-                                         <div class="form-group">
-                                            <label>Event Photos</label>
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile" multiple>Choose file</label>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                                
-                                        <hr>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12" style="text-align: right;">
-                                                <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
+                                        <div class="col-lg-6">
+
+
+                                            <div class="form-group">
+                                                <label>Resource Person</label>
+                                                <input class="form-control" type="text" name="resource_person"
+                                                    placeholder="Resource Person" id="resource_person">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Attendance</label>
+                                                <input class="form-control" type="text" name="event_attendance"
+                                                    placeholder="Attendance" id="event_attendance">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Event Photos</label>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="customFile">
+                                                    <label class="custom-file-label" for="customFile" multiple>Choose file</label>
+                                                </div>
                                             </div>
                                         </div>
-                                            </form>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            </div>
                                         </div>
-        
-                                       
+                                    </div>
+
+                                    <hr>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
+                                        <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
                                     </div>
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
 

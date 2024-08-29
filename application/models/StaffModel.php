@@ -88,4 +88,8 @@ class StaffModel extends CI_Model
         $query = $this->db->get('staff');
         return $query->num_rows() > 0;
     }
+
+    public function getStaffByUsername($username) {
+        return $this->db->get_where('staff', ['username' => $username])->row();
+    }
 }

@@ -46,6 +46,7 @@
                             <h4 class="card-title">Edit Staff</h4>
 
                             <hr>
+
                             <form action="<?= base_url('staff/updateStaffDetails') ?>" method="post" id="saveStaff" enctype="multipart/form-data">
                                 <div id="staffMessage"></div>
 
@@ -132,15 +133,8 @@
 
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
                                                 <option value="">Select Office</option>
-                                                <?php if (!empty($offices)): ?>
-                                                    <?php foreach ($offices as $off): ?>
-                                                        <option value="<?= $off->officeId; ?>" <?= ($off->officeId == $staff['officeLocation']) ? 'selected' : ''; ?>>
-                                                            <?= $off->officeLocation; ?>
-                                                        </option>
-                                                    <?php endforeach; ?>
-                                                <?php else: ?>
-                                                    <option value="">No Offices available</option>
-                                                <?php endif; ?>
+                                                <option value="Head Office" <?=($staff['officeLocation'] == 'Head Office') ? 'selected' : ''; ?>>Head Office</option>
+                                             
                                             </select>
                                         </div>
                                     </div>
@@ -268,7 +262,7 @@
                                                         <option selected>Select Relation</option>
                                                         <option value="Spouse" <?= ($family->familyRelation ?? '') == 'Spouse' ? 'selected' : ''; ?>>Spouse</option>
                                                         <option value="Son" <?= ($family->familyRelation ?? '') == 'Son' ? 'selected' : ''; ?>>Son</option>
-                                                        <option value="Daughter" <?= ($family->familyRelation ?? '') == 'Parent' ? 'selected' : ''; ?>>Daughter</option>
+                                                        <option value="Daughter" <?= ($family->familyRelation ?? '') == 'Daughter' ? 'selected' : ''; ?>>Daughter</option>
 
                                                     </select>
                                                 </div>
