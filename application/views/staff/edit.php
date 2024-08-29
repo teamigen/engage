@@ -133,8 +133,8 @@
 
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
                                                 <option value="">Select Office</option>
-                                                <option value="Head Office" <?=($staff['officeLocation'] == 'Head Office') ? 'selected' : ''; ?>>Head Office</option>
-                                             
+                                                <option value="Head Office" <?= ($staff['officeLocation'] == 'Head Office') ? 'selected' : ''; ?>>Head Office</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -164,13 +164,7 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-
-
-
-
 
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -196,6 +190,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="row mt-4">
                                     <div class="col-lg-12">
@@ -299,6 +294,7 @@
                                                 <div class="form-group">
                                                     <label for="fromStation">From Station</label>
                                                     <select name="fromStation[]" class="form-control select2">
+                                                        <option value="" <?= empty($transfer->fromStation) ? 'selected' : ''; ?>>Select Station</option>
                                                         <?php foreach ($stations as $station): ?>
                                                             <option value="<?= $station->stationId ?>" <?= ($transfer->fromStation ?? '') == $station->stationId ? 'selected' : ''; ?>>
                                                                 <?= htmlspecialchars($station->stationName, ENT_QUOTES, 'UTF-8'); ?>
@@ -311,6 +307,7 @@
                                                 <div class="form-group">
                                                     <label for="toStation">To Station</label>
                                                     <select name="toStation[]" class="form-control select2">
+                                                        <option value="" <?= empty($transfer->toStation) ? 'selected' : ''; ?>>Select Station</option>
                                                         <?php foreach ($stations as $station): ?>
                                                             <option value="<?= $station->stationId ?>" <?= ($transfer->toStation ?? '') == $station->stationId ? 'selected' : ''; ?>>
                                                                 <?= htmlspecialchars($station->stationName, ENT_QUOTES, 'UTF-8'); ?>
@@ -334,6 +331,7 @@
                                         </div>
                                     <?php endforeach; ?>
                                 </div>
+
 
 
 

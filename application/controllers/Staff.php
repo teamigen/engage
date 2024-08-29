@@ -382,37 +382,113 @@ class Staff extends CI_Controller
         }
     }
 
-    public function updateStaffDetails()
+    // public function updateStaffDetails()
 
+    // {
+    //     $staffId = $this->input->post('staffId');
+
+
+    //     $this->load->model('StaffModel');
+
+
+    //     $currentStaffData = $this->StaffModel->getStaffById($staffId);
+
+    //     $staffData = [
+
+    //         'staffName'              => $this->input->post('staffName') ?? $currentStaffData->staffName,
+    //         'station'                => $this->input->post('station') ?? $currentStaffData->station,
+    //         'region'                 => $this->input->post('region') ?? $currentStaffData->region,
+    //         'staffType'              => $this->input->post('staffType') ?? $currentStaffData->staffType,
+    //         'officeLocation'         => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
+    //         'joiningDate'        => $this->input->post('joiningDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('joiningDate')))) : $currentStaffData->joiningDate,
+    //         'exitingDate'        => $this->input->post('exitingDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('exitingDate')))) : $currentStaffData->exitingDate,
+    //         'dateofbirth'        => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : $currentStaffData->dateofbirth,
+    //         'dateofAnniversary'  => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : $currentStaffData->dateofAnniversary,
+    //         'username'               => $this->input->post('username') ?? $currentStaffData->username,
+    //         'password'               => $this->input->post('password') ? password_hash($this->input->post('password'), PASSWORD_BCRYPT) : $currentStaffData->password,
+    //         'whatsappNumber'          => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
+    //         'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber') ?? $currentStaffData->alternateWhatsappNumber,
+    //     ];
+
+
+    //     $this->StaffModel->updateStaff($staffId, $staffData);
+
+
+    //     $familyNames = $this->input->post('familyName') ?? [];
+    //     $familyRelations = $this->input->post('familyRelation') ?? [];
+    //     $familyAges = $this->input->post('familyAge') ?? [];
+    //     $familyOccupations = $this->input->post('familyOccupation') ?? [];
+
+    //     if (!empty($familyNames)) {
+    //         $this->StaffModel->deleteFamilyDetails($staffId);
+    //         foreach ($familyNames as $index => $name) {
+
+    //             $familyData = [
+    //                 'staffId' => $staffId,
+    //                 'familyName' => $name,
+    //                 'familyRelation' => $familyRelations[$index] ?? null,
+    //                 'familyAge' => $familyAges[$index] ?? null,
+    //                 'familyOccupation' => $familyOccupations[$index] ?? null,
+    //             ];
+    //             $this->StaffModel->insertFamilyDetails($familyData);
+    //         }
+    //     }
+
+
+    //     $fromStations = $this->input->post('fromStation') ?? [];
+    //     $toStations = $this->input->post('toStation') ?? [];
+    //     $transferDates = $this->input->post('transferDate') ?? [];
+
+    //     if (!empty($fromStations)) {
+    //         $this->StaffModel->deleteTransferDetails($staffId);
+    //         foreach ($fromStations as $index => $fromStation) {
+    //             $transferData = [
+    //                 'staffId' => $staffId,
+    //                 'fromStation' => $fromStation,
+    //                 'toStation' => $toStations[$index] ?? null,
+    //                 'transferDate' => isset($transferDates[$index]) && !empty($transferDates[$index]) ? date('Y-m-d', strtotime($transferDates[$index])) : null,
+    //             ];
+
+    //             $this->StaffModel->insertTransferDetails($transferData);
+    //         }
+    //     }
+
+
+    //     redirect('staff/manage');
+    // }
+
+    public function updateStaffDetails()
     {
         $staffId = $this->input->post('staffId');
 
-
         $this->load->model('StaffModel');
-
 
         $currentStaffData = $this->StaffModel->getStaffById($staffId);
 
         $staffData = [
-
             'staffName'              => $this->input->post('staffName') ?? $currentStaffData->staffName,
             'station'                => $this->input->post('station') ?? $currentStaffData->station,
             'region'                 => $this->input->post('region') ?? $currentStaffData->region,
             'staffType'              => $this->input->post('staffType') ?? $currentStaffData->staffType,
             'officeLocation'         => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
-            'joiningDate'            => $this->input->post('joiningDate') ? date('Y-m-d', strtotime($this->input->post('joiningDate'))) : $currentStaffData->joiningDate,
-            'exitingDate'            => $this->input->post('exitingDate') ? date('Y-m-d', strtotime($this->input->post('exitingDate'))) : $currentStaffData->exitingDate,
+            'joiningDate'            => $this->input->post('joiningDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('joiningDate')))) : $currentStaffData->joiningDate,
+            'exitingDate'            => $this->input->post('exitingDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('exitingDate')))) : $currentStaffData->exitingDate,
             'dateofbirth'            => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime($this->input->post('dateofbirth'))) : $currentStaffData->dateofbirth,
             'dateofAnniversary'      => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime($this->input->post('dateofAnniversary'))) : $currentStaffData->dateofAnniversary,
             'username'               => $this->input->post('username') ?? $currentStaffData->username,
-            'password'                => !empty($this->input->post('password')) ? password_hash($this->input->post('password'), PASSWORD_BCRYPT) : $currentStaffData->password,
-            'whatsappNumber'          => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
+            'whatsappNumber'         => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
             'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber') ?? $currentStaffData->alternateWhatsappNumber,
         ];
 
+       
+        $newPassword = $this->input->post('password');
+        if (!empty($newPassword)) {
+            $staffData['password'] = password_hash($newPassword, PASSWORD_BCRYPT);
+        } else {
+            $staffData['password'] = $currentStaffData->password;
+        }
 
         $this->StaffModel->updateStaff($staffId, $staffData);
-
 
         $familyNames = $this->input->post('familyName') ?? [];
         $familyRelations = $this->input->post('familyRelation') ?? [];
@@ -422,7 +498,6 @@ class Staff extends CI_Controller
         if (!empty($familyNames)) {
             $this->StaffModel->deleteFamilyDetails($staffId);
             foreach ($familyNames as $index => $name) {
-
                 $familyData = [
                     'staffId' => $staffId,
                     'familyName' => $name,
@@ -433,7 +508,6 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertFamilyDetails($familyData);
             }
         }
-
 
         $fromStations = $this->input->post('fromStation') ?? [];
         $toStations = $this->input->post('toStation') ?? [];
@@ -452,7 +526,6 @@ class Staff extends CI_Controller
                 $this->StaffModel->insertTransferDetails($transferData);
             }
         }
-
 
         redirect('staff/manage');
     }

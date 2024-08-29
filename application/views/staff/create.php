@@ -120,10 +120,10 @@
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
                                             <select name="officeLocation" id="officeLocation" class="form-control select2">
-                                            <option selected>Select Location</option>
-                                                    <option value="Head Office">Head Office</option>
-                                                 
-                                           
+                                                <option selected>Select Location</option>
+                                                <option value="Head Office">Head Office</option>
+
+
                                             </select>
                                         </div>
                                     </div>
