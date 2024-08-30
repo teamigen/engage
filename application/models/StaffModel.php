@@ -12,15 +12,26 @@ class StaffModel extends CI_Model
 
     public function insertFamilyDetails($familyData)
     {
-
         $this->db->insert('staff_family', $familyData);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            log_message('error', 'Database error: ' . print_r($this->db->error(), true));
+            return false;
+        }
     }
-
+    
     public function insertTransferDetails($transferData)
     {
-
         $this->db->insert('staff_transfers', $transferData);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            log_message('error', 'Database error: ' . print_r($this->db->error(), true));
+            return false;
+        }
     }
+    
 
     public function getallstaffdetails()
     {

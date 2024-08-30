@@ -146,10 +146,8 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="joiningDate" name="joiningDate" value="<?= htmlspecialchars($staff['joiningDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="joiningDate" name="joiningDate" value="<?= htmlspecialchars($staff['joiningDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -157,10 +155,8 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Exiting</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="exitingDate" name="exitingDate" value="<?= htmlspecialchars($staff['exitingDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="exitingDate" name="exitingDate" value="<?= htmlspecialchars($staff['exitingDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -171,10 +167,8 @@
                                         <div class="form-group">
                                             <label for="dateofbirth">Date of Birth</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" value="<?= htmlspecialchars($staff['dateofbirth'] ?? '', ENT_QUOTES, 'UTF-8') ?>" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" value="<?= htmlspecialchars($staff['dateofbirth'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -182,10 +176,8 @@
                                         <div class="form-group">
                                             <label for="dateofAnniversary">Date of Anniversary</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="dateofAnniversary" name="dateofAnniversary" value="<?= htmlspecialchars($staff['dateofAnniversary'] ?? '', ENT_QUOTES, 'UTF-8') ?>" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="dateofAnniversary" name="dateofAnniversary" value="<?= htmlspecialchars($staff['dateofAnniversary'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -209,7 +201,8 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" class="form-control" name="password" id="password" value="<?= htmlspecialchars($staff['password'] ?? '', ENT_QUOTES, 'UTF-8') ?>" required>
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password if you want to change it">
+
                                         </div>
                                     </div>
                                 </div>
@@ -264,8 +257,10 @@
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="form-group">
-                                                    <label for="familyAge">Age</label>
-                                                    <input class="form-control" type="text" name="familyAge[]" value="<?= htmlspecialchars($family->familyAge ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Age">
+                                                    <label for="FamDOB">Date Of Birth</label>
+                                                    <input class="form-control" type="date" name="FamDOB[]" value="<?= htmlspecialchars($family->FamDOB ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Date of birth">
+                                                  
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -292,6 +287,12 @@
                                         <div class="row transfer-detail">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
+                                                    <label for="transferDate">Transfer Date</label>
+                                                    <input class="form-control" type="date" name="transferDate[]" value="<?= htmlspecialchars($transfer->transferDate ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Transfer Date">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group">
                                                     <label for="fromStation">From Station</label>
                                                     <select name="fromStation[]" class="form-control select2">
                                                         <option value="" <?= empty($transfer->fromStation) ? 'selected' : ''; ?>>Select Station</option>
@@ -316,12 +317,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-group">
-                                                    <label for="transferDate">Transfer Date</label>
-                                                    <input class="form-control" type="date" name="transferDate[]" value="<?= htmlspecialchars($transfer->transferDate ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Transfer Date">
-                                                </div>
-                                            </div>
+
                                             <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
                                                 <i class="mdi mdi-alarm-plus" id="addTransferRow" style="font-style: normal; cursor: pointer;">&nbsp;</i>
                                             </div>
@@ -393,8 +389,10 @@
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <label for="familyAge">Age</label>
-                    <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                    <label for="familyAge">Date Of Birth</label>
+                    <div class="input-group-append">
+                                                       <input type="date" class="form-control" id="FamDOB[]" name="FamDOB[]"  data-date-format="dd M, yyyy">
+                                                </div>
                 </div>
             </div>
             <div class="col-lg-2">

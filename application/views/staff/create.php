@@ -68,7 +68,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="station">Station</label>
-                                            <select name="station" class="form-control select2" id="station">
+                                            <select name="station" class="form-control select2" id="station" required>
                                                 <?php if (!empty($stations)): ?>
                                                     <option selected>Select Station</option>
                                                     <?php foreach ($stations as $st):  ?>
@@ -84,7 +84,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="familyRegion">Region</label>
-                                            <select name="region" id="region" class="form-control select2">
+                                            <select name="region" id="region" class="form-control select2" required>
                                                 <option selected>Select Region</option>
                                                 <?php if (!empty($regions)): ?>
                                                     <?php foreach ($regions as $region): ?>
@@ -106,7 +106,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="staffType">Staff Type</label>
-                                            <select name="staffType" class="form-control select2" id="staffType">
+                                            <select name="staffType" class="form-control select2" id="staffType" required>
                                                 <option selected>Select Staff Type</option>
                                                 <option value="Station Staff">Station Staff</option>
                                                 <option value="Regional Staff">Regional Staff</option>
@@ -119,7 +119,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
-                                            <select name="officeLocation" id="officeLocation" class="form-control select2">
+                                            <select name="officeLocation" id="officeLocation" class="form-control select2" required>
                                                 <option selected>Select Location</option>
                                                 <option value="Head Office">Head Office</option>
 
@@ -135,10 +135,8 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="joiningDate" name="joiningDate" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="joiningDate" name="joiningDate"  data-date-format="dd M, yyyy">
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -146,10 +144,8 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Exiting</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="exitingDate" data-provide="datepicker" data-date-format="dd M, yyyy" name="exitingDate">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="exitingDate"  data-date-format="dd M, yyyy" name="exitingDate">
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -157,10 +153,8 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Birth</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="dateofbirth" name="dateofbirth" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  data-date-format="dd M, yyyy" required>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -168,10 +162,8 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Anniversary</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="dateofAnniversary" data-provide="datepicker" data-date-format="dd M, yyyy" name="dateofAnniversary">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                </div>
+                                                <input type="date" class="form-control" id="dateofAnniversary"  data-date-format="dd M, yyyy" name="dateofAnniversary">
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -186,14 +178,14 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="username">Username</label>
-                                            <input class="form-control" type="text" name="username" placeholder="Username" id="username">
+                                            <input class="form-control" type="text" name="username" placeholder="Username" id="username" required>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input class="form-control" type="password" name="password" placeholder="Password" id="password">
+                                            <input class="form-control" type="password" name="password" placeholder="Password" id="password" required>
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +197,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label for="whatsappNumber">Whatsapp Number</label>
-                                            <input class="form-control" type="text" name="whatsappNumber" placeholder="Whatsapp Number" id="whatsappNumber">
+                                            <input class="form-control" type="text" name="whatsappNumber" placeholder="Whatsapp Number" id="whatsappNumber" required>
                                         </div>
                                     </div>
 
@@ -246,8 +238,9 @@
 
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label for="familyAge">Age</label>
-                                                <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                                                <label for="FamDOB">Date of Birth</label>
+                                                <input type="date" class="form-control" id="FamDOB[]" name="FamDOB[]"  data-date-format="dd M, yyyy">
+                                               
                                             </div>
                                         </div>
 
@@ -273,10 +266,8 @@
                                             <div class="form-group">
                                                 <label for="transferDate">Effective Date</label>
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="transferDate[]" data-provide="datepicker" data-date-format="dd M, yyyy">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                                    </div>
+                                                    <input type="date" class="form-control" name="transferDate[]" data-date-format="dd M, yyyy">
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -382,8 +373,9 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <label for="familyAge">Age</label>
-                        <input class="form-control" type="text" name="familyAge[]" placeholder="Age">
+                        <label for="FamDOB">Date of Birth</label>
+                         <input type="date" class="form-control" id="FamDOB[]" name="FamDOB[]"  data-date-format="dd M, yyyy">
+                                               
                     </div>
                 </div>
                 <div class="col-lg-2">
@@ -415,10 +407,8 @@
                     <div class="form-group">
                         <label for="transferDate">Effective Date</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="transferDate[]" data-provide="datepicker" data-date-format="dd M, yyyy">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                            </div>
+                            <input type="date" class="form-control" name="transferDate[]"  data-date-format="dd M, yyyy">
+                           
                         </div>
                     </div>
                 </div>
@@ -461,7 +451,7 @@
 
             $('.select2').select2();
 
-            $('[data-provide="datepicker"]').datepicker();
+            // $('[data-provide="datepicker"]').datepicker();
         });
 
 
@@ -472,7 +462,7 @@
 </script>
 
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#saveStaff').submit(function(event) {
             event.preventDefault();
@@ -512,7 +502,50 @@
         $('#username').val(filteredText.toLowerCase());
 
     });
+</script> -->
+
+<script>
+   $(document).ready(function() {
+    $('#saveStaff').submit(function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: '<?php echo base_url("Staff/insertStaffDetails"); ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                var message = response.message;
+                var status = response.success ? 'success' : 'error';
+                
+             
+                localStorage.setItem('staffMessage', JSON.stringify({ status: status, message: message }));
+                
+                
+                window.location.href = '<?php echo base_url("staff/manage"); ?>';
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Response Text:', jqXHR.responseText);
+                console.log('Status:', textStatus);
+                console.log('Error Thrown:', errorThrown);
+                localStorage.setItem('staffMessage', JSON.stringify({ status: 'error', message: 'Error occurred: ' + textStatus }));
+                window.location.href = '<?php echo base_url("staff/manage"); ?>';
+            }
+        });
+    });
+
+    $('#staffName').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#staffSlug').val(filteredText.toLowerCase());
+        $('#username').val(filteredText.toLowerCase());
+    });
+});
+
 </script>
+
 
 
 <!-- JAVASCRIPT -->

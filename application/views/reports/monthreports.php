@@ -32,16 +32,16 @@
                                         <?php
                                         function generateMonthSelectBox()
                                         {
-                                            // Get current timestamp
+
                                             $currentTimestamp = time();
 
-                                            // Calculate timestamp for two years ago
+
                                             $twoYearsAgoTimestamp = strtotime('-2 years', $currentTimestamp);
 
-                                            // Create select box
+
                                             echo '<select name="month" class="form-control select2" id="monthSelect">';
 
-                                            // Iterate through months from current month to two years ago
+
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
                                                 // Get month and year
                                                 $month = date('F', $currentTimestamp);
@@ -269,7 +269,7 @@
                                                         <span class="input-group-text"><i
                                                                 class="mdi mdi-calendar"></i></span>
                                                     </div>
-                                                </div><!-- input-group -->
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Event Name</label>
@@ -336,6 +336,57 @@
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script>
+    $(document).ready(function() {
+
+        function addProgram() {
+            let newProgram = $('.event1').first().clone();
+            newProgram.find('input').val('');
+            $('.event1').last().after(newProgram);
+        }
+
+
+        $('.mdi-alarm-plus').click(function() {
+            addProgram();
+        });
+
+
+        $('button[type="button"]').click(function() {
+            let formData = new FormData();
+
+
+            $('input[type="text"]').each(function() {
+                formData.append($(this).attr('name'), $(this).val());
+            });
+
+
+            $('.custom-file-input').each(function() {
+                let files = $(this)[0].files;
+                if (files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append('event_photos[]', files[i]);
+                    }
+                }
+            });
+
+
+            $.ajax({
+                url: 'path/to/your/controller/method',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    alert('Form submitted successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
 
 
 

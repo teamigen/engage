@@ -32,6 +32,7 @@ class Church extends CI_Controller
                 $this->ChurchModel->insertContactPerson($contactData);
             }
         }
+        
         echo json_encode(['status' => 'success']);
     }
 }

@@ -30,6 +30,7 @@ class AuthController extends CI_Controller {
                 $this->session->set_flashdata('error', 'Invalid Username or Password');
                 redirect('login');
             }
+            
         } else {
             
             $this->load->view('login');

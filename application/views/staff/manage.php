@@ -37,6 +37,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <div id="staffMessage"></div>
                             <h4 class="card-title">MANAGE STAFF</h4>
                             <p class="card-title-desc">List of all Staff Members
                             </p>
@@ -117,6 +118,22 @@
         });
     });
 </script>
+
+<script>
+$(document).ready(function() {
+    
+    var staffMessage = localStorage.getItem('staffMessage');
+    if (staffMessage) {
+        var messageObj = JSON.parse(staffMessage);
+        var alertClass = messageObj.status === 'success' ? 'alert-success' : 'alert-danger';
+        $('#staffMessage').html('<div class="alert ' + alertClass + '">' + messageObj.message + '</div>');
+        
+      
+        localStorage.removeItem('staffMessage');
+    }
+});
+</script>
+
 
 
 
