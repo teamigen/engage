@@ -9,7 +9,30 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    #imagePreviewContainer {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
+    #imagePreviewContainer .col-lg-2 {
+        padding: 5px;
+    }
+
+    #imagePreviewContainer img {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+    }
+
+    .custom-file-label::after {
+        content: "Browse";
+    }
+
+    .remove-family {
+        color: red;
+    }
+</style>
 <!-- ============================================================== -->
 <div class="main-content">
 
@@ -111,28 +134,29 @@
                                 </div>
                             </div>
                             <hr>
-                            <form action="#">
+                            <form action="#" id="saveReport">
+                                <div id="reportMessage"></div>
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
-                                            <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                placeholder="No of CGPF Meetings" id="no_of_cgpf_meetings">
+                                            <input class="form-control" type="text" name="CGPF_Number"
+                                                placeholder="No of CGPF Meetings" id="CGPF_Number">
                                         </div>
                                         <div class="form-group">
                                             <label>Number of House Visits</label>
-                                            <input class="form-control" type="text" name="no_of_house_visits"
-                                                placeholder="No of House Visits" id="no_of_house_visits">
+                                            <input class="form-control" type="text" name="House_Visit_Number"
+                                                placeholder="No of House Visits" id="House_Visit_Number">
                                         </div>
                                         <div class="form-group">
                                             <label>Number of Hostel Visits</label>
-                                            <input class="form-control" type="text" name="no_of_hostel_visits"
-                                                placeholder="No of Hostel Visits" id="no_of_hostel_visits">
+                                            <input class="form-control" type="text" name="Hostel_Visit_Number"
+                                                placeholder="No of Hostel Visits" id="Hostel_Visit_Number">
                                         </div>
                                         <div class="form-group">
                                             <label>Number of Personal Evangelisms</label>
-                                            <input class="form-control" type="text" name="no_of_personal_evangelism"
-                                                placeholder="No of Personal Evangelisms" id="no_of_personal_evangelism">
+                                            <input class="form-control" type="text" name="Evangelisms_Number"
+                                                placeholder="No of Personal Evangelisms" id="Evangelisms_Number">
                                         </div>
 
                                     </div>
@@ -141,58 +165,59 @@
 
                                         <div class="form-group">
                                             <label>Accepted Christ</label>
-                                            <input class="form-control" type="text" name="no_of_accepted_christ"
-                                                placeholder="Accepted Christ" id="no_of_accepted_christ">
+                                            <input class="form-control" type="text" name="Accepted_Christ"
+                                                placeholder="Accepted Christ" id="Accepted_Christ">
                                         </div>
                                         <div class="form-group">
                                             <label>Decision for Baptism</label>
-                                            <input class="form-control" type="text" name="no_of_baptism_decision"
-                                                placeholder="Baptism Decisions" id="no_of_baptism_decision">
+                                            <input class="form-control" type="text" name="Baptism_Decision"
+                                                placeholder="Baptism Decisions" id="Baptism_Decision">
                                         </div>
                                         <div class="form-group">
                                             <label>No of Baptisms</label>
-                                            <input class="form-control" type="text" name="no_of_baptisms"
-                                                placeholder="No. of Baptisms" id="no_of_baptisms">
+                                            <input class="form-control" type="text" name="Baptism_Number"
+                                                placeholder="No. of Baptisms" id="Baptism_Number">
                                         </div>
                                         <div class="form-group">
                                             <label>Holyspirt Received</label>
-                                            <input class="form-control" type="text" name="no_of_holyspirit_received"
-                                                placeholder="Holyspirit Received" id="no_of_holyspirit_received">
+                                            <input class="form-control" type="text" name="Holyspirit_Received"
+                                                placeholder="Holyspirit Received" id="Holyspirit_Received">
                                         </div>
                                         <div class="form-group">
                                             <label>Ministry Commitments</label>
-                                            <input class="form-control" type="text" name="no_of_ministry_commitments"
-                                                placeholder="Ministry Commitments" id="no_of_ministry_commitments">
+                                            <input class="form-control" type="text" name="Ministry_Commitments"
+                                                placeholder="Ministry Commitments" id="Ministry_Commitments">
                                         </div>
+
 
                                     </div>
                                 </div>
-                                <hr>
+
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Existing Student Councils</label>
-                                            <input class="form-control" type="text" name="existing_student_councils"
-                                                placeholder="Existing Student Councils" id="existing_student_councils">
+                                            <input class="form-control" type="text" name="Existing_Student_Councils"
+                                                placeholder="Existing Student Councils" id="Existing_Student_Councils">
                                         </div>
 
                                         <div class="form-group">
                                             <label>New Student Councils</label>
-                                            <input class="form-control" type="text" name="new_student_councils"
-                                                placeholder="New Student Councils" id="new_student_councils">
+                                            <input class="form-control" type="text" name="New_Student_Councils"
+                                                placeholder="New Student Councils" id="New_Student_Councils">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label>Existing CGPF</label>
-                                            <input class="form-control" type="text" name="existing_cgpf"
-                                                placeholder="Existing CGPF" id="existing_cgpf">
+                                            <input class="form-control" type="text" name="Existing_CGPF"
+                                                placeholder="Existing CGPF" id="Existing_CGPF">
                                         </div>
 
                                         <div class="form-group">
                                             <label>New CGPF</label>
-                                            <input class="form-control" type="text" name="new_cgpf"
-                                                placeholder="New CGPF" id="new_cgpf">
+                                            <input class="form-control" type="text" name="New_CGPF"
+                                                placeholder="New CGPF" id="New_CGPF">
                                         </div>
                                     </div>
                                 </div>
@@ -203,124 +228,137 @@
                                     <hr>
                                 </div>
                                 <div class="row">
-
                                     <div class="col-lg-6">
-
                                         <div class="form-group mb-4">
                                             <label>First Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="First Sunday">
-                                                <option selected>Select Church</option>
-                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            <select name="first_sunday_church" class="form-control select2" id="firstSundaySelect" placeholder="First Sunday">
+                                                <option value="" selected>Select Church</option>
+                                                <?php foreach ($churches as $church): ?>
+                                                    <option value="<?= $church->churchId ?>">
+                                                        <?= $church->churchName ?>, <?= $church->locationName ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Second Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Second Sunday">
-                                                <option selected>Select Church</option>
-                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            <select name="second_sunday_church" class="form-control select2" id="secondSundaySelect" placeholder="Second Sunday">
+                                                <option value="" selected>Select Church</option>
+                                                <?php foreach ($churches as $church): ?>
+                                                    <option value="<?= $church->churchId ?>">
+                                                        <?= $church->churchName ?>, <?= $church->locationName ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
-
-
                                     </div>
                                     <div class="col-lg-6">
-
-
                                         <div class="form-group mb-4">
                                             <label>Third Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Third Sunday">
-                                                <option selected>Select Church</option>
-                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            <select name="third_sunday_church" class="form-control select2" id="thirdSundaySelect" placeholder="Third Sunday">
+                                                <option value="" selected>Select Church</option>
+                                                <?php foreach ($churches as $church): ?>
+                                                    <option value="<?= $church->churchId ?>">
+                                                        <?= $church->churchName ?>, <?= $church->locationName ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Fourth Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Fourth Sunday">
-                                                <option selected>Select Church</option>
-                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            <select name="fourth_sunday_church" class="form-control select2" id="fourthSundaySelect" placeholder="Fourth Sunday">
+                                                <option value="" selected>Select Church</option>
+                                                <?php foreach ($churches as $church): ?>
+                                                    <option value="<?= $church->churchId ?>">
+                                                        <?= $church->churchName ?>, <?= $church->locationName ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="form-group mb-4">
                                             <label>Fifth Sunday</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Fifth Sunday">
-                                                <option selected>Select Church</option>
-                                                <option value="">Shalom AG Church, Vadasserikkara</option>
+                                            <select name="fifth_sunday_church" class="form-control select2" id="fifthSundaySelect" placeholder="Fifth Sunday">
+                                                <option value="" selected>Select Church</option>
+                                                <?php foreach ($churches as $church): ?>
+                                                    <option value="<?= $church->churchId ?>">
+                                                        <?= $church->churchName ?>, <?= $church->locationName ?>
+                                                    </option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-6" style="font-weight: bold; font-size:18px;">Special Programs</div>
-                                    <div class="col-lg-6" style="text-align: right; font-weight: bold; font-size:18px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
-                                </div>
-                                <hr>
-                                <div class="event1 events">
-                                    <div class="row">
-
-                                        <div class="col-lg-6">
-
-                                            <div class="form-group mb-4">
-                                                <label>Date of Program</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" data-provide="datepicker"
-                                                        data-date-format="dd M, yyyy">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text"><i
-                                                                class="mdi mdi-calendar"></i></span>
-                                                    </div>
-                                                </div>
+                                    <div class="col-lg-6" style="text-align: right;">
+                                        <div class="row">
+                                            <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#0545f5;">
+                                                <i class="mdi mdi-alarm-plus" id="addFamilyRow" style="font-style: normal; cursor: pointer;">&nbsp;</i>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Event Name</label>
-                                                <input class="form-control" type="text" name="new_cgpf"
-                                                    placeholder="Event Name" id="new_cgpf">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Event Location</label>
-                                                <input class="form-control" type="text" name="new_cgpf"
-                                                    placeholder="Event Location" id="new_cgpf">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-lg-6">
-
-
-                                            <div class="form-group">
-                                                <label>Resource Person</label>
-                                                <input class="form-control" type="text" name="resource_person"
-                                                    placeholder="Resource Person" id="resource_person">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Attendance</label>
-                                                <input class="form-control" type="text" name="event_attendance"
-                                                    placeholder="Attendance" id="event_attendance">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Event Photos</label>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile">
-                                                    <label class="custom-file-label" for="customFile" multiple>Choose file</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="row">
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px; color:#f54b42;">
+                                                <!-- <i class="mdi mdi-close-thick remove-family" id="removeFamilyRow" style="font-style: normal; cursor: pointer;">&nbsp;</i> -->
                                             </div>
                                         </div>
                                     </div>
-
-                                    <hr>
                                 </div>
+                                <hr>
+
+
+                                <div id="eventsContainer">
+                                    <div class="event1 events default">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group mb-4">
+                                                    <label>Date of Program</label>
+                                                    <div class="input-group">
+                                                        <input type="date" class="form-control" name="events[default][program_date]">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Event Name</label>
+                                                    <input class="form-control" type="text" name="events[default][event_name]" placeholder="Event Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Event Location</label>
+                                                    <input class="form-control" type="text" name="events[default][event_location]" placeholder="Event Location">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Resource Person</label>
+                                                    <input class="form-control" type="text" name="events[default][resource_person]" placeholder="Resource Person">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Attendance</label>
+                                                    <input class="form-control" type="text" name="events[default][attendance]" placeholder="Attendance">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Event Photos</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="events[default][photos][]" multiple onchange="displayImages(this)">
+                                                        <label class="custom-file-label">Choose files</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row" id="imagePreviewContainer_default">
+                                            
+                                                </div>
+                                                <i class="mdi mdi-close-thick remove-event" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+
+
+
                                 <div class="row">
                                     <div class="col-lg-12" style="text-align: right;">
-                                        <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                         <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
                                     </div>
                                 </div>
@@ -337,56 +375,161 @@
 </div>
 <!-- End Page-content -->
 
+
 <script>
-    $(document).ready(function() {
+    document.getElementById('addFamilyRow').addEventListener('click', addEvent);
 
-        function addProgram() {
-            let newProgram = $('.event1').first().clone();
-            newProgram.find('input').val('');
-            $('.event1').last().after(newProgram);
-        }
+    function addEvent() {
+        const container = document.getElementById('eventsContainer');
+        const eventSection = document.createElement('div');
+        eventSection.className = 'event1 events';
 
+        const uniqueId = Date.now();
 
-        $('.mdi-alarm-plus').click(function() {
-            addProgram();
+        eventSection.innerHTML = `
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group mb-4">
+                    <label>Date of Program</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="events[${uniqueId}][program_date]">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Event Name</label>
+                    <input class="form-control" type="text" name="events[${uniqueId}][event_name]" placeholder="Event Name">
+                </div>
+                <div class="form-group">
+                    <label>Event Location</label>
+                    <input class="form-control" type="text" name="events[${uniqueId}][event_location]" placeholder="Event Location">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Resource Person</label>
+                    <input class="form-control" type="text" name="events[${uniqueId}][resource_person]" placeholder="Resource Person">
+                </div>
+                <div class="form-group">
+                    <label>Attendance</label>
+                    <input class="form-control" type="text" name="events[${uniqueId}][attendance]" placeholder="Attendance">
+                </div>
+                <div class="form-group">
+                    <label>Event Photos</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="events[${uniqueId}][photos][]" multiple onchange="displayImages(this)">
+                        <label class="custom-file-label">Choose files</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="row" id="imagePreviewContainer_${uniqueId}">
+                    <!-- Image previews will be added here -->
+                </div>
+                <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+            </div>
+        </div>
+        <hr>
+    `;
+
+        container.appendChild(eventSection);
+
+        eventSection.querySelector('.remove-family').addEventListener('click', () => {
+            if (confirm("Are you sure you want to remove this event?")) {
+                container.removeChild(eventSection);
+            }
         });
+    }
 
 
-        $('button[type="button"]').click(function() {
-            let formData = new FormData();
-
-
-            $('input[type="text"]').each(function() {
-                formData.append($(this).attr('name'), $(this).val());
-            });
-
-
-            $('.custom-file-input').each(function() {
-                let files = $(this)[0].files;
-                if (files.length > 0) {
-                    for (let i = 0; i < files.length; i++) {
-                        formData.append('event_photos[]', files[i]);
-                    }
+    document.querySelectorAll('.remove-family').forEach(button => {
+        button.addEventListener('click', function() {
+            const eventSection = this.closest('.event1');
+            if (eventSection.classList.contains('default')) {
+                alert('You cannot remove the default program details.');
+            } else {
+                if (confirm("Are you sure you want to remove this event?")) {
+                    eventSection.remove();
                 }
-            });
-
-
-            $.ajax({
-                url: 'path/to/your/controller/method',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    alert('Form submitted successfully');
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
+            }
         });
     });
+
+    function displayImages(input) {
+        const container = input.closest('.event1').querySelector('[id^="imagePreviewContainer"]');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        const files = input.files;
+        const maxFiles = 6;
+
+        for (let i = 0; i < files.length && i < maxFiles; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = 'img-thumbnail';
+
+                const div = document.createElement('div');
+                div.className = 'col-lg-2';
+                div.appendChild(img);
+
+                container.appendChild(div);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('#saveReport').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '<?php echo base_url('staff/insertReport'); ?>',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+
+                    var response = JSON.parse(response);
+
+                    if (response.success) {
+
+                        $('#reportMessage').html('<div class="alert alert-success"><p>Month Report Successfully Created!</p></div>');
+                        $('#saveReport').trigger("reset");
+                    } else {
+
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        for (var key in response.error) {
+                            if (response.error.hasOwnProperty(key)) {
+                                errorMessage += "<p>" + response.error[key] + "</p>";
+                            }
+                        }
+                        errorMessage += "</div>";
+                        $('#reportMessage').html(errorMessage);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                }
+            });
+        });
+
+
+
+    });
+</script>
+
+
 
 
 

@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -24,15 +24,15 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                            <li class="" style="margin-right:20px;">
-                                <div class="form-group">
-                                    <select name="station" class="form-control select2" id="station">
-                                        <option value="">Trivandrum</option>
-                                        <option value="">Kollam</option>
-                                        <option value="">Pathanamthitta</option>
-                                    </select>
-                                </div>
-                            </li>
+                                <li class="" style="margin-right:20px;">
+                                    <div class="form-group">
+                                        <select name="station" class="form-control select2" id="station">
+                                            <option value="">Trivandrum</option>
+                                            <option value="">Kollam</option>
+                                            <option value="">Pathanamthitta</option>
+                                        </select>
+                                    </div>
+                                </li>
                                 <li class="" style="margin-right:20px;">
                                     <div class="form-group">
 
@@ -41,18 +41,18 @@
                                         <?php
                                         function generateMonthSelectBox()
                                         {
-                                            // Get current timestamp
+                                            
                                             $currentTimestamp = time();
 
-                                            // Calculate timestamp for two years ago
+                                            
                                             $twoYearsAgoTimestamp = strtotime('-2 years', $currentTimestamp);
 
-                                            // Create select box
+                                            
                                             echo '<select name="month" class="form-control select2" id="monthSelect">';
 
-                                            // Iterate through months from current month to two years ago
+                            
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
-                                                // Get month and year
+                                                
                                                 $month = date('F', $currentTimestamp);
                                                 $year = date('Y', $currentTimestamp);
 
@@ -75,12 +75,15 @@
 
 
                                         <script>
-                                            $(document).ready(function () {
+                                            $(document).ready(function() {
                                                 // Get current month and year
-                                                var currentMonthYear = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+                                                var currentMonthYear = new Date().toLocaleString('en-US', {
+                                                    month: 'long',
+                                                    year: 'numeric'
+                                                });
                                                 $('.dispmnth').text(currentMonthYear);
 
-                                                $('#monthSelect').change(function () {
+                                                $('#monthSelect').change(function() {
                                                     var selectedMonth = $(this).val();
                                                     $('.dispmnth').text(selectedMonth);
                                                 });
@@ -100,13 +103,13 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                    <h4 class="card-title">REPORT FOR THE MONTH OF <span class="dispmnth"
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">REPORT FOR THE MONTH OF <span class="dispmnth"
                                     style="text-transform: uppercase;"></span></h4>
                             <p class="card-title-desc">Ministry Report in Detail
                             </p>
@@ -118,118 +121,118 @@
                             </div>
                             <hr>
                             <div class="row">
-                                
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
-                                        Number of CGPF Meetings <span style="float:right;">7</span> 
+
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
+                                        Number of CGPF Meetings <span style="float:right;">7</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
+                                        Number of House Visits <span style="float:right;">6</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
-                                        Number of House Visits <span style="float:right;">6</span> 
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
+                                        Number of Hostel Visits <span style="float:right;">17</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
+                                        Number of Personal Evangelisms <span style="float:right; ">12</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
-                                        Number of Hostel Visits <span style="float:right;">17</span> 
-                                    </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px;">
-                                        Number of Personal Evangelisms <span style="float:right; ">12</span> 
-                                    </div>
-                                    </div>
-                                
+                                </div>
+
                             </div>
                             <hr>
                             <div class="row">
-                                
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Accepted Christ <span style="float:right;">2</span> 
+
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Accepted Christ <span style="float:right;">2</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Decision for Baptism <span style="float:right;">2</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Decision for Baptism <span style="float:right;">2</span> 
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Baptisms <span style="float:right;">2</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Holy Spirit Received by <span style="float:right;">6</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Baptisms <span style="float:right;">2</span> 
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Ministry Committments <span style="float:right; ">1</span>
                                     </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Holy Spirit Received by <span style="float:right;">6</span> 
-                                    </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Ministry Committments <span style="float:right; ">1</span> 
-                                    </div>
-                                    </div>
-                                
+                                </div>
+
                             </div>
                             <hr>
                             <div class="row">
-                                
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Existing Student Councils<span style="float:right;">4</span> 
+
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Existing Student Councils<span style="float:right;">4</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        New Student Councils <span style="float:right;">2</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        New Student Councils <span style="float:right;">2</span> 
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        Existing CGPF <span style="float:right;">2</span>
                                     </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                        New CGPF <span style="float:right;">1</span>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        Existing CGPF <span style="float:right;">2</span> 
-                                    </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
-                                        New CGPF <span style="float:right;">1</span> 
-                                    </div>
-                                    </div>
-                                   
-                                
+                                </div>
+
+
                             </div>
                             <hr>
                             <div class="row">
-                                
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         First Sunday: AG Church, Kulathur
                                     </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Second Sunday: IPC Sreekariyam
                                     </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Third Sunday: IPC Tabor
                                     </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Fourth Sunday: Sharon Fellowship Church, Pattom
                                     </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
+                                </div>
+                                <div class="col-md-3">
+                                    <div style="background-color: #f1f1f1; color:black; border-radius: 3px; height:40px; padding:10px; margin-bottom:15px;">
                                         Fifth Sunday: Life Fellowship, Mannanthala
                                     </div>
-                                    </div>
-                                
+                                </div>
+
                             </div>
-                                            <form action="#">
-                                            
-                                
+                            <form action="#">
+
+
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-6" style="font-weight: bold; font-size:18px;">Special Programs</div>
@@ -237,87 +240,87 @@
                                 </div>
                                 <hr>
                                 <div class="event1 events">
-                                <div class="row">
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                               <strong style="font-size: 18px;"> Date of Program</strong><br />
-                                1 August 2024
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;">  Event Name</strong><br />
-                                One Day Retreat
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Event Location</strong><br />
-                                Marthoma Retreat Centre
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Resource Person</strong><br />
-                                Dr. K. Muralidhar
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Attendance</strong><br />
-                                340
-                                </div>
-                                   
-                                    
-                                    <div class="col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Date of Program</strong><br />
+                                            1 August 2024
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Event Name</strong><br />
+                                            One Day Retreat
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Event Location</strong><br />
+                                            Marthoma Retreat Centre
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Resource Person</strong><br />
+                                            Dr. K. Muralidhar
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Attendance</strong><br />
+                                            340
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <hr>
                                 </div>
-                                                
-                                        <hr>
-                                        </div>
-                                        <hr>
+                                <hr>
                                 <div class="event1 events">
-                                <div class="row">
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                               <strong style="font-size: 18px;"> Date of Program</strong><br />
-                                1 August 2024
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;">  Event Name</strong><br />
-                                One Day Retreat
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Event Location</strong><br />
-                                Marthoma Retreat Centre
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Resource Person</strong><br />
-                                Dr. K. Muralidhar
-                                </div>
-                                <div class="col-lg-2" style="margin-bottom:20px;">
-                                <strong style="font-size: 18px;"> Attendance</strong><br />
-                                340
-                                </div>
-                                   
-                                    
-                                    <div class="col-lg-12">
-                                        <div class="row">
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
-                                            <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Date of Program</strong><br />
+                                            1 August 2024
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Event Name</strong><br />
+                                            One Day Retreat
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Event Location</strong><br />
+                                            Marthoma Retreat Centre
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Resource Person</strong><br />
+                                            Dr. K. Muralidhar
+                                        </div>
+                                        <div class="col-lg-2" style="margin-bottom:20px;">
+                                            <strong style="font-size: 18px;"> Attendance</strong><br />
+                                            340
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                                <div class="col-lg-2"><img src="<?= base_url(); ?>assets/images/authentication-bg.jpg" style="width:100%;"></div>
+                                            </div>
                                         </div>
                                     </div>
+
+                                    <hr>
                                 </div>
-                                                
-                                        <hr>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                            <div class="table-responsive">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive">
                                             <table class="table mb-0">
-        
+
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>Week</th>
@@ -387,24 +390,24 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12" style="text-align: right;">
-                                                <button type="button" class="btn btn-success waves-effect waves-light">Approve</button>
-                                                <button type="button" class="btn btn-danger waves-effect waves-light">Reject</button>
-                                            </div>
-                                        </div>
-                                            </form>
-                                        </div>
-        
-                                       
                                     </div>
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="button" class="btn btn-success waves-effect waves-light">Approve</button>
+                                        <button type="button" class="btn btn-danger waves-effect waves-light">Reject</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
 

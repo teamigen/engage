@@ -25,6 +25,13 @@ class ChurchModel extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function getAllChurches() {
+        $this->db->select('churches.churchId, churches.churchName, eg_location.locationName');
+        $this->db->from('churches');
+        $this->db->join('eg_location', 'churches.churchLocation = eg_location.locationId', 'left');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     
 }

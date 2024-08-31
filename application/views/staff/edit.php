@@ -68,12 +68,13 @@
 
                                     <div class="col-lg-3">
                                         <div class="form-group">
+                                            
                                             <label for="station">Station</label>
 
                                             <div class="input-group">
-                                                <select name="station" class="form-control select2" id="station">
+                                                <select name="station" class="form-control select2" id="station" required>
                                                     <?php if (!empty($stations)): ?>
-                                                        <option value="">Select Station</option>
+                                                        <option value="">Select Station</option >
                                                         <?php foreach ($stations as $st): ?>
                                                             <option value="<?= $st->stationId; ?>" <?= ($st->stationId == $staff['station']) ? 'selected' : ''; ?>>
                                                                 <?= $st->stationName; ?>
@@ -91,7 +92,7 @@
                                         <div class="form-group">
                                             <label for="familyRegion">Region</label>
                                             <div class="input-group">
-                                                <select name="region" id="region" class="form-control select2">
+                                                <select name="region" id="region" class="form-control select2" required>
                                                     <option value="">Select Region</option>
                                                     <?php if (!empty($regions)): ?>
                                                         <?php foreach ($regions as $region): ?>
@@ -116,7 +117,7 @@
                                         <div class="form-group">
                                             <label for="staffType">Staff Type</label>
                                             <div class="input-group">
-                                                <select name="staffType" class="form-control select2" id="staffType">
+                                                <select name="staffType" class="form-control select2" id="staffType" required>
                                                     <option value="">Select Staff Type</option>
                                                     <option value="Station Staff" <?= ($staff['staffType'] == 'Station Staff') ? 'selected' : ''; ?>>Station Staff</option>
                                                     <option value="Regional Staff" <?= ($staff['staffType'] == 'Regional Staff') ? 'selected' : ''; ?>>Regional Staff</option>
@@ -131,7 +132,7 @@
                                             <label for="officeLocation">Office Location</label>
 
 
-                                            <select name="officeLocation" id="officeLocation" class="form-control select2">
+                                            <select name="officeLocation" id="officeLocation" class="form-control select2" required>
                                                 <option value="">Select Office</option>
                                                 <option value="Head Office" <?= ($staff['officeLocation'] == 'Head Office') ? 'selected' : ''; ?>>Head Office</option>
 
@@ -146,6 +147,7 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
+
                                                 <input type="date" class="form-control" id="joiningDate" name="joiningDate" value="<?= htmlspecialchars($staff['joiningDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
                                                
                                             </div>
@@ -155,6 +157,7 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Exiting</label>
                                             <div class="input-group">
+
                                                 <input type="date" class="form-control" id="exitingDate" name="exitingDate" value="<?= htmlspecialchars($staff['exitingDate'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
                                                 
                                             </div>
@@ -167,7 +170,8 @@
                                         <div class="form-group">
                                             <label for="dateofbirth">Date of Birth</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" value="<?= htmlspecialchars($staff['dateofbirth'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
+
+                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" value="<?= htmlspecialchars($staff['dateofbirth'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy" required>
                                               
                                             </div>
                                         </div>
@@ -176,6 +180,7 @@
                                         <div class="form-group">
                                             <label for="dateofAnniversary">Date of Anniversary</label>
                                             <div class="input-group">
+
                                                 <input type="date" class="form-control" id="dateofAnniversary" name="dateofAnniversary" value="<?= htmlspecialchars($staff['dateofAnniversary'] ?? '', ENT_QUOTES, 'UTF-8') ?>"  data-date-format="dd M, yyyy">
                                                 
                                             </div>

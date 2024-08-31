@@ -70,7 +70,7 @@
                                             <label for="station">Station</label>
                                             <select name="station" class="form-control select2" id="station" required>
                                                 <?php if (!empty($stations)): ?>
-                                                    <option selected>Select Station</option>
+                                                    <option value="">Select Station</option>
                                                     <?php foreach ($stations as $st):  ?>
                                                         <option value="<?= $st->stationId; ?>"><?= $st->stationName; ?></option>
                                                     <?php endforeach; ?>
@@ -85,7 +85,7 @@
                                         <div class="form-group">
                                             <label for="familyRegion">Region</label>
                                             <select name="region" id="region" class="form-control select2" required>
-                                                <option selected>Select Region</option>
+                                                <option value="">Select Region</option>
                                                 <?php if (!empty($regions)): ?>
                                                     <?php foreach ($regions as $region): ?>
                                                         <option value="<?php echo $region->regionId; ?>"><?php echo $region->regionName; ?></option>
@@ -107,7 +107,7 @@
                                         <div class="form-group">
                                             <label for="staffType">Staff Type</label>
                                             <select name="staffType" class="form-control select2" id="staffType" required>
-                                                <option selected>Select Staff Type</option>
+                                                <option value="" selected>Select Staff Type</option>
                                                 <option value="Station Staff">Station Staff</option>
                                                 <option value="Regional Staff">Regional Staff</option>
                                                 <option value="Office Staff">Office Staff</option>
@@ -120,7 +120,7 @@
                                         <div class="form-group">
                                             <label for="officeLocation">Office Location</label>
                                             <select name="officeLocation" id="officeLocation" class="form-control select2" required>
-                                                <option selected>Select Location</option>
+                                                <option value="" selected>Select Location</option>
                                                 <option value="Head Office">Head Office</option>
 
 
@@ -135,8 +135,8 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="joiningDate" name="joiningDate"  data-date-format="dd M, yyyy">
-                                               
+                                                <input type="date" class="form-control" id="joiningDate" name="joiningDate" data-date-format="dd M, yyyy">
+
                                             </div>
                                         </div>
                                     </div>
@@ -144,8 +144,8 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Exiting</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="exitingDate"  data-date-format="dd M, yyyy" name="exitingDate">
-                                                
+                                                <input type="date" class="form-control" id="exitingDate" data-date-format="dd M, yyyy" name="exitingDate">
+
                                             </div>
                                         </div>
                                     </div>
@@ -153,8 +153,8 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Birth</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  data-date-format="dd M, yyyy" required>
-                                                
+                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" data-date-format="dd M, yyyy" required>
+
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +162,8 @@
                                         <div class="form-group">
                                             <label for="exitingDate">Date of Anniversary</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="dateofAnniversary"  data-date-format="dd M, yyyy" name="dateofAnniversary">
-                                                
+                                                <input type="date" class="form-control" id="dateofAnniversary" data-date-format="dd M, yyyy" name="dateofAnniversary">
+
                                             </div>
                                         </div>
                                     </div>
@@ -239,8 +239,8 @@
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label for="FamDOB">Date of Birth</label>
-                                                <input type="date" class="form-control" id="FamDOB[]" name="FamDOB[]"  data-date-format="dd M, yyyy">
-                                               
+                                                <input type="date" class="form-control" id="FamDOB[]" name="FamDOB[]" data-date-format="dd M, yyyy">
+
                                             </div>
                                         </div>
 
@@ -267,7 +267,7 @@
                                                 <label for="transferDate">Effective Date</label>
                                                 <div class="input-group">
                                                     <input type="date" class="form-control" name="transferDate[]" data-date-format="dd M, yyyy">
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -505,45 +505,50 @@
 </script> -->
 
 <script>
-   $(document).ready(function() {
-    $('#saveStaff').submit(function(event) {
-        event.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            url: '<?php echo base_url("Staff/insertStaffDetails"); ?>',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function(response) {
-                var message = response.message;
-                var status = response.success ? 'success' : 'error';
-                
-             
-                localStorage.setItem('staffMessage', JSON.stringify({ status: status, message: message }));
-                
-                
-                window.location.href = '<?php echo base_url("staff/manage"); ?>';
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('Response Text:', jqXHR.responseText);
-                console.log('Status:', textStatus);
-                console.log('Error Thrown:', errorThrown);
-                localStorage.setItem('staffMessage', JSON.stringify({ status: 'error', message: 'Error occurred: ' + textStatus }));
-                window.location.href = '<?php echo base_url("staff/manage"); ?>';
-            }
+    $(document).ready(function() {
+        $('#saveStaff').submit(function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '<?php echo base_url("Staff/insertStaffDetails"); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    var message = response.message;
+                    var status = response.success ? 'success' : 'error';
+
+
+                    localStorage.setItem('staffMessage', JSON.stringify({
+                        status: status,
+                        message: message
+                    }));
+
+
+                    window.location.href = '<?php echo base_url("staff/manage"); ?>';
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('Response Text:', jqXHR.responseText);
+                    console.log('Status:', textStatus);
+                    console.log('Error Thrown:', errorThrown);
+                    localStorage.setItem('staffMessage', JSON.stringify({
+                        status: 'error',
+                        message: 'Error occurred: ' + textStatus
+                    }));
+                    window.location.href = '<?php echo base_url("staff/manage"); ?>';
+                }
+            });
+        });
+
+        $('#staffName').keyup(function() {
+            var originalText = $(this).val();
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#staffSlug').val(filteredText.toLowerCase());
+            $('#username').val(filteredText.toLowerCase());
         });
     });
-
-    $('#staffName').keyup(function() {
-        var originalText = $(this).val();
-        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
-        $('#staffSlug').val(filteredText.toLowerCase());
-        $('#username').val(filteredText.toLowerCase());
-    });
-});
-
 </script>
 
 
