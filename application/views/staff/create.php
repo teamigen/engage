@@ -135,7 +135,7 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Joining</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="joiningDate" name="joiningDate" data-date-format="dd M, yyyy">
+                                                <input value="" type="date" class="form-control" id="joiningDate" name="joiningDate" data-date-format="dd M, yyyy" required>
 
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                         <div class="form-group">
                                             <label for="joiningDate">Date of Birth</label>
                                             <div class="input-group">
-                                                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" data-date-format="dd M, yyyy" required>
+                                                <input value="" type="date" class="form-control" id="dateofbirth" name="dateofbirth" data-date-format="dd M, yyyy" required>
 
                                             </div>
                                         </div>

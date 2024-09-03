@@ -59,7 +59,7 @@
 
                                 <div class="form-group">
                                     <label>Region</label>
-                                    <select name="selectedRegion" class="form-control select2" id="selectedRegion" placeholder="Select Region">
+                                    <select name="selectedRegion" class="form-control select2" id="selectedRegion" placeholder="Select Region" required>
                                         <option selected>Select Region</option>
                                         <?php if (!empty($regions)): ?>
                                             <?php foreach ($regions as $region): ?>

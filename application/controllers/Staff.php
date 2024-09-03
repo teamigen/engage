@@ -569,6 +569,8 @@ class Staff extends CI_Controller
 
     public function updateStaffDetails()
     {
+
+       
         $staffId = $this->input->post('staffId');
 
         $this->load->model('StaffModel');
@@ -645,90 +647,113 @@ class Staff extends CI_Controller
 
         redirect('staff/manage');
     }
+    
 
 
 
-    public function insertReport()
-    {
-        $this->load->model('ReportModel');
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('CGPF_Number', 'Number of CGPF Meetings', 'required');
-        $this->form_validation->set_rules('House_Visit_Number', 'Number of House Visits', 'required');
-        $this->form_validation->set_rules('Hostel_Visit_Number', 'Number of Hostel Visits', 'required');
-        $this->form_validation->set_rules('Evangelisms_Number', 'Number of Personal Evangelisms', 'required');
-        $this->form_validation->set_rules('Accepted_Christ', 'Accepted Christ', 'required');
-        $this->form_validation->set_rules('Baptism_Decision', 'Decision for Baptism', 'required');
-        $this->form_validation->set_rules('Baptism_Number', 'No of Baptisms', 'required');
-        $this->form_validation->set_rules('Holyspirit_Received', 'Holyspirit Received', 'required');
-        $this->form_validation->set_rules('Ministry_Commitments', 'Ministry Commitments', 'required');
-        $this->form_validation->set_rules('Existing_Student_Councils', 'Existing Student Councils', 'required');
-        $this->form_validation->set_rules('New_Student_Councils', 'New Student Councils', 'required');
-        $this->form_validation->set_rules('Existing_CGPF', 'Existing CGPF', 'required');
-        $this->form_validation->set_rules('New_CGPF', 'New CGPF', 'required');
-
-        if ($this->form_validation->run() == FALSE) {
-            $response = array('success' => false, 'error' => validation_errors());
-        } else {
-            $formData = $this->input->post();
-            $reportData = array(
-                'CGPF_Number' => $formData['CGPF_Number'],
-                'House_Visit_Number' => $formData['House_Visit_Number'],
-                'Hostel_Visit_Number' => $formData['Hostel_Visit_Number'],
-                'Evangelisms_Number' => $formData['Evangelisms_Number'],
-                'Accepted_Christ' => $formData['Accepted_Christ'],
-                'Baptism_Decision' => $formData['Baptism_Decision'],
-                'Baptism_Number' => $formData['Baptism_Number'],
-                'Holyspirit_Received' => $formData['Holyspirit_Received'],
-                'Ministry_Commitments' => $formData['Ministry_Commitments'],
-                'Existing_Student_Councils' => $formData['Existing_Student_Councils'],
-                'New_Student_Councils' => $formData['New_Student_Councils'],
-                'Existing_CGPF' => $formData['Existing_CGPF'],
-                'New_CGPF' => $formData['New_CGPF'],
-                'first_sunday_church' => $formData['first_sunday_church'],
-                'second_sunday_church' => $formData['second_sunday_church'],
-                'third_sunday_church' => $formData['third_sunday_church'],
-                'fourth_sunday_church' => $formData['fourth_sunday_church'],
-                'fifth_sunday_church' => $formData['fifth_sunday_church']
-            );
-
-
-
-
-
-            if ($this->ReportModel->insert($reportData)) {
-                $response = array('success' => true);
-            } else {
-                $response = array('success' => false, 'error' => 'An error occurred while saving the report.');
-            }
-        }
-
-        echo json_encode($response);
-    }
-
-    // if (!empty($_FILES['events']['name']['photos'])) {
-    //     $files = $_FILES['events']['name']['photos'];
-    //     $filesCount = count($files);
-
-    //     $uploadedFiles = [];
-    //     for ($i = 0; $i < $filesCount; $i++) {
-    //         $_FILES['file']['name'] = $files[$i];
-    //         $_FILES['file']['type'] = $_FILES['events']['type']['photos'][$i];
-    //         $_FILES['file']['tmp_name'] = $_FILES['events']['tmp_name']['photos'][$i];
-    //         $_FILES['file']['error'] = $_FILES['events']['error']['photos'][$i];
-    //         $_FILES['file']['size'] = $_FILES['events']['size']['photos'][$i];
-
-    //         $uploadPath = './uploads/events/';
-    //         $config['upload_path'] = $uploadPath;
-    //         $config['allowed_types'] = 'jpg|jpeg|png|gif';
-
-
-    //         $this->load->library('upload', $config);
-
-    //         if ($this->upload->do_upload('file')) {
-    //             $uploadedFiles[] = $this->upload->data('file_name');
+    // public function insertReport()
+    // {
+    //     $this->load->model('ReportModel');
+    //     $this->load->model('EventModel');
+    //     $this->load->library('form_validation');
+    //     $this->load->library('upload');
+    
+       
+    //     $this->form_validation->set_rules('CGPF_Number', 'Number of CGPF Meetings', 'required');
+    //     $this->form_validation->set_rules('House_Visit_Number', 'Number of House Visits', 'required');
+    //     $this->form_validation->set_rules('Hostel_Visit_Number', 'Number of Hostel Visits', 'required');
+    //     $this->form_validation->set_rules('Evangelisms_Number', 'Number of Personal Evangelisms', 'required');
+    //     $this->form_validation->set_rules('Accepted_Christ', 'Accepted Christ', 'required');
+    //     $this->form_validation->set_rules('Baptism_Decision', 'Decision for Baptism', 'required');
+    //     $this->form_validation->set_rules('Baptism_Number', 'No of Baptisms', 'required');
+    //     $this->form_validation->set_rules('Holyspirit_Received', 'Holyspirit Received', 'required');
+    //     $this->form_validation->set_rules('Ministry_Commitments', 'Ministry Commitments', 'required');
+    //     $this->form_validation->set_rules('Existing_Student_Councils', 'Existing Student Councils', 'required');
+    //     $this->form_validation->set_rules('New_Student_Councils', 'New Student Councils', 'required');
+    
+    //     if ($this->form_validation->run() == FALSE) {
+    //         $response = array('success' => false, 'error' => validation_errors());
+    //     } else {
+    //         $uploadPath = 'uploads/images/reports/';
+    
+    //         if (!is_dir($uploadPath) && !mkdir($uploadPath, 0755, true)) {
+    //             $response = array('success' => false, 'error' => 'Failed to create upload directory.');
+    //             echo json_encode($response);
+    //             return;
     //         }
+    
+    //         $formData = $this->input->post();
+    
+    //         $reportData = array(
+    //             'CGPF_Number' => $formData['CGPF_Number'],
+    //             'House_Visit_Number' => $formData['House_Visit_Number'],
+    //             'Hostel_Visit_Number' => $formData['Hostel_Visit_Number'],
+    //             'Evangelisms_Number' => $formData['Evangelisms_Number'],
+    //             'Accepted_Christ' => $formData['Accepted_Christ'],
+    //             'Baptism_Decision' => $formData['Baptism_Decision'],
+    //             'Baptism_Number' => $formData['Baptism_Number'],
+    //             'Holyspirit_Received' => $formData['Holyspirit_Received'],
+    //             'Ministry_Commitments' => $formData['Ministry_Commitments'],
+    //             'Existing_Student_Councils' => $formData['Existing_Student_Councils'],
+    //             'New_Student_Councils' => $formData['New_Student_Councils'],
+    //             'first_sunday_church' => $formData['first_sunday_church'],
+    //             'second_sunday_church' => $formData['second_sunday_church'],
+    //             'third_sunday_church' => $formData['third_sunday_church'],
+    //             'fourth_sunday_church' => $formData['fourth_sunday_church'],
+    //             'fifth_sunday_church' => $formData['fifth_sunday_church'],
+    //         );
+    
+    //         $reportInserted = $this->ReportModel->insert($reportData);
+    
+    //         if ($reportInserted) {
+    //             $uploadedFiles = [];
+          
+    //             if (isset($_FILES['eventPhotos']) && !empty($_FILES['eventPhotos']['name'][0])) {
+    //                 $files = $_FILES['eventPhotos'];                  
+                  
+    //                 for ($i = 0; $i < count($files['name']); $i++) {
+    //                     if ($files['error'][$i] == 0) {
+    //                         $fileTmpName = $files['tmp_name'][$i];
+    //                         $fileExt = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+    //                         $imageName = uniqid() . '.' . $fileExt;
+    
+    //                         if (move_uploaded_file($fileTmpName, $uploadPath . $imageName)) {
+    //                             $uploadedFiles[] = $imageName;
+    //                         } else {
+    //                             $response = array('success' => false, 'error' => 'Failed to upload some files.');
+    //                             echo json_encode($response);
+    //                             return;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    
+    //             $formData['eventPhotos'] = json_encode($uploadedFiles);
+    
+    //             if (isset($formData['events']) && is_array($formData['events'])) {
+    //                 foreach ($formData['events'] as $event) {
+    //                     $eventData = array(
+    //                         'report_id' => $reportInserted,
+    //                         'program_date' => $event['program_date'],
+    //                         'event_name' => $event['event_name'],
+    //                         'event_location' => $event['event_location'],
+    //                         'resource_person' => $event['resource_person'],
+    //                         'attendance' => $event['attendance'],
+    //                         'eventPhotos' => json_encode($uploadedFiles),
+    //                     );
+    //                     $this->EventModel->insert($eventData);
+    //                 }
+    //             }
+    
+    //             $response = array('success' => true);
+    //         } else {
+    //             $response = array('success' => false, 'error' => 'An error occurred while saving the report.');
+    //         }
+    
+    //         echo json_encode($response);
     //     }
-
-    //     $reportData['event_photos'] = json_encode($uploadedFiles);
     // }
+    
+    
+
 }
