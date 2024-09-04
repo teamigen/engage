@@ -71,6 +71,7 @@ class StaffModel extends CI_Model
     {
 
         $this->db->where('staffId', $staffId);
+        $this->db->join('eg_station', 'staff.station = eg_station.stationId', 'left');
         $query = $this->db->get('staff');
 
         return $query->row();

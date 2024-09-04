@@ -32,7 +32,10 @@ class ReportController extends CI_Controller
             'second_sunday_church' => $this->input->post('second_sunday_church'),
             'third_sunday_church' => $this->input->post('third_sunday_church'),
             'fourth_sunday_church' => $this->input->post('fourth_sunday_church'),
-            'fifth_sunday_church' => $this->input->post('fifth_sunday_church')
+            'fifth_sunday_church' => $this->input->post('fifth_sunday_church'),
+            'staffId' => $_COOKIE['staffId'],
+            'stationId' => $_COOKIE['stationId'],
+            'reportMonth' => $this->input->post('reportMonth'),
         );
 
 

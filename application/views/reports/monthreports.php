@@ -103,6 +103,12 @@
                                                 });
                                             });
                                         </script>
+                                        <script>
+                                            document.getElementById("monthSelect").addEventListener("change", function() {
+                                            var selectedValue = this.value;
+                                            document.getElementById("reportMonth").value = selectedValue;
+                                            });
+                                        </script>
 
                                     </div>
 
@@ -129,8 +135,8 @@
                             </p>
                             <hr>
                             <div class="row">
-                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: Samuel Daniel</div>
-                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: Kollam
+                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
+                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
                                 </div>
                             </div>
                             <hr>
@@ -140,6 +146,9 @@
                                 <div id="reportMessage"></div>
                                 <div class="row">
                                     <div class="col-lg-6">
+                                       <span style="color:red;">@Jishnu - The selected month should load here as hidden value and pass to the database.  Field already created!</span>
+                                    <input class="form-control" type="text" id="reportMonth" name="reportMonth"
+                                    >
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
                                             <input class="form-control" type="text" name="CGPF_Number"

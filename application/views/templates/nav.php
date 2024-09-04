@@ -46,7 +46,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="<?= base_url(); ?>assets/images/users/avatar-2.jpg"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ml-1">Kevin</span>
+                                <span class="d-none d-xl-inline-block ml-1"><?= $_COOKIE['staffName']; ?></span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -54,7 +54,7 @@
                                 <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
                                
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                                <a class="dropdown-item text-danger" href="<?= base_url() ?>authcontroller/logout"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
                             </div>
                         </div>
 
@@ -73,7 +73,9 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title">Menu</li>
-
+                            <?php 
+    if  ($_COOKIE['stafftype'] == "Station Staff"){
+?>
                             <li>
                                 <a href="<?= base_url(); ?>dashboard/staff" class="waves-effect">
                                     <i class="ri-dashboard-line"></i>
@@ -152,30 +154,10 @@
                                 </a>
                             </li>
                             
-                            <!-- Regional Staff View -->
-                            <!-- <li class="menu-title">Regional Level</li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-basketball-fill"></i> -->
-                                    <!-- Regional Staff View Reports -->
-                                    <!-- <span>RSV Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-football-fill"></i> -->
-                                    <!--Cumilative Regional Reports -->
-                                    <!-- <span>Cumilative Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-leaf-line"></i> -->
-                                    <!-- Regional Staff View Reports -->
-                                    <!-- <span>Region Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- For Admin Only -->
+<?php 
+    }
+    if  ($_COOKIE['stafftype'] == "Admin Staff"){
+?>
                             <li class="menu-title">Admin Level</li>
                             <li>
                                 <a href="<?= base_url(); ?>dashboard/admin" class="waves-effect">
@@ -222,7 +204,7 @@
                                     <span>Notice</span>
                                 </a>
                             </li>
-
+<?php } ?>
                         </ul>
                     </div>
                     <!-- Sidebar -->
