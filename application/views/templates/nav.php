@@ -73,7 +73,9 @@
                         <!-- Left Menu Start -->
                         <ul class="metismenu list-unstyled" id="side-menu">
                             <li class="menu-title">Menu</li>
-
+                            <?php 
+    if  ($_COOKIE['stafftype'] == "Station Staff"){
+?>
                             <li>
                                 <a href="<?= base_url(); ?>dashboard/staff" class="waves-effect">
                                     <i class="ri-dashboard-line"></i>
@@ -152,30 +154,10 @@
                                 </a>
                             </li>
                             
-                            <!-- Regional Staff View -->
-                            <!-- <li class="menu-title">Regional Level</li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-basketball-fill"></i> -->
-                                    <!-- Regional Staff View Reports -->
-                                    <!-- <span>RSV Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-football-fill"></i> -->
-                                    <!--Cumilative Regional Reports -->
-                                    <!-- <span>Cumilative Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- <li> -->
-                                <!-- <a href="apps-chat.html" class=" waves-effect"> -->
-                                    <!-- <i class="ri-leaf-line"></i> -->
-                                    <!-- Regional Staff View Reports -->
-                                    <!-- <span>Region Reports</span> -->
-                                <!-- </a> -->
-                            <!-- </li> -->
-                            <!-- For Admin Only -->
+<?php 
+    }
+    if  ($_COOKIE['stafftype'] == "Admin Staff"){
+?>
                             <li class="menu-title">Admin Level</li>
                             <li>
                                 <a href="<?= base_url(); ?>dashboard/admin" class="waves-effect">
@@ -222,7 +204,7 @@
                                     <span>Notice</span>
                                 </a>
                             </li>
-
+<?php } ?>
                         </ul>
                     </div>
                     <!-- Sidebar -->

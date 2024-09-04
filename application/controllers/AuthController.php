@@ -22,6 +22,7 @@ class AuthController extends CI_Controller {
              
                 $this->session->set_userdata('staffId', $staff->staffId);
                 $this->session->set_userdata('staffName', $staff->staffName);
+                setcookie('stafftype', $staff->staffType, time() + (86400 * 30), "/");
 
                 redirect('dashboard/staff');
 
@@ -38,7 +39,7 @@ class AuthController extends CI_Controller {
     }
 
     public function logout() {
-       
+        setcookie('stafftype', '', time() + (86400 * 30), "/");
         $this->session->sess_destroy();
         redirect('login');
     }
