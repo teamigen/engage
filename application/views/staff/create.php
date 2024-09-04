@@ -549,6 +549,7 @@
             $('#username').val(filteredText.toLowerCase());
         });
     });
+    
 </script>
 
 

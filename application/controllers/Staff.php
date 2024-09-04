@@ -570,7 +570,7 @@ class Staff extends CI_Controller
     public function updateStaffDetails()
     {
 
-       
+
         $staffId = $this->input->post('staffId');
 
         $this->load->model('StaffModel');
@@ -647,7 +647,7 @@ class Staff extends CI_Controller
 
         redirect('staff/manage');
     }
-    
+
 
 
 
@@ -657,8 +657,8 @@ class Staff extends CI_Controller
     //     $this->load->model('EventModel');
     //     $this->load->library('form_validation');
     //     $this->load->library('upload');
-    
-       
+
+
     //     $this->form_validation->set_rules('CGPF_Number', 'Number of CGPF Meetings', 'required');
     //     $this->form_validation->set_rules('House_Visit_Number', 'Number of House Visits', 'required');
     //     $this->form_validation->set_rules('Hostel_Visit_Number', 'Number of Hostel Visits', 'required');
@@ -670,20 +670,20 @@ class Staff extends CI_Controller
     //     $this->form_validation->set_rules('Ministry_Commitments', 'Ministry Commitments', 'required');
     //     $this->form_validation->set_rules('Existing_Student_Councils', 'Existing Student Councils', 'required');
     //     $this->form_validation->set_rules('New_Student_Councils', 'New Student Councils', 'required');
-    
+
     //     if ($this->form_validation->run() == FALSE) {
     //         $response = array('success' => false, 'error' => validation_errors());
     //     } else {
     //         $uploadPath = 'uploads/images/reports/';
-    
+
     //         if (!is_dir($uploadPath) && !mkdir($uploadPath, 0755, true)) {
     //             $response = array('success' => false, 'error' => 'Failed to create upload directory.');
     //             echo json_encode($response);
     //             return;
     //         }
-    
+
     //         $formData = $this->input->post();
-    
+
     //         $reportData = array(
     //             'CGPF_Number' => $formData['CGPF_Number'],
     //             'House_Visit_Number' => $formData['House_Visit_Number'],
@@ -702,21 +702,21 @@ class Staff extends CI_Controller
     //             'fourth_sunday_church' => $formData['fourth_sunday_church'],
     //             'fifth_sunday_church' => $formData['fifth_sunday_church'],
     //         );
-    
+
     //         $reportInserted = $this->ReportModel->insert($reportData);
-    
+
     //         if ($reportInserted) {
     //             $uploadedFiles = [];
-          
+
     //             if (isset($_FILES['eventPhotos']) && !empty($_FILES['eventPhotos']['name'][0])) {
     //                 $files = $_FILES['eventPhotos'];                  
-                  
+
     //                 for ($i = 0; $i < count($files['name']); $i++) {
     //                     if ($files['error'][$i] == 0) {
     //                         $fileTmpName = $files['tmp_name'][$i];
     //                         $fileExt = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
     //                         $imageName = uniqid() . '.' . $fileExt;
-    
+
     //                         if (move_uploaded_file($fileTmpName, $uploadPath . $imageName)) {
     //                             $uploadedFiles[] = $imageName;
     //                         } else {
@@ -727,9 +727,9 @@ class Staff extends CI_Controller
     //                     }
     //                 }
     //             }
-    
+
     //             $formData['eventPhotos'] = json_encode($uploadedFiles);
-    
+
     //             if (isset($formData['events']) && is_array($formData['events'])) {
     //                 foreach ($formData['events'] as $event) {
     //                     $eventData = array(
@@ -744,16 +744,16 @@ class Staff extends CI_Controller
     //                     $this->EventModel->insert($eventData);
     //                 }
     //             }
-    
+
     //             $response = array('success' => true);
     //         } else {
     //             $response = array('success' => false, 'error' => 'An error occurred while saving the report.');
     //         }
-    
+
     //         echo json_encode($response);
     //     }
     // }
-    
-    
+
+
 
 }

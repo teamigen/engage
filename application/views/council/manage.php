@@ -83,27 +83,26 @@
 
 
                                 <tbody>
-                                    <tr>
-                                        <td>Mar Ivanios Council</td>
-                                        <td>Pattom</td>
-                                        <td>Mar Ivanios College/td>
-                                        <td> 4 December 2024</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
+                                    <?php if (!empty($councils)) : ?>
+                                        <?php foreach ($councils as $coucil) : ?>
+                                            <tr id="row-<?= ($coucil['councilId']) ?>">
+                                                <td><?= ($coucil['councilName']) ?></td>
+                                                <td><?= ($coucil['locationName']) ?></td>
+                                                <td><?= ($coucil["councilInstitute"]) ?></td>
+                                                <td><?= ($coucil["endDate"]) ?></td>
+                                                
+                                                <td>
+                                                    <a href="<?= base_url('Council/edit/' . ($coucil['councilSlug'])) ?>" class="edit-row" data-id="<?= ($coucil['councilSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                    <a href="javascript:void(0);" class="delete-row" data-id="<?= ($coucil['councilId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
 
-                                    </tr>
-                                    <tr>
-                                        <td>Sreekariyam Council</td>
-                                        <td>Sreekariyam</td>
-                                        <td>College of Engineering Trivandrum</td>
-                                        <td> 4 December 2024</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-
-
-
-
-
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="5">No Council data available.</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -117,6 +116,41 @@
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function() {
+
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+
+            deleteButton.addEventListener('click', function() {
+
+                var councilId  = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+
+                    fetch('<?= base_url(); ?>Council/delete/' + councilId , {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+
+                                document.getElementById('row-' + councilId ).remove();
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
+
+</script>
 
 
 

@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -25,7 +25,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="" style="margin-right:20px;">
-                                  
+
                                 </li>
 
 
@@ -37,89 +37,180 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                        <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Create Institue</h4>
-                                        <p class="card-title-desc">Manage Institutes in the Location</p>
-        
-                                        <form action="#">
-                                        <div class="form-group">
-                                            <label>Name of Institute</label>
-                                            <input class="form-control" type="text" name="name_of_institute"
-                                                placeholder="Name of Institute" id="name_of_institute">
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <label>Leaders Location</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
-                                                </select>
-                                        </div>
-                                       
-                                            <div class="form-group">
-                                            <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
-                                            
-        
-                                        </form>
-        
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                        <h4 class="card-title">Institute Name</h4>
-                                        <p class="card-title-desc">Institutes in the Station</p>
-        
-                                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                            <thead>
-                                            <tr>
-                                                <th>Institute</th>
-                                                <th>Location</th>
-                                                <th>Action</th>
-                                            </tr>
-                                            </thead>
-        
-        
-                                            <tbody>
-                                            <tr>
-                                                <td>Mar Ivanios College</td>
-                                                <td>Nalamchira</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>College of Engineering Trivandrum</td>
-                                                <td>Sreekariyam</td>
-                                                <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-                                                
-                                            </tr>
-                                            
 
-                                           
-                                           
-                                           
-                                            </tbody>
-                                        </table>
-        
-                                    </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Create Institue</h4>
+                            <p class="card-title-desc">Manage Institutes in the Location</p>
+
+                            <form action="#" id="saveInstitute">
+                                <div class="form-group">
+                                    <label>Name of Institute</label>
+                                    <input class="form-control" type="text" name="instituteName"
+                                        placeholder="Name of Institute" id="instituteName">
                                 </div>
-    
-                            </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input class="form-control" type="text" name="instituteSlug"
+                                        placeholder="Name of Institute" id="instituteSlug">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Leaders Location</label>
+                                    <select name="councilLocation" class="form-control select2" id="instituteLocation" placeholder="instituteLocation" required>
+                                        <option selected>Select Location</option>
+                                        <?php if (!empty($locations)): ?>
+                                            <?php foreach ($locations as $locns): ?>
+                                                <option value="<?= $locns->locationId   ?>"><?= $locns->locationName ?></option>
+                                            <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                </div>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Institute Name</h4>
+                            <p class="card-title-desc">Institutes in the Station</p>
+
+                            <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Institute</th>
+                                        <th>Location</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <!-- <?php foreach ($institutes as $it) { ?>
+                                        <tr>
+                                            <td><?= $st["instituteName"] ?></td>
+                                            <td><?= $st["locationName"]; ?></td>
+
+                                            <td>
+                                                <a href="<?= base_url('Stations/editStation/' . ($it['instituteSlug'])) ?>" class="edit-row" data-id="<?= ($it['instituteSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= ($it['instituteId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
+
+                                            </td>
+
+                                        </tr>
+                                    <?php } ?> -->
+
+
+
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script>
+    $(document).ready(function() {
+        $('#saveInstitute').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: '<?php echo base_url('InstitutesController/insertInstitute'); ?>',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    alert(response);
+                    var response = JSON.parse(response)
+                    if (response.success) {
+                        $('#saveInstitute').trigger("reset");
+                        $('#InstituteMessage').html('<p>Region Successfully Created!</p>').addClass('alert alert-success');
+                    } else {
+                        var errors = response.error;
+                        var errorMessage = "";
+                        for (var key in errors) {
+                            if (errors.hasOwnProperty(key)) {
+                                errorMessage += "<p>" + errors[key] + "</p>";
+                            }
+                        }
+                        $('#InstituteMessage').html(errorMessage).addClass('alert alert-danger');
+                    }
+                },
+
+
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    console.error('AJAX Error:', textStatus, errorThrown);
+                    $('#message').html('<hr><h6 style="color:red; margin-top:10px; margin-bottom:10px">There is an error! Please try later!</h6><hr>');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('#instituteName').keyup(function() {
+            var originalText = $(this).val();
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#instituteSlug').val(filteredText.toLowerCase());
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+
+            deleteButton.addEventListener('click', function() {
+
+                var regionId = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+
+                    fetch('<?= base_url(); ?>Stations/deleteRegion/' + regionId, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                document.getElementById('row-' + regionId).remove();
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
+</script>
 
 
 

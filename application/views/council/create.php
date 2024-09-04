@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">CGPF</h4>
+                        <h4 class="mb-0">Student council</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -43,6 +43,8 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="#" id="saveStudentCouncil" method="post">
+                                <div id="staffMessage"></div>
+
                                 <h4 class="card-title">Student Council</h4>
                                 <p class="card-title-desc">Create New Student Council</p>
                                 <hr>
@@ -62,9 +64,14 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Location</label>
-                                            <select name="councilLocation" class="form-control select2" id="councilLocation">
+
+                                            <select name="councilLocation" class="form-control select2" id="councilLocation" placeholder="Select Location" required>
                                                 <option selected>Select Location</option>
-                                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                                <?php if (!empty($locations)): ?>
+                                                    <?php foreach ($locations as $locns): ?>
+                                                        <option value="<?= $locns->locationId   ?>"><?= $locns->locationName ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -80,22 +87,22 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Date Range</label>
-                                            <div class="input-daterange input-group" data-provide="datepicker" data-date-format="dd M, yyyy" data-date-autoclose="true">
-                                                <input type="text" class="form-control" name="startDate">
-                                                <input type="text" class="form-control" name="endDate">
+                                            <div class="input-daterange input-group">
+                                                <input type="date" class="form-control" name="startDate">
+                                                <input type="date" class="form-control" name="endDate">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div id="memberContainer">
-                                  
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-12" style="text-align: right;">
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-12" style="text-align: right;">
+                                            <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+                                        </div>
                                     </div>
-                                </div>
                             </form>
 
                         </div>
@@ -110,16 +117,16 @@
 </div>
 <!-- End Page-content -->
 <script>
-  $(document).ready(function () {
-    
-    $('#councilName').keyup(function () {
-        var originalText = $(this).val();
-        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
-        $('#councilSlug').val(filteredText.toLowerCase());
-    });
+    $(document).ready(function() {
 
-    function addMemberRow() {
-        var memberRow = `
+        $('#councilName').keyup(function() {
+            var originalText = $(this).val();
+            var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+            $('#councilSlug').val(filteredText.toLowerCase());
+        });
+
+        function addMemberRow() {
+            var memberRow = `
             <div class="row member-row">
                 <div class="col-lg-3">
                     <div class="form-group">
@@ -155,47 +162,46 @@
                     <i class="ri-delete-bin-6-line remove-member" style="cursor: pointer;"></i>
                 </div>
             </div>`;
-        $('#memberContainer').append(memberRow);
-    }
+            $('#memberContainer').append(memberRow);
+        }
 
-    addMemberRow();
-
-   
-    $('#memberContainer').on('click', '.add-member', function () {
         addMemberRow();
-    });
 
-    $('#memberContainer').on('click', '.remove-member', function () {
-        $(this).closest('.member-row').remove();
-    });
 
-   
-    $('#saveStudentCouncil').submit(function (event) {
-        event.preventDefault();
+        $('#memberContainer').on('click', '.add-member', function() {
+            addMemberRow();
+        });
 
-        var formData = new FormData(this);
+        $('#memberContainer').on('click', '.remove-member', function() {
+            $(this).closest('.member-row').remove();
+        });
 
-        $.ajax({
-            url: '<?php echo base_url("Council/insertCouncil"); ?>',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',
-            success: function (response) {
-                if (response.success) {
-                    $('#staffMessage').html('<div class="alert alert-success">Council details saved successfully!</div>');
-                } else {
-                    $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+
+        $('#saveStudentCouncil').submit(function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '<?php echo base_url("Council/insertCouncil"); ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#staffMessage').html('<div class="alert alert-success">Council details saved successfully!</div>');
+                    } else {
+                        $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
                 }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
-            }
+            });
         });
     });
-});
-
 </script>
 
 

@@ -55,15 +55,10 @@
                                         <?php
                                         function generateMonthSelectBox()
                                         {
-
                                             $currentTimestamp = time();
-
-
                                             $twoYearsAgoTimestamp = strtotime('-2 years', $currentTimestamp);
 
-
                                             echo '<select name="month" class="form-control select2" id="monthSelect">';
-
 
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
                                                 // Get month and year
@@ -85,30 +80,12 @@
 
                                         generateMonthSelectBox();
                                         ?>
+                                                   <input type="hidden" id="reportMonth" name="reportMonth" value="">
 
 
 
-                                        <script>
-                                            $(document).ready(function() {
-                                                // Get current month and year
-                                                var currentMonthYear = new Date().toLocaleString('en-US', {
-                                                    month: 'long',
-                                                    year: 'numeric'
-                                                });
-                                                $('.dispmnth').text(currentMonthYear);
 
-                                                $('#monthSelect').change(function() {
-                                                    var selectedMonth = $(this).val();
-                                                    $('.dispmnth').text(selectedMonth);
-                                                });
-                                            });
-                                        </script>
-                                        <script>
-                                            document.getElementById("monthSelect").addEventListener("change", function() {
-                                            var selectedValue = this.value;
-                                            document.getElementById("reportMonth").value = selectedValue;
-                                            });
-                                        </script>
+
 
                                     </div>
 
@@ -144,11 +121,17 @@
 
                             <form action="#" id="saveReport" enctype="multipart/form-data">
                                 <div id="reportMessage"></div>
+
+                                <div class="row">
+                                  
+                         
+                                </div>
+
+
                                 <div class="row">
                                     <div class="col-lg-6">
-                                       <span style="color:red;">@Jishnu - The selected month should load here as hidden value and pass to the database.  Field already created!</span>
-                                    <input class="form-control" type="text" id="reportMonth" name="reportMonth"
-                                    >
+
+                                        <input class="form-control" type="hidden" id="reportMonth" name="reportMonth">
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
                                             <input class="form-control" type="text" name="CGPF_Number"
@@ -396,7 +379,7 @@
         eventSection.className = 'event1 events';
 
         let eventIndex = 1;
-        
+
 
         eventSection.innerHTML = `
     <div class="row">
@@ -557,6 +540,28 @@
             error: function(jqXHR, textStatus, errorThrown) {
                 $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
             }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        var currentMonthYear = new Date().toLocaleString('en-US', {
+            month: 'long',
+            year: 'numeric'
+        });
+        $('.dispmnth').text(currentMonthYear);
+
+
+        $('#reportMonth').val(currentMonthYear);
+
+        $('#monthSelect').change(function() {
+            var selectedMonth = $(this).val();
+            $('.dispmnth').text(selectedMonth);
+
+
+            $('#reportMonth').val(selectedMonth);
         });
     });
 </script>
