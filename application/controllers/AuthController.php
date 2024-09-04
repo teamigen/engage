@@ -23,8 +23,19 @@ class AuthController extends CI_Controller {
                 $this->session->set_userdata('staffId', $staff->staffId);
                 $this->session->set_userdata('staffName', $staff->staffName);
                 setcookie('stafftype', $staff->staffType, time() + (86400 * 30), "/");
+                setcookie('staffId', $staff->staffId, time() + (86400 * 30), "/");
+                setcookie('staffName', $staff->staffName, time() + (86400 * 30), "/");
 
+                //Find Station of the Staff
+                $stationId = $this->StaffModel->getStaffById($staff->staffId)->stationId;
+                $stationName = $this->StaffModel->getStaffById($staff->staffId)->stationName;
+                setcookie('stationId', $stationId, time() + (86400 * 30), "/");
+                setcookie('stationName', $stationName, time() + (86400 * 30), "/");
+                if  ($staff->staffType == "Station Staff"){
                 redirect('dashboard/staff');
+                } else if ($staff->staffType == "Admin Staff") {
+                    redirect('dashboard/admin');
+                }
 
             } else {
                

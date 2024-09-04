@@ -46,7 +46,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="rounded-circle header-profile-user" src="<?= base_url(); ?>assets/images/users/avatar-2.jpg"
                                     alt="Header Avatar">
-                                <span class="d-none d-xl-inline-block ml-1">Kevin</span>
+                                <span class="d-none d-xl-inline-block ml-1"><?= $_COOKIE['staffName']; ?></span>
                                 <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -54,7 +54,7 @@
                                 <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
                                
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="#"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                                <a class="dropdown-item text-danger" href="<?= base_url() ?>authcontroller/logout"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
                             </div>
                         </div>
 
