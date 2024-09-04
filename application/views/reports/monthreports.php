@@ -134,7 +134,9 @@
                                 </div>
                             </div>
                             <hr>
-                            <form action="#" id="saveReport">
+
+
+                            <form action="#" id="saveReport" enctype="multipart/form-data">
                                 <div id="reportMessage"></div>
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -314,38 +316,38 @@
                                                 <div class="form-group mb-4">
                                                     <label>Date of Program</label>
                                                     <div class="input-group">
-                                                        <input type="date" class="form-control" name="events[default][program_date]">
+                                                        <input type="date" class="form-control" name="events[0][program_date]">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Event Name</label>
-                                                    <input class="form-control" type="text" name="events[default][event_name]" placeholder="Event Name">
+                                                    <input class="form-control" type="text" name="events[0][event_name]" placeholder="Event Name">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Event Location</label>
-                                                    <input class="form-control" type="text" name="events[default][event_location]" placeholder="Event Location">
+                                                    <input class="form-control" type="text" name="events[0][event_location]" placeholder="Event Location">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Resource Person</label>
-                                                    <input class="form-control" type="text" name="events[default][resource_person]" placeholder="Resource Person">
+                                                    <input class="form-control" type="text" name="events[0][resource_person]" placeholder="Resource Person">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Attendance</label>
-                                                    <input class="form-control" type="text" name="events[default][attendance]" placeholder="Attendance">
+                                                    <input class="form-control" type="text" name="events[0][attendance]" placeholder="Attendance">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Event Photos</label>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" name="events[default][photos][]" multiple onchange="displayImages(this)">
+                                                        <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
                                                         <label class="custom-file-label">Choose files</label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="row" id="imagePreviewContainer_default">
-                                            
+                                                <div class="row" id="imagePreviewContainer_0">
+
                                                 </div>
                                                 <i class="mdi mdi-close-thick remove-event" style="font-style: normal; cursor: pointer;">&nbsp;</i>
                                             </div>
@@ -384,54 +386,56 @@
         const eventSection = document.createElement('div');
         eventSection.className = 'event1 events';
 
-        const uniqueId = Date.now();
+        let eventIndex = 1;
+        
 
         eventSection.innerHTML = `
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group mb-4">
-                    <label>Date of Program</label>
-                    <div class="input-group">
-                        <input type="date" class="form-control" name="events[${uniqueId}][program_date]">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Event Name</label>
-                    <input class="form-control" type="text" name="events[${uniqueId}][event_name]" placeholder="Event Name">
-                </div>
-                <div class="form-group">
-                    <label>Event Location</label>
-                    <input class="form-control" type="text" name="events[${uniqueId}][event_location]" placeholder="Event Location">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label>Date of Program</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" name="events[${eventIndex}][program_date]">
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Resource Person</label>
-                    <input class="form-control" type="text" name="events[${uniqueId}][resource_person]" placeholder="Resource Person">
-                </div>
-                <div class="form-group">
-                    <label>Attendance</label>
-                    <input class="form-control" type="text" name="events[${uniqueId}][attendance]" placeholder="Attendance">
-                </div>
-                <div class="form-group">
-                    <label>Event Photos</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="events[${uniqueId}][photos][]" multiple onchange="displayImages(this)">
-                        <label class="custom-file-label">Choose files</label>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>Event Name</label>
+                <input class="form-control" type="text" name="events[${eventIndex}][event_name]" placeholder="Event Name">
             </div>
-            <div class="col-lg-12">
-                <div class="row" id="imagePreviewContainer_${uniqueId}">
-                    <!-- Image previews will be added here -->
-                </div>
-                <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+            <div class="form-group">
+                <label>Event Location</label>
+                <input class="form-control" type="text" name="events[${eventIndex}][event_location]" placeholder="Event Location">
             </div>
         </div>
-        <hr>
-    `;
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Resource Person</label>
+                <input class="form-control" type="text" name="events[${eventIndex}][resource_person]" placeholder="Resource Person">
+            </div>
+            <div class="form-group">
+                <label>Attendance</label>
+                <input class="form-control" type="text" name="events[${eventIndex}][attendance]" placeholder="Attendance">
+            </div>
+            <div class="form-group">
+                <label>Event Photos</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="events[${eventIndex}][eventPhotos][]" multiple onchange="displayImages(this)">
+                    <label class="custom-file-label">Choose files</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row" id="imagePreviewContainer_${eventIndex}">
+                <!-- Image previews will be added here -->
+            </div>
+            <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+        </div>
+    </div>
+    <hr>
+`;
 
         container.appendChild(eventSection);
+        eventIndex++
 
         eventSection.querySelector('.remove-family').addEventListener('click', () => {
             if (confirm("Are you sure you want to remove this event?")) {
@@ -440,22 +444,28 @@
         });
     }
 
-
-    document.querySelectorAll('.remove-family').forEach(button => {
-        button.addEventListener('click', function() {
-            const eventSection = this.closest('.event1');
-            if (eventSection.classList.contains('default')) {
-                alert('You cannot remove the default program details.');
-            } else {
-                if (confirm("Are you sure you want to remove this event?")) {
-                    eventSection.remove();
+    function reindexEvents() {
+        let newIndex = 0;
+        $('#eventsContainer .events').each(function() {
+            $(this).attr('class', `event${newIndex} events`);
+            $(this).find('input, select, textarea').each(function() {
+                let nameAttr = $(this).attr('name');
+                if (nameAttr) {
+                    let updatedName = nameAttr.replace(/\[.*?\]/, `[${newIndex}]`);
+                    $(this).attr('name', updatedName);
                 }
-            }
+            });
+            $(this).find('.remove-event').attr('onclick', `removeEvent(${newIndex})`);
+            $(this).find('#imagePreviewContainer_0').attr('id', `imagePreviewContainer_${newIndex}`);
+            newIndex++;
         });
-    });
+        eventIndex = newIndex;
+    }
 
     function displayImages(input) {
-        const container = input.closest('.event1').querySelector('[id^="imagePreviewContainer"]');
+        const containerId = input.closest('.event1').querySelector('[id^="imagePreviewContainer"]').id;
+        const container = document.getElementById(containerId);
+
         if (!container) return;
 
         container.innerHTML = '';
@@ -463,7 +473,12 @@
         const files = input.files;
         const maxFiles = 6;
 
-        for (let i = 0; i < files.length && i < maxFiles; i++) {
+        if (files.length > maxFiles) {
+            alert(`You can upload a maximum of ${maxFiles} images.`);
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
             const file = files[i];
             const reader = new FileReader();
 
@@ -485,28 +500,37 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#saveReport').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
+    document.getElementById('saveReport').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
 
-            $.ajax({
-                url: '<?php echo base_url('staff/insertReport'); ?>',
-                type: 'POST',
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
+        document.querySelectorAll('.event1').forEach(eventSection => {
+            const uniqueId = eventSection.querySelector('input[name^="events["]').name.match(/\[(.*?)\]/)[1];
+            const fileInputs = eventSection.querySelectorAll('input[type="file"]');
 
+            fileInputs.forEach(input => {
+                const files = input.files;
+                for (let i = 0; i < files.length; i++) {
+                    formData.append(`events[${uniqueId}][eventPhotos][]`, files[i]);
+                }
+            });
+        });
+
+        $.ajax({
+            url: '<?php echo base_url('ReportController/saveReport'); ?>',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                try {
                     var response = JSON.parse(response);
 
                     if (response.success) {
-
                         $('#reportMessage').html('<div class="alert alert-success"><p>Month Report Successfully Created!</p></div>');
                         $('#saveReport').trigger("reset");
                     } else {
-
                         var errorMessage = "<div class='alert alert-danger'>";
                         for (var key in response.error) {
                             if (response.error.hasOwnProperty(key)) {
@@ -516,18 +540,20 @@
                         errorMessage += "</div>";
                         $('#reportMessage').html(errorMessage);
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                    $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                } catch (e) {
+                    console.error('Failed to parse response', e);
+                    $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
                 }
-            });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+            }
         });
-
-
-
     });
 </script>
+
+
+
 
 
 
