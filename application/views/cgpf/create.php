@@ -60,7 +60,11 @@
                                             <label>Location</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
                                             <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
+                                            <?php if (!empty($locations)): ?>
+                                                    <?php foreach ($locations as $locns): ?>
+                                                        <option value="<?= $locns->locationId   ?>"><?= $locns->locationName ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                                 </select>
                                         </div>
                                 </div>
@@ -100,9 +104,12 @@
                                             <label>Designation</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
                                             <option selected>Select Designation</option>       
-                                            <option value="">Secretary</option>
-                                            <option value="">Joint Secretary</option>
-                                            <option value="">Treasurer</option>
+                                            <option value="President">President</option>
+                                            <option value="Vice-President">Joint Vice-President</option>
+                                            <option value="Secretary">Secretary</option>
+                                            <option value="Joint Secretary">Joint Secretary</option>
+                                            <option value="Treasurer">Treasurer</option>
+                                            <option value="Member">Member</option>
                                                 </select>
                                         </div>
                                         

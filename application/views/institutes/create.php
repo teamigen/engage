@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Student Leaders</h4>
+                        <h4 class="mb-0">Institutes / Colleges</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
@@ -55,12 +55,12 @@
                                 <div class="form-group">
                                     <label>Slug</label>
                                     <input class="form-control" type="text" name="instituteSlug"
-                                        placeholder="Name of Institute" id="instituteSlug">
+                                        placeholder="Slug of Institute" id="instituteSlug">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Leaders Location</label>
-                                    <select name="councilLocation" class="form-control select2" id="instituteLocation" placeholder="instituteLocation" required>
+                                    <label>Institute Location</label>
+                                    <select name="instituteLocation" class="form-control select2" id="instituteLocation" placeholder="instituteLocation" required>
                                         <option selected>Select Location</option>
                                         <?php if (!empty($locations)): ?>
                                             <?php foreach ($locations as $locns): ?>
@@ -97,21 +97,20 @@
                                     </tr>
                                 </thead>
 
-
                                 <tbody>
-                                    <!-- <?php foreach ($institutes as $it) { ?>
+                                    <?php foreach ($institutes as $it) { ?>
                                         <tr>
-                                            <td><?= $st["instituteName"] ?></td>
-                                            <td><?= $st["locationName"]; ?></td>
+                                            <td><?= $it->instituteName; ?></td>
+                                            <td><?= $it->locationName; ?></td>
 
                                             <td>
-                                                <a href="<?= base_url('Stations/editStation/' . ($it['instituteSlug'])) ?>" class="edit-row" data-id="<?= ($it['instituteSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
-                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= ($it['instituteId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
+                                                <a href="<?= base_url('Stations/editStation/' . ($it->instituteSlug)) ?>" class="edit-row" data-id="<?= ($it->instituteSlug) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= ($it->instituteId) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
 
                                             </td>
 
                                         </tr>
-                                    <?php } ?> -->
+                                    <?php } ?> 
 
 
 

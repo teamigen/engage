@@ -79,8 +79,12 @@
                                         <div class="form-group">
                                             <label>Institute</label>
                                             <select name="councilInstitute" class="form-control select2" id="councilInstitute">
-                                                <option selected>Select Institute</option>
-                                                <option value="Mar Ivanios College">Mar Ivanios College</option>
+                                                <option value="" selected>Select Institute</option>
+                                                <?php if (!empty($institutes)): ?>
+                                                    <?php foreach ($institutes as $inst): ?>
+                                                <option value="<?= $inst->instituteId; ?>"><?= $inst->instituteName; ?></option>
+                                                <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -95,14 +99,15 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div id="memberContainer">
-
-                                    <hr>
-                                    <div class="row">
+                                <div id="memberContainer"></div>
+                                <div class="row">
                                         <div class="col-lg-12" style="text-align: right;">
                                             <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                         </div>
                                     </div>
+
+                                    <hr>
+                                   
                             </form>
 
                         </div>
@@ -139,9 +144,8 @@
                         <label>Designation</label>
                         <select name="designation[]" class="form-control select2">
                             <option selected>Select Designation</option>
-                            <option value="Secretary">Secretary</option>
-                            <option value="Joint Secretary">Joint Secretary</option>
-                            <option value="Treasurer">Treasurer</option>
+                            <option value="Secretary">Coordinator</option>
+                            <option value="Joint Secretary">Co-Coordinator</option>
                         </select>
                     </div>
                 </div>

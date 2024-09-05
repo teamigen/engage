@@ -14,6 +14,14 @@ class InstituteModel extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+    public function getallactiveinstitutessbystation($stationId) {
+        $this->db->select('*');
+        $this->db->from('eg_institutes');
+        $this->db->where('eg_institutes.stationId', $stationId);
+        $this->db->join('eg_location', 'eg_institutes.instituteLocation = eg_location.locationId', 'left');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 
 }

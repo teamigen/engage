@@ -6,7 +6,12 @@ class Council extends CI_Controller
 
     public function createnew()
     {
-        $data['locations'] = $this->Station_model->getallactivelocations();
+        $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
+        $data['institutes'] = $this->InstituteModel->getallactiveinstitutessbystation($_COOKIE['stationId']);
+        // echo $this->db->last_query();
+        // var_dump($data['locations']);
+        // die();
+        
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('council/create', $data);
@@ -16,7 +21,7 @@ class Council extends CI_Controller
     public function manage()
 
     {
-        $data['councils'] = $this->CouncilModel->getcouncils();
+        $data['councils'] = $this->CouncilModel->getcouncilsbystation($_COOKIE['stationId']);
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
@@ -71,7 +76,8 @@ class Council extends CI_Controller
                     'memberName' => $memberName,
                     'designation' => $designations[$index],
                     'cgpfNumber' => $cgpfNumbers[$index],
-                    'memberEmail' => $memberEmails[$index]
+                    'memberEmail' => $memberEmails[$index],
+                    'stationId' => $stationId
                 );
                 $this->CouncilModel->insertMember($memberData);
             }

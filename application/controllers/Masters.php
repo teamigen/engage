@@ -7,7 +7,7 @@ class Masters extends CI_Controller
 	public function index()
 	{
 		$this->load->model('ChurchModel');
-		$data['locations'] = $this->ChurchModel->getallactivelocations();
+		// $data['locations'] = $this->ChurchModel->getallactivelocationsbystation($_COOKIE['stationId']);
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/create');
@@ -17,9 +17,10 @@ class Masters extends CI_Controller
 	
 	public function locations()
 	{
+		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
-		$this->load->view('masters/locations');
+		$this->load->view('masters/locations', $data);
 		$this->load->view('templates/footer');
 	}
 
@@ -32,12 +33,14 @@ class Masters extends CI_Controller
 
 		$locationName = $this->security->xss_clean($this->input->post('locationName'));
 		$locationSlug = $this->security->xss_clean($this->input->post('locationSlug'));
+		$stationId = $_COOKIE['stationId'];
 
 		// Prepare data for insertion
 		$data = array(
 			'locationName' => $locationName,
 			'locationStatus' => 1,
-			'locationSlug' => $locationSlug
+			'locationSlug' => $locationSlug,
+			'stationId' => $stationId
 		);
 
 		// Load model

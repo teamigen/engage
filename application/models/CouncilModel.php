@@ -31,8 +31,24 @@ class CouncilModel extends CI_Model
 
         return $query->result_array();
     }
+    public function getcouncilsbystation($stationId)
+    {
+        $this->db->select('eg_council.*, eg_station.stationName, eg_location.locationName');
+        $this->db->from('eg_council');
+        $this->db->join('eg_station', 'eg_council.stationId = eg_station.stationId');
+        $this->db->join('eg_location', 'eg_council.councilLocation = eg_location.locationId');
+        $this->db->join('eg_institutes', 'eg_council.councilInstitute = eg_institutes.instituteId');
+        $this->db->where('eg_council.stationId', $stationId);
+        $query = $this->db->get();
+        // echo $this->db->last_query();
+        // die();
+        // return $query->result();
+
+        return $query->result_array();
+    }
 
     
+    //SELECT * FROM `eg_council` as `ec` LEFT JOIN `eg_location` as `el` ON `el`.`locationId` = `ec`.`councilLocation` LEFT JOIN `eg_institutes` as `ei` ON `ei`.`stationId` = `ec`.`stationId` WHERE `el`.`stationId` = '2' ORDER BY `councilName` ASC;
     public function delete_council($councilId)
     {
 

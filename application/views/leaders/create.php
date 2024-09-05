@@ -61,16 +61,17 @@
                                             <label>Institute/College</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Select Institute/College">
                                             <option selected>Select Institute/College</option>       
-                                            <option value="">Bishop Moore College, Mavelikara</option>
-                                            <option value="">St. Alosyius College, Edathua</option>
+                                            <?php if (!empty($institutes)): ?>
+                                                    <?php foreach ($institutes as $inst): ?>
+                                                <option value="<?= $inst->instituteId; ?>"><?= $inst->instituteName; ?></option>
+                                                <?php endforeach; ?>
+                                                <?php endif; ?>
                                                 </select>
                                         </div>
                                         <div class="form-group">
-                                            <label>Leaders Location</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Location">
-                                            <option selected>Select Location</option>       
-                                            <option value="">Pathanamthitta Town</option>
-                                                </select>
+                                            <label>Leaders Home Location</label>
+                                            <input class="form-control" type="text" name="home_location"
+                                                placeholder="Home Location" id="home_location">
                                         </div>
                                         <div class="form-group">
                                             <label>Mobile Phone</label>
@@ -89,9 +90,9 @@
                                                 placeholder="Year of Joining ICPF" id="joining_as_leader">
                                         </div>
                                         <div class="form-group">
-                                            <label>Year of Exiting as Student</label>
-                                            <input class="form-control" type="text" name="exiting_as_leader"
-                                                placeholder="Year of Exiting as Student" id="exiting_as_leader">
+                                            <label>Year of Graduation</label>
+                                            <input class="form-control" type="text" name="year_of_graduation"
+                                                placeholder="Year of Graduation" id="year_of_graduation">
                                         </div>
                                             <div class="form-group">
                                             <button type="button" class="btn btn-success waves-effect waves-light">Save</button>

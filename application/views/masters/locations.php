@@ -88,22 +88,16 @@
 
 
                                 <tbody>
+                                    <?php
+                                        foreach($locations as $loc) {
+                                    ?>
                                     <tr>
-                                        <td>Nalamchira</td>
+                                        <td><?= $loc->locationName; ?></td>
                                         <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
 
                                     </tr>
-                                    <tr>
-                                        <td>Karakkodu</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Sreekariyam</td>
-
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
+                                    <?php } ?>
+                                   
 
                                 </tbody>
                             </table>

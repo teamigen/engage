@@ -12,9 +12,9 @@ class Institutes extends CI_Controller
 
     public function index()
     {
-        $data['locations'] = $this->Station_model->getallactivelocations();
-        // $data['institutes'] = $this->InstituteModel->getAllInstitutes();
-
+        $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
+        $data['institutes'] = $this->InstituteModel->getallactiveinstitutessbystation($_COOKIE['stationId']);
+        // echo $this->db->last_query();
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('institutes/create', $data);

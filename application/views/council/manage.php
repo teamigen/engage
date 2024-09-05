@@ -75,7 +75,7 @@
                                     <tr>
                                         <th>Council Name</th>
                                         <th>Location</th>
-                                        <th>Institute</th>
+                                        <!-- <th>Institute</th> -->
                                         <th>End Date</th>
                                         <th>Action</th>
                                     </tr>
@@ -88,7 +88,7 @@
                                             <tr id="row-<?= ($coucil['councilId']) ?>">
                                                 <td><?= ($coucil['councilName']) ?></td>
                                                 <td><?= ($coucil['locationName']) ?></td>
-                                                <td><?= ($coucil["councilInstitute"]) ?></td>
+                                                <!-- <td><?= ($coucil["instituteName"]) ?></td> -->
                                                 <td><?= ($coucil["endDate"]) ?></td>
                                                 
                                                 <td>
