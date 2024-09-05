@@ -151,14 +151,14 @@
         $('#saveGroup').submit(function(event) {
             event.preventDefault();
 
-            var formData = new FormData(this); 
+            var formData = new FormData(this);
 
             $.ajax({
                 url: '<?php echo base_url("Weeklygroups/insertGroup"); ?>',
                 type: 'POST',
                 data: formData,
-                processData: false, 
-                contentType: false, 
+                processData: false,
+                contentType: false,
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {

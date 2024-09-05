@@ -55,13 +55,13 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Name of Council</label>
-                                            <input class="form-control" type="text" name="councilName" id="councilName" value="<?= $council['councilName']; ?>" placeholder="Name of Council">
+                                            <input class="form-control" type="text" name="councilName" id="councilName" value="<?= $council['councilName']; ?>" placeholder="Name of Council" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Slug</label>
-                                            <input class="form-control" type="text" name="councilSlug" id="councilSlug" value="<?= $council['councilSlug']; ?>" placeholder="Council Slug">
+                                            <input class="form-control" type="text" name="councilSlug" id="councilSlug" value="<?= $council['councilSlug']; ?>" placeholder="Council Slug" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -81,11 +81,19 @@
                                         <div class="form-group">
                                             <label>Institute</label>
                                             <select name="councilInstitute" class="form-control select2" id="councilInstitute">
-                                                <option>Select Institute</option>
-                                                <option value="Mar Ivanios College" <?= $council['councilInstitute'] == 'Mar Ivanios College' ? 'selected' : ''; ?>>Mar Ivanios College</option>
+                                                <option value="" selected>Select Institute</option>
+                                                <?php if (!empty($institutes)): ?>
+                                                    <?php foreach ($institutes as $inst): ?>
+                                                        <option value="<?= $inst->instituteId; ?>"
+                                                            <?= ($council['councilInstitute'] == $inst->instituteId) ? 'selected' : ''; ?>>
+                                                            <?= $inst->instituteName; ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Date Range</label>
@@ -114,7 +122,7 @@
                                                             <option>Select Designation</option>
                                                             <option value="Coordinator" <?= $member['designation'] == 'Coordinator' ? 'selected' : ''; ?>>Coordinator</option>
                                                             <option value="Co-Coordinator" <?= $member['designation'] == 'Co-Coordinator' ? 'selected' : ''; ?>>Co-Coordinator</option>
-                                                
+
                                                         </select>
                                                     </div>
                                                 </div>
@@ -221,7 +229,7 @@
             $(this).closest('.member-row').remove();
         });
 
-      
+
     });
 </script>
 

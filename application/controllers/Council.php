@@ -118,11 +118,15 @@ class Council extends CI_Controller
 
 
         $data['council'] = $this->CouncilModel->get_council_by_slug($councilSlug);
+        // $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
+        $data['institutes'] = $this->InstituteModel->getallactiveinstitutessbystation($_COOKIE['stationId']);
 
         if (!empty($data['council'])) {
             $councilId = $data['council']['councilId'];
 
             $data['eg_council_member'] = $this->CouncilModel->getMembersByCouncilId($councilId) ?? [];
+
+
 
 
             $data['locations'] = $this->Station_model->getallactivelocations();

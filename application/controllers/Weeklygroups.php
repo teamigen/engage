@@ -42,7 +42,9 @@ class Weeklygroups extends CI_Controller {
                 'groupSlug' => $this->input->post('groupSlug'),
                 'groupLocation' => $this->input->post('groupLocation'),
                 'meetingPlace' => $this->input->post('meetingPlace'),
-                'groupType' => $this->input->post('groupType')
+                'groupType' => $this->input->post('groupType'),
+                'staffId' => $_COOKIE['staffId'],
+                'stationId' => $_COOKIE['stationId'],
             );
           
             if ($this->GroupModel->insertGroup($groupData)) {

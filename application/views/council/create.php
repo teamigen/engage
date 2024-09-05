@@ -52,13 +52,13 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Name of Council</label>
-                                            <input class="form-control" type="text" name="councilName" placeholder="Name of Council" id="councilName">
+                                            <input class="form-control" type="text" name="councilName" placeholder="Name of Council" id="councilName" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Slug</label>
-                                            <input class="form-control" type="text" name="councilSlug" placeholder="Council Slug" id="councilSlug">
+                                            <input class="form-control" type="text" name="councilSlug" placeholder="Council Slug" id="councilSlug" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -78,7 +78,7 @@
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Institute</label>
-                                            <select name="councilInstitute" class="form-control select2" id="councilInstitute">
+                                            <select name="councilInstitute" class="form-control select2" id="councilInstitute" required>
                                                 <option value="" selected>Select Institute</option>
                                                 <?php if (!empty($institutes)): ?>
                                                     <?php foreach ($institutes as $inst): ?>
