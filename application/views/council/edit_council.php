@@ -112,9 +112,9 @@
                                                         <label>Designation</label>
                                                         <select name="designation[]" class="form-control select2">
                                                             <option>Select Designation</option>
-                                                            <option value="Secretary" <?= $member['designation'] == 'Secretary' ? 'selected' : ''; ?>>Secretary</option>
-                                                            <option value="Joint Secretary" <?= $member['designation'] == 'Joint Secretary' ? 'selected' : ''; ?>>Joint Secretary</option>
-                                                            <option value="Treasurer" <?= $member['designation'] == 'Treasurer' ? 'selected' : ''; ?>>Treasurer</option>
+                                                            <option value="Coordinator" <?= $member['designation'] == 'Coordinator' ? 'selected' : ''; ?>>Coordinator</option>
+                                                            <option value="Co-Coordinator" <?= $member['designation'] == 'Co-Coordinator' ? 'selected' : ''; ?>>Co-Coordinator</option>
+                                                
                                                         </select>
                                                     </div>
                                                 </div>
@@ -188,9 +188,8 @@
                     <label>Designation</label>
                     <select name="designation[]" class="form-control select2">
                         <option selected>Select Designation</option>
-                        <option value="Secretary">Secretary</option>
-                        <option value="Joint Secretary">Joint Secretary</option>
-                        <option value="Treasurer">Treasurer</option>
+                        <option value="Coordinator">Coordinator</option>
+                            <option value="Co-Coordinator">Co-Coordinator</option>
                     </select>
                 </div>
             </div>

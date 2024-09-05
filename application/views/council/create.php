@@ -144,8 +144,8 @@
                         <label>Designation</label>
                         <select name="designation[]" class="form-control select2">
                             <option selected>Select Designation</option>
-                            <option value="Secretary">Coordinator</option>
-                            <option value="Joint Secretary">Co-Coordinator</option>
+                            <option value="Coordinator">Coordinator</option>
+                            <option value="Co-Coordinator">Co-Coordinator</option>
                         </select>
                     </div>
                 </div>
