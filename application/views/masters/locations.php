@@ -88,18 +88,17 @@
 
 
                                 <tbody>
-                                    <?php
-                                        foreach($locations as $loc) {
-                                    ?>
-                                    <tr>
-                                        <td><?= $loc->locationName; ?></td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
+                                    <?php foreach ($locations as $loc) { ?>
+                                        <tr id="row-<?= $loc->locationSlug; ?>">
+                                            <td><?= $loc->locationName; ?></td>
+                                            <td>
+                                                <a href="<?= base_url('Masters/editLocation/' . $loc->locationSlug) ?>" class="edit-row" data-id="<?= $loc->locationSlug ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= $loc->locationSlug ?>"><i class="ri-delete-bin-line"></i></a>
+                                            </td>
+                                        </tr>
                                     <?php } ?>
-                                   
-
                                 </tbody>
+
                             </table>
 
                         </div>
@@ -125,7 +124,7 @@
 <script>
     $(document).ready(function() {
         $('#saveLocation').submit(function(e) {
-            e.preventDefault(); // Prevent the default form submission
+            e.preventDefault();
             var formData = new FormData(this);
 
             $.ajax({
@@ -136,15 +135,12 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-
                     var response = JSON.parse(response);
 
                     if (response.success) {
-
                         $('#locationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
                         $('#saveLocation').trigger("reset");
                     } else {
-
                         var errorMessage = "<div class='alert alert-danger'>";
                         for (var key in response.error) {
                             if (response.error.hasOwnProperty(key)) {
@@ -156,17 +152,51 @@
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-
                     $('#locationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                 }
             });
         });
 
-
         $('#locationName').keyup(function() {
             var originalText = $(this).val();
             var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
             $('#locationSlug').val(filteredText.toLowerCase());
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                var locationSlug = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+                    fetch('<?= base_url(); ?>Masters/deletelocation/' + locationSlug, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                var row = document.getElementById('row-' + locationSlug);
+                                if (row) {
+                                    row.remove();
+                                } else {
+                                    console.error('Row not found in DOM');
+                                }
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
         });
     });
 </script>

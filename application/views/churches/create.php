@@ -47,6 +47,8 @@
                             <p class="card-title-desc">Manage Churches in the Location</p>
 
                             <form action="#" id="saveChurch" method="post">
+                                <div id="staffMessage"></div>
+
                                 <div class="form-group">
                                     <label for="churchName">Name of Church</label>
                                     <input class="form-control" type="text" name="churchName" placeholder="Name of Church" id="churchName" required>
@@ -133,31 +135,35 @@
                                     <tr>
                                         <th>Church Name</th>
                                         <th>Location</th>
+                                        <th>Pastor Name</th>
+                                        <th>Mobile Number</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
-
                                 <tbody>
-                                    <tr>
-                                        <td>Shalom AG Church</td>
-                                        <td>Nalamchira</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>IPC Peniel</td>
-                                        <td>Sreekariyam</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-
-
-
-
-
+                                    <?php if (!empty($churches)) : ?>
+                                        <?php foreach ($churches as $church) : ?>
+                                            <tr id="row-<?= $church->churchSlug ?>">
+                                                <td><?= $church->churchName ?></td>
+                                                <td><?= $church->locationName ?></td>
+                                                <td><?= $church->pastorName ?></td>
+                                                <td><?= $church->mobileNumber ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('Churches/edit/' . $church->churchSlug) ?>" class="edit-row" data-id="<?= $church->churchSlug ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                    <a href="javascript:void(0);" class="delete-row" data-id="<?= $church->churchSlug ?>"><i class="ri-delete-bin-line"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="5">No churches available.</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
+
+
+
 
                         </div>
                     </div>
@@ -226,7 +232,14 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        $('#staffMessage').html('<div class="alert alert-success">Staff details saved successfully!</div>');
+                        $('#staffMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+
+                        $('#saveChurch')[0].reset();
+
+
+                        $('#contactPersonsContainer').html('');
+
+                        $('#churchLocation').val(null).trigger('change');
                     } else {
                         $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
                     }
@@ -236,6 +249,8 @@
                 }
             });
         });
+
+
     });
 
 
@@ -246,7 +261,41 @@
         var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
         $('#churchSlug').val(filteredText.toLowerCase());
     });
-    
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                var churchSlug = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+                    fetch('<?= base_url(); ?>Churches/delete/' + churchSlug, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                var row = document.getElementById('row-' + churchSlug);
+                                if (row) {
+                                    row.remove();
+                                } else {
+                                    console.error('Row not found in DOM');
+                                }
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
 </script>
 
 

@@ -114,6 +114,41 @@
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                var cgpf_slug = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+                    fetch('<?= base_url(); ?>Cgpf/delete/' + cgpf_slug, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                var row = document.getElementById('row-' + cgpf_slug);
+                                if (row) {
+                                    row.remove(); 
+                                } else {
+                                    console.error('Row not found in DOM');
+                                }
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
+    });
+</script>
 
 
 

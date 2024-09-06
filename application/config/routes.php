@@ -14,6 +14,7 @@ $route['Institutes/delete/(:num)'] = 'Institutes/delete/$1';
 $route['Leaders/edit/(:any)'] = 'Leaders/edit/$1';
 $route['Leaders/delete/(:any)'] = 'Leaders/delete/$1';
 $route['leaders/update'] = 'leaders/update';
+$route['Cgpf/delete/(:num)'] = 'Cgpf/delete/$1';
 
 
 

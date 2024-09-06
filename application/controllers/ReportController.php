@@ -73,15 +73,14 @@ class ReportController extends CI_Controller
                         $_FILES['eventPhoto']['size'] = $files['events']['size'][$key]['eventPhotos'][$index];
 
                         $config['upload_path'] = $uploadPath;
-                        
+
                         $config['allowed_types'] = 'jpg|jpeg|png|gif';
                         // $config['max_size'] = 2048;
                         $config['encrypt_name'] = TRUE;
 
                         $this->upload->initialize($config);
 
-                        if ($this->upload->do_upload('eventPhoto')) 
-                        {
+                        if ($this->upload->do_upload('eventPhoto')) {
                             $uploadData = $this->upload->data();
 
                             $eventPhotos[] = $uploadData['file_name'];
@@ -102,5 +101,4 @@ class ReportController extends CI_Controller
         $this->session->set_flashdata('success', 'Report and Events saved successfully!');
         redirect('Staff/monthreport');
     }
-    
 }

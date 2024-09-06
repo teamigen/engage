@@ -84,7 +84,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-group">
                                                 <label>Date Range</label>
-                                                <div class="input-daterange input-group" >
+                                                <div class="input-daterange input-group">
                                                     <input type="date" class="form-control" name="start_date" placeholder="Start Date">
                                                     <input type="date" class="form-control" name="end_date" placeholder="End Date">
                                                 </div>
@@ -156,7 +156,7 @@
 
 <script>
     $(document).ready(function() {
-        let memberIndex = 0; 
+        let memberIndex = 0;
 
         function addMemberRow() {
             memberIndex++;

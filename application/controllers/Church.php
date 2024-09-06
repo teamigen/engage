@@ -33,6 +33,7 @@ class Church extends CI_Controller
             }
         }
         
-        echo json_encode(['status' => 'success']);
+        echo json_encode(['success' => true, 'message' => 'Church added successfully!']);
+
     }
 }

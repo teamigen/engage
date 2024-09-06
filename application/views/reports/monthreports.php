@@ -80,7 +80,7 @@
 
                                         generateMonthSelectBox();
                                         ?>
-                                                   <input type="hidden" id="reportMonth" name="reportMonth" value="">
+                              
 
 
 
@@ -123,13 +123,14 @@
                                 <div id="reportMessage"></div>
 
                                 <div class="row">
-                                  
-                         
+
+
                                 </div>
 
 
                                 <div class="row">
                                     <div class="col-lg-6">
+
 
                                         <input class="form-control" type="hidden" id="reportMonth" name="reportMonth">
                                         <div class="form-group">
@@ -496,6 +497,12 @@
         e.preventDefault();
         var formData = new FormData(this);
 
+        console.log('FormData Before Submit:');
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        
         document.querySelectorAll('.event1').forEach(eventSection => {
             const uniqueId = eventSection.querySelector('input[name^="events["]').name.match(/\[(.*?)\]/)[1];
             const fileInputs = eventSection.querySelectorAll('input[type="file"]');
@@ -518,7 +525,6 @@
             success: function(response) {
                 try {
                     var response = JSON.parse(response);
-
                     if (response.success) {
                         $('#reportMessage').html('<div class="alert alert-success"><p>Month Report Successfully Created!</p></div>');
                         $('#saveReport').trigger("reset");
@@ -546,21 +552,16 @@
 
 <script>
     $(document).ready(function() {
-
         var currentMonthYear = new Date().toLocaleString('en-US', {
             month: 'long',
             year: 'numeric'
         });
         $('.dispmnth').text(currentMonthYear);
-
-
         $('#reportMonth').val(currentMonthYear);
 
         $('#monthSelect').change(function() {
             var selectedMonth = $(this).val();
             $('.dispmnth').text(selectedMonth);
-
-
             $('#reportMonth').val(selectedMonth);
         });
     });

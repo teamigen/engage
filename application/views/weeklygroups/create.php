@@ -56,7 +56,7 @@
                                 <div class="form-group">
                                     <label>Slug</label>
                                     <input class="form-control" type="text" name="groupSlug"
-                                        placeholder="Name of Group" id="groupSlug">
+                                        placeholder="Name of Group" id="groupSlug" readonly>
                                 </div>
 
                                 <div class="form-group">
@@ -109,31 +109,34 @@
                                     <tr>
                                         <th>Group Name</th>
                                         <th>Location</th>
+                                        <th>Meeting Place</th>
+                                        <th>Group Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-
-
                                 <tbody>
-                                    <tr>
-                                        <td>Nalamchira Group</td>
-                                        <td>Nalamchira</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>CET Group</td>
-                                        <td>Sreekariyam</td>
-                                        <td><i class="ri-eye-line"></i>&nbsp;&nbsp;<i class="ri-pencil-line"></i></td>
-
-                                    </tr>
-
-
-
-
-
+                                    <?php if (!empty($weekly_groups)) : ?>
+                                        <?php foreach ($weekly_groups as $group) : ?>
+                                            <tr id="row-<?= $group['groupSlug'] ?>">
+                                                <td><?= $group['groupName'] ?></td>
+                                                <td><?= $group['locationName'] ?></td>
+                                                <td><?= $group['meetingPlace'] ?></td>
+                                                <td><?= $group['groupType'] ?></td>
+                                                <td>
+                                                    <a href="<?= base_url('Weeklygroups/edit/' . $group['groupSlug']) ?>" class="edit-row" data-id="<?= $group['groupSlug'] ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                    <a href="javascript:void(0);" class="delete-row" data-id="<?= $group['groupSlug'] ?>"><i class="ri-delete-bin-line"></i></a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td colspan="5">No groups available.</td>
+                                        </tr>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
+
+
 
                         </div>
                     </div>
@@ -181,6 +184,42 @@
         var originalText = $(this).val();
         var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
         $('#groupSlug').val(filteredText.toLowerCase());
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                var groupSlug = this.getAttribute('data-id');
+
+                if (confirm('Are you sure you want to delete this row?')) {
+                    fetch('<?= base_url(); ?>Weeklygroups/delete/' + groupSlug, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                var row = document.getElementById('row-' + groupSlug);
+                                if (row) {
+                                    row.remove(); 
+                                } else {
+                                    console.error('Row not found in DOM');
+                                }
+                            } else {
+                                alert('Failed to delete the row.');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            });
+        });
     });
 </script>
 

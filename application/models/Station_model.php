@@ -156,5 +156,19 @@ class Station_model extends CI_Model
         return $query->result_array();
     }
 
+      
+      public function get_location_by_slug($locationSlug)
+      {
+          $this->db->where('locationSlug', $locationSlug);
+          $query = $this->db->get('eg_location');
+          return $query->row_array();
+      }
+
+      public function update_location($locationId, $data)
+      {
+          $this->db->where('locationId', $locationId);
+          return $this->db->update('eg_location', $data);
+      }
+
 
 }
