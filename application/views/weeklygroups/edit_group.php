@@ -86,14 +86,27 @@
                                     <label>Type of Group</label>
                                     <select name="groupType" class="form-control select2" id="groupType">
                                         <option value="">Select Type of Group</option>
-                                        <option value="Evangelistic Group 1"
-                                            <?php echo (isset($group->groupType) && $group->groupType == 'Evangelistic Group 1') ? 'selected' : ''; ?>>
+                                        <option value="Evangelistic Group"
+                                            <?php echo (isset($group->groupType) && $group->groupType == 'Evangelistic Group') ? 'selected' : ''; ?>>
                                             Evangelistic Group 1
                                         </option>
-                                        <option value="Evangelistic Group 2"
-                                            <?php echo (isset($group->groupType) && $group->groupType == 'Evangelistic Group 2') ? 'selected' : ''; ?>>
-                                            Evangelistic Group 2
+                                        <option value="Discipleship Group"
+                                            <?php echo (isset($group->groupType) && $group->groupType == 'Discipleship Group') ? 'selected' : ''; ?>>
+                                            Discipleship Group
                                         </option>
+                                        <option value="Moral Awareness Group"
+                                            <?php echo (isset($group->groupType) && $group->groupType == 'Moral Awareness Group') ? 'selected' : ''; ?>>
+                                            Moral Awareness Group
+                                        </option>
+                                        <option value="Student Leaders Group"
+                                            <?php echo (isset($group->groupType) && $group->groupType == 'Student Leaders Group') ? 'selected' : ''; ?>>
+                                            Student Leaders Group
+                                        </option>
+                                        <option value="Other Group"
+                                            <?php echo (isset($group->groupType) && $group->groupType == 'Other Group') ? 'selected' : ''; ?>>
+                                            Other Group
+                                        </option>
+
                                     </select>
                                 </div>
 
@@ -123,8 +136,8 @@
                                 <thead>
                                     <tr>
                                         <th>Group Name</th>
-                                        <th>Location</th>
-                                        <th>Meeting Place</th>
+                                        <!--<th>Location</th>-->
+                                        <!--<th>Meeting Place</th>-->
                                         <th>Group Type</th>
                                         <th>Action</th>
                                     </tr>
@@ -134,8 +147,8 @@
                                         <?php foreach ($weekly_groups as $group) : ?>
                                             <tr id="row-<?= $group['groupSlug'] ?>">
                                                 <td><?= $group['groupName'] ?></td>
-                                                <td><?= $group['locationName'] ?></td>
-                                                <td><?= $group['meetingPlace'] ?></td>
+                                                <!--<td><?= $group['locationName'] ?></td>-->
+                                                <!--<td><?= $group['meetingPlace'] ?></td>-->
                                                 <td><?= $group['groupType'] ?></td>
                                                 <td>
                                                     <a href="<?= base_url('Weeklygroups/edit/' . $group['groupSlug']) ?>" class="edit-row" data-id="<?= $group['groupSlug'] ?>"><i class="ri-pencil-line"></i></a>&nbsp;

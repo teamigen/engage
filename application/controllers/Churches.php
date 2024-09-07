@@ -5,20 +5,26 @@ class Churches extends CI_Controller
 {
 
 	public function index()
+
 	{
 		$this->load->model('ChurchModel');
 		// $data['regions'] = $this->Station_model->getallactiveregions();
 		// $data['stations'] = $this->Station_model->getallactivestations();
-		$data['locations'] = $this->ChurchModel->getallactivelocations();
-		$data['churches'] = $this->ChurchModel->getAllChurches();
+		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
+		$data['churches'] = $this->ChurchModel->getallactivechurchesbystation($_COOKIE['stationId']);
+		// 		$data['churches'] = $this->ChurchModel->getAllChurches();
 
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/create', $data);
 		$this->load->view('templates/footer');
+		
 	}
+
+
 	public function delete($churchSlug)
+
 	{
 		log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
 		log_message('debug', '_method: ' . $this->input->post('_method'));
@@ -44,8 +50,10 @@ class Churches extends CI_Controller
 	}
 
 	public function edit($churchSlug)
+
 	{
 		$this->load->model('ChurchModel');
+
 		$data['churches'] = $this->ChurchModel->getAllChurches();
 
 
@@ -61,6 +69,7 @@ class Churches extends CI_Controller
 		$this->load->view('templates/nav');
 		$this->load->view('churches/edit_church', $data);
 		$this->load->view('templates/footer');
+
 	}
 
 	public function update()

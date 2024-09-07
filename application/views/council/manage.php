@@ -62,9 +62,9 @@
                             <p class="card-title-desc">List of all Student Councils
                             </p>
                             <hr>
-                            <div class="row">
-                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: Samuel Daniel</div>
-                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: Kollam
+<div class="row">
+                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
+                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
                                 </div>
                             </div>
                             <hr>

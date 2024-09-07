@@ -37,7 +37,6 @@
             </div>
             <!-- end page title -->
 
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -48,6 +47,12 @@
                                 <h4 class="card-title">Student Council</h4>
                                 <p class="card-title-desc">Create New Student Council</p>
                                 <hr>
+<div class="row">
+                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
+                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
+                                </div>
+                            </div>
+                            <hr>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">

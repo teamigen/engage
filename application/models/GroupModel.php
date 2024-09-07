@@ -24,6 +24,16 @@ class GroupModel extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getAllWeeklyGroupsbystationId()
+    {
+        $this->db->select('g.id, g.groupName, g.groupLocation, g.meetingPlace, g.groupType, l.locationName, g.groupSlug');
+        $this->db->from('groups g');
+        $this->db->join('eg_location l', 'g.groupLocation = l.locationId', 'left');
+        $this->db->where('l.locationStatus', 1);
+        $this->db->where('g.stationId', $_COOKIE['stationId']);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function delete_group($groupSlug)
     {
 

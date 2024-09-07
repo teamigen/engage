@@ -61,10 +61,10 @@
                             <h4 class="card-title">LIST OF CGPF GROUPS</h4>
                             <p class="card-title-desc">List of all CGPF groups
                             </p>
-                            <hr>
-                            <div class="row">
-                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: Samuel Daniel</div>
-                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: Kollam
+                           <hr>
+<div class="row">
+                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
+                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
                                 </div>
                             </div>
                             <hr>
@@ -90,7 +90,7 @@
                                                 <td><?= $cgpf['period_name'] ?></td>
                                                 <td><?= $cgpf['end_date'] ?></td>
                                                 <td>
-                                                    <a href="<?= base_url('CGPF/edit/' . $cgpf['cgpf_slug']) ?>" class="edit-row" data-id="<?= $cgpf['cgpf_slug'] ?>"><i class="ri-pencil-line"></i></a>&nbsp;
+                                                    <a href="<?= base_url('cgpf/edit/' . $cgpf['cgpf_slug']) ?>" class="edit-row" data-id="<?= $cgpf['cgpf_slug'] ?>"><i class="ri-pencil-line"></i></a>&nbsp;
                                                     <a href="javascript:void(0);" class="delete-row" data-id="<?= $cgpf['cgpf_slug'] ?>"><i class="ri-delete-bin-line"></i></a>
                                                 </td>
                                             </tr>

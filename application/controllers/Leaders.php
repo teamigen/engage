@@ -16,7 +16,11 @@ class Leaders extends CI_Controller
 	{
 		$this->load->model('LeaderModel');
 
-		$data['leaders'] = $this->LeaderModel->getAllLeaders();
+// 		$data['leaders'] = $this->LeaderModel->getAllLeaders();
+		$data['leaders'] = $this->LeaderModel->getAllLeadersbyStation($_COOKIE['stationId']);
+		
+// 		var_dump($data['leaders'] );
+// 		die();
 
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 		$data['institutes'] = $this->InstituteModel->getallactiveinstitutessbystation($_COOKIE['stationId']);

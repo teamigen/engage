@@ -46,12 +46,13 @@
                             <h4 class="card-title">Create Church</h4>
                             <p class="card-title-desc">Manage Churches in the Location</p>
 
-                            <form action="<?= base_url('Churches/update') ?>" method="post">
+                            <form action="<?= base_url('churches/update') ?>" method="post">
                                 <input type="hidden" name="churchId" value="<?= $church->churchId ?>">
 
                                 <div class="form-group">
                                     <label for="churchName">Name of Church</label>
                                     <input class="form-control" type="text" name="churchName" placeholder="Name of Church" id="churchName" value="<?= $church->churchName ?>" required>
+                                    <input class="form-control" type="hidden" name="stationId" value="<?= $_COOKIE['stationId']; ?>" id="stationId" required>
                                 </div>
 
                                 <div class="form-group">
@@ -163,7 +164,7 @@
                                 <thead>
                                     <tr>
                                         <th>Church Name</th>
-                                        <th>Location</th>
+                                        <!--<th>Location</th>-->
                                         <th>Pastor Name</th>
                                         <th>Mobile Number</th>
                                         <th>Action</th>
@@ -174,7 +175,7 @@
                                         <?php foreach ($churches as $church) : ?>
                                             <tr id="row-<?= $church->churchSlug ?>">
                                                 <td><?= $church->churchName ?></td>
-                                                <td><?= $church->locationName ?></td>
+                                                <!--<td><?= $church->locationName ?></td>-->
                                                 <td><?= $church->pastorName ?></td>
                                                 <td><?= $church->mobileNumber ?></td>
                                                 <td>

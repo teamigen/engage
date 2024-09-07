@@ -175,7 +175,7 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    alert(response);
+                    //alert(response);
                     var response = JSON.parse(response)
                     if (response.success) {
                         $('#saveLeader').trigger("reset");

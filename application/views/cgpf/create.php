@@ -51,6 +51,7 @@
 
 
                                 <form action="#" id="saveCGPF">
+                                    <div id="staffMessage"></div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-group">
@@ -232,19 +233,19 @@
             var formData = $(this).serialize();
 
             $.ajax({
-                url: '<?php echo base_url("CGPF/save"); ?>',
+                url: '<?php echo base_url("cgpf/save"); ?>',
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        alert('CGPF details saved successfully!');
+                        $('#staffMessage').html('<div class="alert alert-success">CGPF created successfully!</div>');
                     } else {
-                        alert('Error: ' + response.message);
+                        $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    alert('Error occurred: ' + textStatus);
+                    $('#staffMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
                 }
             });
         });

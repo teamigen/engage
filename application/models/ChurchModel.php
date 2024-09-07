@@ -104,4 +104,14 @@ class ChurchModel extends CI_Model
             return null;
         }
     }
+    public function getallactivechurchesbystation($stationId)
+    {
+        $this->db->select('*');
+        $this->db->from('churches');
+        $this->db->join('eg_location', 'churches.churchLocation = eg_location.locationId', 'left');
+        $this->db->where('churches.stationId', $stationId);
+        $this->db->order_by('churchName', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

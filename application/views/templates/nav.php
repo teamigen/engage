@@ -1,4 +1,4 @@
-<header id="page-topbar">
+f<header id="page-topbar">
                 <div class="navbar-header">
                     <div class="d-flex">
                         <!-- LOGO -->
@@ -54,7 +54,7 @@
                                 <a class="dropdown-item" href="#"><i class="ri-user-line align-middle mr-1"></i> Profile</a>
                                
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item text-danger" href="<?= base_url() ?>authcontroller/logout"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
+                                <a class="dropdown-item text-danger" href="<?= base_url() ?>AuthController/logout"><i class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
                             </div>
                         </div>
 
@@ -103,10 +103,10 @@
                                 <ul class="sub-menu" aria-expanded="false">
                                     <li><a href="<?= base_url(); ?>council/createnew">Create New Council</a></li>
                                     <li><a href="<?= base_url(); ?>council/manage">Manage Council</a></li>
-                                    <li><a href="<?= base_url(); ?>council/createareacouncil">Create Area Council</a></li>
-                                    <li><a href="<?= base_url(); ?>council/manageareacouncil">Manage Area Council</a></li>
-                                    <li><a href="<?= base_url(); ?>council/createareacouncil">Create District Council</a></li>
-                                    <li><a href="<?= base_url(); ?>council/manageareacouncil">Manage District Council</a></li>
+                                    <!--<li><a href="<?= base_url(); ?>council/createareacouncil">Create Area Council</a></li>-->
+                                    <!--<li><a href="<?= base_url(); ?>council/manageareacouncil">Manage Area Council</a></li>-->
+                                    <!--<li><a href="<?= base_url(); ?>council/createareacouncil">Create District Council</a></li>-->
+                                    <!--<li><a href="<?= base_url(); ?>council/manageareacouncil">Manage District Council</a></li>-->
                                 </ul>
                             </li>
                             <li>

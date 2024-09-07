@@ -49,6 +49,16 @@ class CGPFModel extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function getAllCGPFbyStationId()
+    {
+
+        $this->db->select('cgpf.cgpf_name, eg_location.locationName, cgpf.period_name, cgpf.end_date, cgpf.cgpf_slug');
+        $this->db->from('cgpf');
+        $this->db->join('eg_location', 'eg_location.locationId = cgpf.location_id', 'left');
+        $this->db->where('cgpf.stationId', $_COOKIE['stationId']);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function delete_cgpf($cgpf_slug)
     {
 

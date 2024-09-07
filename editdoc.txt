@@ -1,0 +1,21 @@
+ <!-- <form action="<?= base_url('navcontroller/update/' . esc($nav['id'])) ?>" method="post">
+                                <?= csrf_field() ?>
+                                <label for="name">Name:</label>
+                                <input type="text" name="name" id="name" value="<?= esc($nav['name']) ?>"><br>
+
+                                <label for="url">URL:</label>
+                                <input type="text" name="url" id="url" value="<?= esc($nav['url']) ?>"><br>
+
+                                <label for="icon">Icon:</label>
+                                <input type="text" name="icon" id="icon" value="<?= esc($nav['icon']) ?>"><br>
+
+                                <label for="position">Order:</label>
+                                <input type="text" name="position" id="position" value="<?= esc($nav['position']) ?>"><br>
+
+                                <label for="parentMenu">Parent:</label>
+                                <input type="text" name="parentMenu" id="parentMenu" value="<?= esc($nav['parentMenu']) ?>"><br>
+
+                               
+
+                                <input type="submit" value="Update">
+                            </form> -->

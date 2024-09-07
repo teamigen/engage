@@ -49,11 +49,12 @@ class AuthController extends CI_Controller
             $this->load->view('login');
         }
     }
+    
 
     public function logout()
     {
         setcookie('stafftype', '', time() + (86400 * 30), "/");
         $this->session->sess_destroy();
-        redirect('login');
+        redirect('AuthController/login');
     }
 }

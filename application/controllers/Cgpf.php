@@ -19,7 +19,7 @@ class Cgpf extends CI_Controller
 	public function manage()
 	{
 		$this->load->model('CGPFModel');
-		$data['cgpfList'] = $this->CGPFModel->getAllCGPF();
+		$data['cgpfList'] = $this->CGPFModel->getAllCGPFbyStationId();
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');

@@ -43,15 +43,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Report for the Month of <span class="dispmnth"></span></h4>
+                        <h4 class="mb-0">Report for the Month of <span class="dispmnth" id="selectedMonth"></span></h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="" style="margin-right:20px;">
+                                <li class="mr-2">
                                     <div class="form-group">
-
-
-
                                         <?php
                                         function generateMonthSelectBox()
                                         {
@@ -61,17 +58,12 @@
                                             echo '<select name="month" class="form-control select2" id="monthSelect">';
 
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
-                                                // Get month and year
                                                 $month = date('F', $currentTimestamp);
                                                 $year = date('Y', $currentTimestamp);
-
-                                                // Check if current month
                                                 $selected = ($currentTimestamp == time()) ? 'selected' : '';
 
-                                                // Create option element
                                                 echo '<option value="' . $month . ' ' . $year . '" ' . $selected . '>' . $month . ' ' . $year . '</option>';
 
-                                                // Move to previous month
                                                 $currentTimestamp = strtotime('-1 month', $currentTimestamp);
                                             }
 
@@ -80,21 +72,10 @@
 
                                         generateMonthSelectBox();
                                         ?>
-                              
-
-
-
-
-
-
                                     </div>
-
                                 </li>
-
-
                             </ol>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -106,8 +87,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">REPORT FOR THE MONTH OF <span class="dispmnth"
-                                    style="text-transform: uppercase;"></span></h4>
+                            <h4 class="card-title">Report for the Month of <span class="dispmnth" id="selectedMonth"></span></h4>
                             <p class="card-title-desc">Ministry Report in Detail
                             </p>
                             <hr>
@@ -119,7 +99,7 @@
                             <hr>
 
 
-                            <form action="#" id="saveReport" enctype="multipart/form-data">
+                            <form action="#" id="saveReport" enctype="multipart/form-data" method="post">
                                 <div id="reportMessage"></div>
 
                                 <div class="row">
@@ -132,7 +112,8 @@
                                     <div class="col-lg-6">
 
 
-                                        <input class="form-control" type="hidden" id="reportMonth" name="reportMonth">
+                                        <input type="hidden" id="reportMonth" name="reportMonth">
+                                        <!-- <span class="dispmnth" id="selectedMonth"></span> -->
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
                                             <input class="form-control" type="text" name="CGPF_Number"
@@ -369,203 +350,147 @@
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
-
-
 <script>
-    document.getElementById('addFamilyRow').addEventListener('click', addEvent);
-
-    function addEvent() {
-        const container = document.getElementById('eventsContainer');
-        const eventSection = document.createElement('div');
-        eventSection.className = 'event1 events';
-
-        let eventIndex = 1;
-
-
-        eventSection.innerHTML = `
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group mb-4">
-                <label>Date of Program</label>
-                <div class="input-group">
-                    <input type="date" class="form-control" name="events[${eventIndex}][program_date]">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Event Name</label>
-                <input class="form-control" type="text" name="events[${eventIndex}][event_name]" placeholder="Event Name">
-            </div>
-            <div class="form-group">
-                <label>Event Location</label>
-                <input class="form-control" type="text" name="events[${eventIndex}][event_location]" placeholder="Event Location">
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="form-group">
-                <label>Resource Person</label>
-                <input class="form-control" type="text" name="events[${eventIndex}][resource_person]" placeholder="Resource Person">
-            </div>
-            <div class="form-group">
-                <label>Attendance</label>
-                <input class="form-control" type="text" name="events[${eventIndex}][attendance]" placeholder="Attendance">
-            </div>
-            <div class="form-group">
-                <label>Event Photos</label>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="events[${eventIndex}][eventPhotos][]" multiple onchange="displayImages(this)">
-                    <label class="custom-file-label">Choose files</label>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row" id="imagePreviewContainer_${eventIndex}">
-                <!-- Image previews will be added here -->
-            </div>
-            <i class="mdi mdi-close-thick remove-family" style="font-style: normal; cursor: pointer;">&nbsp;</i>
-        </div>
-    </div>
-    <hr>
-`;
-
-        container.appendChild(eventSection);
-        eventIndex++
-
-        eventSection.querySelector('.remove-family').addEventListener('click', () => {
-            if (confirm("Are you sure you want to remove this event?")) {
-                container.removeChild(eventSection);
-            }
-        });
-    }
-
-    function reindexEvents() {
-        let newIndex = 0;
-        $('#eventsContainer .events').each(function() {
-            $(this).attr('class', `event${newIndex} events`);
-            $(this).find('input, select, textarea').each(function() {
-                let nameAttr = $(this).attr('name');
-                if (nameAttr) {
-                    let updatedName = nameAttr.replace(/\[.*?\]/, `[${newIndex}]`);
-                    $(this).attr('name', updatedName);
-                }
-            });
-            $(this).find('.remove-event').attr('onclick', `removeEvent(${newIndex})`);
-            $(this).find('#imagePreviewContainer_0').attr('id', `imagePreviewContainer_${newIndex}`);
-            newIndex++;
-        });
-        eventIndex = newIndex;
-    }
-
     function displayImages(input) {
-        const containerId = input.closest('.event1').querySelector('[id^="imagePreviewContainer"]').id;
-        const container = document.getElementById(containerId);
+        var files = input.files;
+        var previewContainer = $(input).closest('.event1').find('[id^="imagePreviewContainer_"]');
+        previewContainer.empty();
 
-        if (!container) return;
-
-        container.innerHTML = '';
-
-        const files = input.files;
-        const maxFiles = 6;
-
-        if (files.length > maxFiles) {
-            alert(`You can upload a maximum of ${maxFiles} images.`);
-            return;
-        }
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.className = 'img-thumbnail';
-
-                const div = document.createElement('div');
-                div.className = 'col-lg-2';
-                div.appendChild(img);
-
-                container.appendChild(div);
-            };
-
-            reader.readAsDataURL(file);
+        for (var i = 0; i < files.length; i++) {
+            var reader = new FileReader();
+            reader.onload = (function(file) {
+                return function(e) {
+                    var img = $('<img>').attr('src', e.target.result).css('width', '100px').css('margin-right', '10px');
+                    previewContainer.append(img);
+                };
+            })(files[i]);
+            reader.readAsDataURL(files[i]);
         }
     }
-</script>
 
-<script>
-    document.getElementById('saveReport').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
+    $(document).ready(function() {
+        var eventIndex = 1;
 
-        console.log('FormData Before Submit:');
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
 
-        
-        document.querySelectorAll('.event1').forEach(eventSection => {
-            const uniqueId = eventSection.querySelector('input[name^="events["]').name.match(/\[(.*?)\]/)[1];
-            const fileInputs = eventSection.querySelectorAll('input[type="file"]');
+        $('#addFamilyRow').on('click', function() {
+            var newEvent = $('.event1').first().clone();
 
-            fileInputs.forEach(input => {
-                const files = input.files;
-                for (let i = 0; i < files.length; i++) {
-                    formData.append(`events[${uniqueId}][eventPhotos][]`, files[i]);
+
+            newEvent.find('input, select').each(function() {
+                var nameAttr = $(this).attr('name');
+                $(this).val('');
+                $(this).attr('name', nameAttr.replace('[0]', '[' + eventIndex + ']'));
+            });
+
+
+            newEvent.find('[id^="imagePreviewContainer_"]').attr('id', 'imagePreviewContainer_' + eventIndex).empty();
+
+
+            newEvent.find('input[type="file"]').attr('name', 'events[' + eventIndex + '][eventPhotos][]');
+
+
+            $('#eventsContainer').append(newEvent);
+
+            eventIndex++;
+        });
+
+
+        $(document).on('click', '.remove-event', function() {
+            $(this).closest('.event1').remove();
+        });
+
+
+        $('#saveReport').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+
+            // Debugging:
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]);
+            }
+
+            $.ajax({
+                url: '<?php echo base_url('ReportController/saveReport'); ?>',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    try {
+                        var parsedResponse = JSON.parse(response);
+
+                        if (parsedResponse.status === 'success') {
+                            $('#reportMessage').html('<div class="alert alert-success">Month Report Successfully Created!</div>');
+                            $('#saveReport')[0].reset();
+
+                        } else {
+                            var errorMessage = "<div class='alert alert-danger'>";
+                            if (parsedResponse.message) {
+                                errorMessage += "<p>" + parsedResponse.message + "</p>";
+                            }
+                            errorMessage += "</div>";
+                            $('#reportMessage').html(errorMessage);
+                        }
+                    } catch (e) {
+                        console.error('Failed to parse response', e);
+                        $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX request failed:', textStatus, errorThrown);
+                    $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                 }
             });
         });
-
-        $.ajax({
-            url: '<?php echo base_url('ReportController/saveReport'); ?>',
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                try {
-                    var response = JSON.parse(response);
-                    if (response.success) {
-                        $('#reportMessage').html('<div class="alert alert-success"><p>Month Report Successfully Created!</p></div>');
-                        $('#saveReport').trigger("reset");
-                    } else {
-                        var errorMessage = "<div class='alert alert-danger'>";
-                        for (var key in response.error) {
-                            if (response.error.hasOwnProperty(key)) {
-                                errorMessage += "<p>" + response.error[key] + "</p>";
-                            }
-                        }
-                        errorMessage += "</div>";
-                        $('#reportMessage').html(errorMessage);
-                    }
-                } catch (e) {
-                    console.error('Failed to parse response', e);
-                    $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
-            }
-        });
     });
-</script>
 
-<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var monthSelect = document.getElementById('monthSelect');
+        var reportMonthInput = document.getElementById('reportMonth');
+        var displayMonths = document.querySelectorAll('.dispmnth');
+
+        function updateMonth() {
+            var selectedMonth = monthSelect.value;
+            reportMonthInput.value = selectedMonth;
+            displayMonths.forEach(function(span) {
+                span.textContent = selectedMonth;
+            });
+        }
+
+
+        updateMonth();
+
+
+        monthSelect.addEventListener('change', updateMonth);
+    });
+
+
+
+
+    $(document).on('click', '.remove-event', function() {
+        if (confirm('Are you sure you want to delete this event?')) {
+            $(this).closest('.event1').remove();
+        }
+    });
     $(document).ready(function() {
-        var currentMonthYear = new Date().toLocaleString('en-US', {
-            month: 'long',
-            year: 'numeric'
-        });
-        $('.dispmnth').text(currentMonthYear);
-        $('#reportMonth').val(currentMonthYear);
-
-        $('#monthSelect').change(function() {
-            var selectedMonth = $(this).val();
-            $('.dispmnth').text(selectedMonth);
+        function updateMonth() {
+            var selectedMonth = $('#monthSelect').val();
             $('#reportMonth').val(selectedMonth);
-        });
+            $('.dispmnth').text(selectedMonth);
+        }
+
+
+        updateMonth();
+
+
+        $('#monthSelect').change(updateMonth);
     });
 </script>
+
+
+
 
 
 

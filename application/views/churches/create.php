@@ -52,6 +52,7 @@
                                 <div class="form-group">
                                     <label for="churchName">Name of Church</label>
                                     <input class="form-control" type="text" name="churchName" placeholder="Name of Church" id="churchName" required>
+                                    <input class="form-control" type="hidden" name="stationId" value="<?= $_COOKIE['stationId']; ?>" id="stationId" required>
                                 </div>
 
                                 <div class="form-group">
@@ -102,6 +103,7 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>&nbsp;</label>
+                                                
                                                 <button type="button" class="remove-contact-person"><i class="fas fa-trash-alt"></i></button>
                                             </div>
                                         </div>
@@ -134,7 +136,7 @@
                                 <thead>
                                     <tr>
                                         <th>Church Name</th>
-                                        <th>Location</th>
+                                        <!--<th>Location</th>-->
                                         <th>Pastor Name</th>
                                         <th>Mobile Number</th>
                                         <th>Action</th>
@@ -145,7 +147,7 @@
                                         <?php foreach ($churches as $church) : ?>
                                             <tr id="row-<?= $church->churchSlug ?>">
                                                 <td><?= $church->churchName ?></td>
-                                                <td><?= $church->locationName ?></td>
+                                                <!--<td><?= $church->locationName ?></td>-->
                                                 <td><?= $church->pastorName ?></td>
                                                 <td><?= $church->mobileNumber ?></td>
                                                 <td>
@@ -224,7 +226,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '<?php echo base_url("Church/insertChurch"); ?>',
+                url: '<?php echo base_url("church/insertChurch"); ?>',
                 type: 'POST',
                 data: formData,
                 processData: false,

@@ -10,7 +10,8 @@ class Weeklygroups extends CI_Controller
         $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 
 
-        $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroups();
+        // $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroups();
+        $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
@@ -26,6 +27,7 @@ class Weeklygroups extends CI_Controller
 
         $this->load->model('GroupModel');
     }
+    
 
     public function insertGroup()
     {
@@ -74,7 +76,9 @@ class Weeklygroups extends CI_Controller
 
 
     public function delete($groupSlug)
+
     {
+
         log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
         log_message('debug', '_method: ' . $this->input->post('_method'));
         log_message('debug', 'Received Oroup slug: ' . $groupSlug);

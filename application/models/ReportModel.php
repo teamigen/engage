@@ -8,10 +8,18 @@ class ReportModel extends CI_Model {
         $this->load->database();
     }
 
-    public function insert($reportData) {
-        $this->db->insert('reports', $reportData);
+    // public function insert($reportData) {
+    //     $this->db->insert('reports', $reportData);
+    //     return $this->db->insert_id(); 
+    // }
+
+
+    public function insertReport($data) {
+        $this->db->insert('eg_report', $data);
         return $this->db->insert_id(); 
     }
+
+    
 
     
 

@@ -15,6 +15,12 @@ class LeaderModel extends CI_Model {
         $query = $this->db->get('leaders');
         return $query->row();
     }
+    
+    public function getAllLeadersbyStation($stationId) {
+        $this->db->where('stationId', $stationId);
+        $query = $this->db->get('leaders');
+        return $query->result();
+    }
 
     public function updateLeader($slug, $data) {
         $this->db->where('leaderId', $slug);
@@ -33,5 +39,7 @@ class LeaderModel extends CI_Model {
         $this->db->where('leaderSlug', $slug);
         return $this->db->delete('leaders');
     }
+    
+    
 }
 
