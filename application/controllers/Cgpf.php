@@ -4,15 +4,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Cgpf extends CI_Controller
 {
 
-	public function __construct() {
-        parent::__construct();
-        $this->load->model('CGPFModel');
-    }
-
-
-
-
-
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('CGPFModel');
+	}
 
 
 
@@ -54,7 +50,6 @@ class Cgpf extends CI_Controller
 			$response = ['success' => true];
 		} else {
 			$response = ['success' => false, 'message' => 'Failed to save CGPF details.'];
-			
 		}
 
 		echo json_encode($response);
@@ -62,6 +57,8 @@ class Cgpf extends CI_Controller
 
 
 	public function delete($cgpf_slug)
+
+	
 	{
 		log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
 		log_message('debug', '_method: ' . $this->input->post('_method'));
@@ -85,6 +82,8 @@ class Cgpf extends CI_Controller
 			echo json_encode(['success' => false, 'message' => 'Invalid request method or _method not received']);
 		}
 	}
+
+
 	public function createnew()
 	{
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
@@ -107,47 +106,48 @@ class Cgpf extends CI_Controller
 		$this->load->view('cgpf/edit_cgpf', $data);
 		$this->load->view('templates/footer');
 	}
+
+
 	public function update($cgpf_slug)
-{
-    $this->load->model('CGPFModel');
-
- 
-    $cgpf = $this->CGPFModel->getCgpfBySlug($cgpf_slug);
-    if (!$cgpf) {
-        show_404();
-    }
-
-    
-    $cgpf_data = [
-        'cgpf_name'     => $this->input->post('cgpf_name'),
-        'cgpf_slug'     => $this->input->post('cgpf_slug'),
-        'location_id'   => $this->input->post('location_id'),
-        'period_name'   => $this->input->post('period_name'),
-        'start_date'    => $this->input->post('start_date'),
-        'end_date'      => $this->input->post('end_date')
-    ];
+	{
+		$this->load->model('CGPFModel');
 
 
-    $this->CGPFModel->updateCgpf($cgpf->cgpf_id, $cgpf_data);
+		$cgpf = $this->CGPFModel->getCgpfBySlug($cgpf_slug);
+		if (!$cgpf) {
+			show_404();
+		}
 
-   
-    $this->CGPFModel->deleteMembersByCgpfId($cgpf->cgpf_id);
 
-   
-    $members = $this->input->post('members');
-    foreach ($members as $member) {
-        $member_data = [
-            'cgpf_id'     => $cgpf->cgpf_id,
-            'name'        => $member['name'],
-            'designation' => $member['designation'],
-            'phone'       => $member['phone'],
-            'email'       => $member['email']
-        ];
-        $this->CGPFModel->insertMember($member_data);
-    }
+		$cgpf_data = [
+			'cgpf_name'     => $this->input->post('cgpf_name'),
+			'cgpf_slug'     => $this->input->post('cgpf_slug'),
+			'location_id'   => $this->input->post('location_id'),
+			'period_name'   => $this->input->post('period_name'),
+			'start_date'    => $this->input->post('start_date'),
+			'end_date'      => $this->input->post('end_date')
+		];
 
-    
-    redirect('cgpf/manage');
-}
 
+		$this->CGPFModel->updateCgpf($cgpf->cgpf_id, $cgpf_data);
+
+
+		$this->CGPFModel->deleteMembersByCgpfId($cgpf->cgpf_id);
+
+
+		$members = $this->input->post('members');
+		foreach ($members as $member) {
+			$member_data = [
+				'cgpf_id'     => $cgpf->cgpf_id,
+				'name'        => $member['name'],
+				'designation' => $member['designation'],
+				'phone'       => $member['phone'],
+				'email'       => $member['email']
+			];
+			$this->CGPFModel->insertMember($member_data);
+		}
+
+
+		redirect('cgpf/manage');
+	}
 }

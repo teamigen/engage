@@ -23,11 +23,12 @@ class Weeklygroups extends CI_Controller
     public function __construct()
     {
 
+
         parent::__construct();
 
         $this->load->model('GroupModel');
     }
-    
+
 
     public function insertGroup()
     {
@@ -61,6 +62,9 @@ class Weeklygroups extends CI_Controller
 
         echo json_encode($response);
     }
+
+
+    
 
 
     public function check_slug_unique($slug)
@@ -127,31 +131,29 @@ class Weeklygroups extends CI_Controller
     {
         $this->load->model('GroupModel');
         $this->load->library('form_validation');
-    
+
         $this->form_validation->set_rules('groupName', 'Group Name', 'required');
         $this->form_validation->set_rules('meetingPlace', 'Meeting Place', 'required');
         $this->form_validation->set_rules('groupLocation', 'Group Location', 'required');
         $this->form_validation->set_rules('groupType', 'Group Type', 'required');
-    
+
         if ($this->form_validation->run() === FALSE) {
-           
+
             $this->edit($groupId);
         } else {
-            
+
             $data = array(
                 'groupName' => $this->input->post('groupName'),
-                'groupSlug' => $this->input->post('groupSlug'), 
+                'groupSlug' => $this->input->post('groupSlug'),
                 'groupLocation' => $this->input->post('groupLocation'),
                 'meetingPlace' => $this->input->post('meetingPlace'),
                 'groupType' => $this->input->post('groupType'),
             );
-    
-            
+
+
             $this->GroupModel->updateGroup($groupId, $data);
-    
+
             redirect('Weeklygroups/index');
         }
     }
-    
-    
 }

@@ -33,7 +33,9 @@
         color: red;
     }
 </style>
+
 <!-- ============================================================== -->
+
 <div class="main-content">
 
     <div class="page-content">
@@ -49,9 +51,11 @@
                             <ol class="breadcrumb m-0">
                                 <li class="mr-2">
                                     <div class="form-group">
+
                                         <?php
                                         function generateMonthSelectBox()
                                         {
+                                            $currentMonthYear = date('F Y');
                                             $currentTimestamp = time();
                                             $twoYearsAgoTimestamp = strtotime('-2 years', $currentTimestamp);
 
@@ -60,10 +64,10 @@
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
                                                 $month = date('F', $currentTimestamp);
                                                 $year = date('Y', $currentTimestamp);
-                                                $selected = ($currentTimestamp == time()) ? 'selected' : '';
+                                                $monthYear = $month . ' ' . $year;
+                                                $selected = ($monthYear == $currentMonthYear) ? 'selected' : '';
 
-                                                echo '<option value="' . $month . ' ' . $year . '" ' . $selected . '>' . $month . ' ' . $year . '</option>';
-
+                                                echo '<option value="' . $monthYear . '" ' . $selected . '>' . $monthYear . '</option>';
                                                 $currentTimestamp = strtotime('-1 month', $currentTimestamp);
                                             }
 
@@ -71,7 +75,11 @@
                                         }
 
                                         generateMonthSelectBox();
+
                                         ?>
+
+
+
                                     </div>
                                 </li>
                             </ol>
@@ -350,6 +358,264 @@
 </div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        function clearFields() {
+            console.log('Clearing fields');
+
+            $('#CGPF_Number').val('');
+            $('#House_Visit_Number').val('');
+            $('#Hostel_Visit_Number').val('');
+            $('#Evangelisms_Number').val('');
+            $('#Accepted_Christ').val('');
+            $('#Baptism_Decision').val('');
+            $('#Baptism_Number').val('');
+            $('#Holyspirit_Received').val('');
+            $('#Ministry_Commitments').val('');
+            $('#Existing_Student_Councils').val('');
+            $('#New_Student_Councils').val('');
+            $('#Existing_CGPF').val('');
+            $('#New_CGPF').val('');
+
+
+            $('#firstSundaySelect').val('').trigger('change');
+            $('#secondSundaySelect').val('').trigger('change');
+            $('#thirdSundaySelect').val('').trigger('change');
+            $('#fourthSundaySelect').val('').trigger('change');
+            $('#fifthSundaySelect').val('').trigger('change');
+
+
+            $('#eventsContainer .event').each(function() {
+                $(this).find('input[type="date"]').val('');
+                $(this).find('input[type="text"]').val('');
+                $(this).find('input[type="file"]').val('');
+                $(this).find('#imagePreviewContainer_').empty();
+            });
+        }
+
+        function populateFields(data) {
+            console.log('Data received for population:', data);
+            if (!data || $.isEmptyObject(data)) {
+                console.log('No data or empty object, clearing fields');
+                clearFields();
+              
+                $('#eventsContainer').append(`
+            <div class="event1 events default">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label>Date of Program</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="events[0][program_date]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Name</label>
+                            <input class="form-control" type="text" name="events[0][event_name]" placeholder="Event Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Location</label>
+                            <input class="form-control" type="text" name="events[0][event_location]" placeholder="Event Location">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Resource Person</label>
+                            <input class="form-control" type="text" name="events[0][resource_person]" placeholder="Resource Person">
+                        </div>
+                        <div class="form-group">
+                            <label>Attendance</label>
+                            <input class="form-control" type="text" name="events[0][attendance]" placeholder="Attendance">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Photos</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
+                                <label class="custom-file-label">Choose files</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row" id="imagePreviewContainer_0">
+                            <!-- Image previews will go here -->
+                        </div>
+                        <i class="mdi mdi-close-thick remove-event" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        `);
+                return;
+            }
+
+            
+            $('#CGPF_Number').val(data.CGPF_Number || '');
+            $('#House_Visit_Number').val(data.House_Visit_Number || '');
+            $('#Hostel_Visit_Number').val(data.Hostel_Visit_Number || '');
+            $('#Evangelisms_Number').val(data.Evangelisms_Number || '');
+            $('#Accepted_Christ').val(data.Accepted_Christ || '');
+            $('#Baptism_Decision').val(data.Baptism_Decision || '');
+            $('#Baptism_Number').val(data.Baptism_Number || '');
+            $('#Holyspirit_Received').val(data.Holyspirit_Received || '');
+            $('#Ministry_Commitments').val(data.Ministry_Commitments || '');
+            $('#Existing_Student_Councils').val(data.Existing_Student_Councils || '');
+            $('#New_Student_Councils').val(data.New_Student_Councils || '');
+            $('#Existing_CGPF').val(data.Existing_CGPF || '');
+            $('#New_CGPF').val(data.New_CGPF || '');
+            $('#firstSundaySelect').val(data.first_sunday_church || '').trigger('change');
+            $('#secondSundaySelect').val(data.second_sunday_church || '').trigger('change');
+            $('#thirdSundaySelect').val(data.third_sunday_church || '').trigger('change');
+            $('#fourthSundaySelect').val(data.fourth_sunday_church || '').trigger('change');
+            $('#fifthSundaySelect').val(data.fifth_sunday_church || '').trigger('change');
+
+            $('#eventsContainer').empty();
+            if (data.events && data.events.length) {
+                data.events.forEach(function(event, index) {
+                    $('#eventsContainer').append(`
+                <div class="event${index + 1} events default">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label>Date of Program</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" name="events[${index}][program_date]" value="${event.program_date}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Event Name</label>
+                                <input class="form-control" type="text" name="events[${index}][event_name]" placeholder="Event Name" value="${event.event_name}">
+                            </div>
+                            <div class="form-group">
+                                <label>Event Location</label>
+                                <input class="form-control" type="text" name="events[${index}][event_location]" placeholder="Event Location" value="${event.event_location}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Resource Person</label>
+                                <input class="form-control" type="text" name="events[${index}][resource_person]" placeholder="Resource Person" value="${event.resource_person}">
+                            </div>
+                            <div class="form-group">
+                                <label>Attendance</label>
+                                <input class="form-control" type="text" name="events[${index}][attendance]" placeholder="Attendance" value="${event.attendance}">
+                            </div>
+                            <div class="form-group">
+                                <label>Event Photos</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="events[${index}][eventPhotos][]" multiple onchange="displayImages(this)">
+                                    <label class="custom-file-label">Choose files</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row" id="imagePreviewContainer_${index}">
+                                ${event.eventPhotos ? JSON.parse(event.eventPhotos).map(photo => `
+                                    <div class="col-lg-3">
+                                        <img src="${baseUrl('uploads/images/reports/') + encodeURIComponent(photo)}" class="img-thumbnail">
+                                    </div>
+                                `).join('') : ''}
+                            </div>
+                            <i class="mdi mdi-close-thick remove-event" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            `);
+                });
+            } else {
+            
+                $('#eventsContainer').append(`
+            <div class="event1 events default">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label>Date of Program</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" name="events[0][program_date]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Name</label>
+                            <input class="form-control" type="text" name="events[0][event_name]" placeholder="Event Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Location</label>
+                            <input class="form-control" type="text" name="events[0][event_location]" placeholder="Event Location">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Resource Person</label>
+                            <input class="form-control" type="text" name="events[0][resource_person]" placeholder="Resource Person">
+                        </div>
+                        <div class="form-group">
+                            <label>Attendance</label>
+                            <input class="form-control" type="text" name="events[0][attendance]" placeholder="Attendance">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Photos</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
+                                <label class="custom-file-label">Choose files</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row" id="imagePreviewContainer_0">
+                            <!-- Image previews will go here -->
+                        </div>
+                        <i class="mdi mdi-close-thick remove-event" style="font-style: normal; cursor: pointer;">&nbsp;</i>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        `);
+            }
+        }
+
+
+        function baseUrl(path) {
+            return '<?php echo base_url(); ?>' + path;
+        }
+
+        function fetchData(monthYear) {
+            $.ajax({
+                url: '<?php echo base_url('ReportController/getDatabyYearandMonth'); ?>',
+                type: 'POST',
+                data: {
+                    monthYear: monthYear
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    populateFields(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    clearFields();
+                }
+            });
+        }
+
+        var currentMonthYear = $('#monthSelect').val();
+        if (currentMonthYear) {
+            fetchData(currentMonthYear);
+        }
+
+        $('#monthSelect').on('change', function() {
+            var selectedMonthYear = $(this).val();
+            fetchData(selectedMonthYear);
+        });
+    });
+</script>
+
+
+
+
+
 <script>
     function displayImages(input) {
         var files = input.files;
@@ -370,12 +636,8 @@
 
     $(document).ready(function() {
         var eventIndex = 1;
-
-
         $('#addFamilyRow').on('click', function() {
             var newEvent = $('.event1').first().clone();
-
-
             newEvent.find('input, select').each(function() {
                 var nameAttr = $(this).attr('name');
                 $(this).val('');
@@ -393,18 +655,13 @@
 
             eventIndex++;
         });
-
-
         $(document).on('click', '.remove-event', function() {
             $(this).closest('.event1').remove();
         });
-
-
         $('#saveReport').on('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(this);
 
-            // Debugging:
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ', ' + pair[1]);
             }
@@ -465,6 +722,7 @@
 
         monthSelect.addEventListener('change', updateMonth);
     });
+
 
 
 

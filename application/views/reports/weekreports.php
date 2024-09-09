@@ -13,10 +13,10 @@
 <!-- ============================================================== -->
 <div class="main-content">
 
-<div class="page-content">
-                    <div class="container-fluid">
+    <div class="page-content">
+        <div class="container-fluid">
 
-                          <!-- start page title -->
+            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
@@ -66,12 +66,15 @@
 
 
                                         <script>
-                                            $(document).ready(function () {
+                                            $(document).ready(function() {
                                                 // Get current month and year
-                                                var currentMonthYear = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+                                                var currentMonthYear = new Date().toLocaleString('en-US', {
+                                                    month: 'long',
+                                                    year: 'numeric'
+                                                });
                                                 $('.dispmnth').text(currentMonthYear);
 
-                                                $('#monthSelect').change(function () {
+                                                $('#monthSelect').change(function() {
                                                     var selectedMonth = $(this).val();
                                                     $('.dispmnth').text(selectedMonth);
                                                 });
@@ -91,13 +94,13 @@
             </div>
             <!-- end page title -->
 
-                        
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-        
-                                    <h4 class="card-title">ACTIVITY REPORT FOR THE MONTH OF <span class="dispmnth"
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">ACTIVITY REPORT FOR THE MONTH OF <span class="dispmnth"
                                     style="text-transform: uppercase;"></span></h4>
                             <p class="card-title-desc">Weekly Activity Report
                             </p>
@@ -108,8 +111,8 @@
                                 </div>
                             </div>
                             <hr>
-                                            <form action="#">
-                                            <div class="row">
+                            <form action="#">
+                                <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
                                             <label>Date of Event</label>
@@ -120,29 +123,29 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-calendar"></i></span>
                                                 </div>
-                                            </div>   
+                                            </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-lg-3">
-                                    <div class="form-group">
+                                        <div class="form-group">
                                             <label>Name of Group</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
-                                            <option selected>Select Group</option>       
-                                            <option value="">Mar Ivanios College Group</option>
-                                                </select>
+                                                <option selected>Select Group</option>
+                                                <option value="">Mar Ivanios College Group</option>
+                                            </select>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-lg-3">
-                                    <div class="form-group">
+                                        <div class="form-group">
                                             <label>Leader</label>
                                             <select name="month" class="form-control select2" id="monthSelect" placeholder="Leader of Group">
-                                            <option selected>Select Leader</option>       
-                                            <option value="">Benjamin George</option>
-                                                </select>
+                                                <option selected>Select Leader</option>
+                                                <option value="">Benjamin George</option>
+                                            </select>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
@@ -150,34 +153,34 @@
                                             <input class="form-control" type="text" name="no_of_cgpf_meetings"
                                                 placeholder="No of CGPF Meetings" id="no_of_cgpf_meetings">
                                         </div>
-                                        
+
                                     </div>
                                     <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
 
 
-                                    
+
                                 </div>
                                 <hr>
-                                
-                                
-                                
-                                
-                                        <div class="row">
-                                            <div class="col-lg-12" style="text-align: right;">
-                                                <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                                <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
-                                            </div>
-                                        </div>
-                                            </form>
-                                        </div>
-        
-                                       
+
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
+                                        <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
                                     </div>
                                 </div>
-                            </div> <!-- end col -->
-                        </div> <!-- end row -->
-                    </div> <!-- container-fluid -->
-                </div> <!-- container-fluid -->
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 </div>
 <!-- End Page-content -->
 
