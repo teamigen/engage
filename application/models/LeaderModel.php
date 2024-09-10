@@ -22,6 +22,12 @@ class LeaderModel extends CI_Model {
         return $query->result();
     }
 
+    public function getAllLeadersbyStations($stationId) {
+        $this->db->where('stationId', $stationId);
+        $query = $this->db->get('leaders');
+        return $query->result_array();
+    }
+
     public function updateLeader($slug, $data) {
         $this->db->where('leaderId', $slug);
         $this->db->update('leaders', $data);

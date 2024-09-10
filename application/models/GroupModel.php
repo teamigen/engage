@@ -24,6 +24,8 @@ class GroupModel extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    
     public function getAllWeeklyGroupsbystationId()
     {
         $this->db->select('g.id, g.groupName, g.groupLocation, g.meetingPlace, g.groupType, l.locationName, g.groupSlug');
@@ -33,7 +35,10 @@ class GroupModel extends CI_Model
         $this->db->where('g.stationId', $_COOKIE['stationId']);
         $query = $this->db->get();
         return $query->result_array();
+
     }
+
+
     public function delete_group($groupSlug)
     {
 

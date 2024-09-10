@@ -263,4 +263,63 @@ class ReportController extends CI_Controller
 
         echo json_encode(array('status' => 'success', 'message' => 'Report successfully processed'));
     }
+
+    public function saveWeekReport()
+    {
+        $this->load->model('ReportModel');
+        $this->load->helper('url');
+        $this->load->library('form_validation');
+
+        $reportMonth = $this->input->post('reportMonth');
+        $dateOfEvents = $this->input->post('dateOfEvent');
+        $groupNames = $this->input->post('groupName');
+        $groupLeaders = $this->input->post('groupLeader');
+        $groupAttendances = $this->input->post('groupAttendence');
+        $rowIndices = $this->input->post('rowIndex');
+
+        $reportData = [];
+        foreach ($rowIndices as $index) {
+            $reportData[] = [
+                'reportMonth'      => $reportMonth,
+                'dateOfEvent'      => $dateOfEvents[$index],
+                'groupName'        => $groupNames[$index],
+                'groupLeader'      => $groupLeaders[$index],
+                'groupAttendance'  => $groupAttendances[$index]
+            ];
+        }
+
+        if (!empty($reportData)) {
+            $this->ReportModel->insertWeeklyReport($reportData);
+        }
+
+        // Prepare and send the JSON response
+        $response = array(
+            'status'  => 'success',
+            'message' => 'Weekly report successfully processed'
+        );
+
+        echo json_encode($response);
+        exit;
+    }
+
+
+
+    public function getWeekDatabyYearandMonth()
+    {
+        $monthYear = $this->input->post('monthYear');
+
+        $reportData = $this->ReportModel->getWeekReportByMonthYear($monthYear);
+
+        $response = [];
+        foreach ($reportData as $data) {
+            $response[] = [
+                'dateOfEvent' => $data->dateOfEvent,
+                'groupName' => $data->groupName,
+                'groupLeader' => $data->groupLeader,
+                'groupAttendance' => $data->groupAttendance,
+            ];
+        }
+
+        echo json_encode($response);
+    }
 }

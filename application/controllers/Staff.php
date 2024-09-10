@@ -72,8 +72,12 @@ class Staff extends CI_Controller
 
     public function weekreport()
     {
+        $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
         //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
+        $this->load->model('LeaderModel'); // Load your model
+        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStations($_COOKIE['stationId']);
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');

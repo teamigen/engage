@@ -362,7 +362,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-
     $(document).ready(function() {
         function clearFields() {
             console.log('Clearing fields');
@@ -402,7 +401,7 @@
             if (!data || $.isEmptyObject(data)) {
                 console.log('No data or empty object, clearing fields');
                 clearFields();
-              
+
                 $('#eventsContainer').append(`
             <div class="event1 events default">
                 <div class="row">
@@ -452,7 +451,7 @@
                 return;
             }
 
-            
+
             $('#CGPF_Number').val(data.CGPF_Number || '');
             $('#House_Visit_Number').val(data.House_Visit_Number || '');
             $('#Hostel_Visit_Number').val(data.Hostel_Visit_Number || '');
@@ -527,7 +526,7 @@
             `);
                 });
             } else {
-            
+
                 $('#eventsContainer').append(`
             <div class="event1 events default">
                 <div class="row">
@@ -655,9 +654,12 @@
 
             eventIndex++;
         });
+
         $(document).on('click', '.remove-event', function() {
             $(this).closest('.event1').remove();
         });
+
+        
         $('#saveReport').on('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(this);

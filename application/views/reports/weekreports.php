@@ -12,48 +12,33 @@
 
 <!-- ============================================================== -->
 <div class="main-content">
-
     <div class="page-content">
         <div class="container-fluid">
-
-            <!-- start page title -->
+            <!-- Start Page Title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Report for the Month of <span class="dispmnth"></span></h4>
-
+                        <h4 class="mb-0">Report for the Month of <span class="dispmnth" id="selectedMonth"></span></h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="" style="margin-right:20px;">
+                                <li class="breadcrumb-item">
                                     <div class="form-group">
-
-
-
                                         <?php
                                         function generateMonthSelectBox()
                                         {
-                                            // Get current timestamp
+                                            $currentMonthYear = date('F Y');
                                             $currentTimestamp = time();
-
-                                            // Calculate timestamp for two years ago
                                             $twoYearsAgoTimestamp = strtotime('-2 years', $currentTimestamp);
 
-                                            // Create select box
                                             echo '<select name="month" class="form-control select2" id="monthSelect">';
 
-                                            // Iterate through months from current month to two years ago
                                             while ($currentTimestamp >= $twoYearsAgoTimestamp) {
-                                                // Get month and year
                                                 $month = date('F', $currentTimestamp);
                                                 $year = date('Y', $currentTimestamp);
+                                                $monthYear = $month . ' ' . $year;
+                                                $selected = ($monthYear == $currentMonthYear) ? 'selected' : '';
 
-                                                // Check if current month
-                                                $selected = ($currentTimestamp == time()) ? 'selected' : '';
-
-                                                // Create option element
-                                                echo '<option value="' . $month . ' ' . $year . '" ' . $selected . '>' . $month . ' ' . $year . '</option>';
-
-                                                // Move to previous month
+                                                echo '<option value="' . $monthYear . '" ' . $selected . '>' . $monthYear . '</option>';
                                                 $currentTimestamp = strtotime('-1 month', $currentTimestamp);
                                             }
 
@@ -62,128 +47,380 @@
 
                                         generateMonthSelectBox();
                                         ?>
-
-
-
-                                        <script>
-                                            $(document).ready(function() {
-                                                // Get current month and year
-                                                var currentMonthYear = new Date().toLocaleString('en-US', {
-                                                    month: 'long',
-                                                    year: 'numeric'
-                                                });
-                                                $('.dispmnth').text(currentMonthYear);
-
-                                                $('#monthSelect').change(function() {
-                                                    var selectedMonth = $(this).val();
-                                                    $('.dispmnth').text(selectedMonth);
-                                                });
-                                            });
-                                        </script>
-
                                     </div>
-
                                 </li>
-
-
                             </ol>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
+            <!-- End Page Title -->
 
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <h4 class="card-title">ACTIVITY REPORT FOR THE MONTH OF <span class="dispmnth"
-                                    style="text-transform: uppercase;"></span></h4>
-                            <p class="card-title-desc">Weekly Activity Report
-                            </p>
+                            <h4 class="card-title">Report for the Month of <span class="dispmnth" id="selectedMonth"></span></h4>
+                            <p class="card-title-desc">Ministry Report in Detail</p>
                             <hr>
                             <div class="row">
                                 <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
-                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
-                                </div>
+                                <div class="col-lg-6 text-end" style="font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?></div>
                             </div>
                             <hr>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label>Date of Event</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" data-provide="datepicker"
-                                                    data-date-format="dd M, yyyy">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text"><i
-                                                            class="mdi mdi-calendar"></i></span>
+                            <form action="#" id="saveWeeklyReport" method="post">
+                                <div id="reportMessage"></div>
+                                <input type="hidden" id="reportMonth" name="reportMonth">
+                                <div id="reportContainer">
+                                    <div class="row reportRow align-items-center mb-3 preserve" data-index="0">
+                                        <input type="hidden" name="rowIndex[]" value="0">
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label>Date of Event</label>
+                                                <div class="input-group">
+                                                    <input type="date" class="form-control" name="dateOfEvent[0]">
                                                 </div>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label>Name of Group</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Name of Group">
-                                                <option selected>Select Group</option>
-                                                <option value="">Mar Ivanios College Group</option>
-                                            </select>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label>Name of Group</label>
+                                                <select name="groupName[0]" class="form-control select2" placeholder="Name of Group">
+                                                    <option selected>Select Group</option>
+                                                    <?php foreach ($weeklyGroups as $group): ?>
+                                                        <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group">
-                                            <label>Leader</label>
-                                            <select name="month" class="form-control select2" id="monthSelect" placeholder="Leader of Group">
-                                                <option selected>Select Leader</option>
-                                                <option value="">Benjamin George</option>
-                                            </select>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label>Leader</label>
+                                                <select name="groupLeader[0]" class="form-control select2" placeholder="Leader of Group">
+                                                    <option selected>Select Leader</option>
+                                                    <?php foreach ($leaders as $leader): ?>
+                                                        <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="form-group">
-                                            <label>Attendance</label>
-                                            <input class="form-control" type="text" name="no_of_cgpf_meetings"
-                                                placeholder="No of CGPF Meetings" id="no_of_cgpf_meetings">
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label>Attendance</label>
+                                                <input class="form-control" type="text" name="groupAttendence[0]" placeholder="No of CGPF Meetings">
+                                            </div>
                                         </div>
-
+                                        <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                                            <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
+                                        </div>
+                                        <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                                            <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-1" style="font-weight: bold; font-size:18px; padding-top:30px;"><i class="mdi mdi-alarm-plus" style="font-style: normal;">&nbsp;Add</i></div>
-
-
-
                                 </div>
                                 <hr>
-
-
-
-
                                 <div class="row">
-                                    <div class="col-lg-12" style="text-align: right;">
-                                        <button type="button" class="btn btn-success waves-effect waves-light">Save</button>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
+                                    <div class="col-lg-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light me-2" id="saveButton">Save</button>
+                                        <button type="button" class="btn btn-primary waves-effect waves-light" id="submitButton">Submit for Review</button>
                                     </div>
                                 </div>
                             </form>
+
                         </div>
-
-
                     </div>
                 </div>
-            </div> <!-- end col -->
-        </div> <!-- end row -->
-    </div> <!-- container-fluid -->
-</div> <!-- container-fluid -->
-</div>
-<!-- End Page-content -->
+            </div>
+        </div> <!-- End Container Fluid -->
+    </div> <!-- End Page Content -->
+</div> <!-- End Main Content -->
 
+<script>
+    $(document).ready(function() {
+        let rowIndex = 0;
+
+        function clearFields() {
+            // Only clear the rows that should be replaced
+            $('#reportContainer .reportRow').each(function() {
+                if (!$(this).hasClass('preserve')) {
+                    $(this).remove();
+                }
+            });
+        }
+
+
+        function populateFields(data) {
+            if (!data || $.isEmptyObject(data)) {
+                clearFields();
+                return;
+            }
+
+            clearFields(); // Clear only rows that are not marked for preservation
+
+            data.forEach((row, index) => {
+                let newRow = `
+            <div class="row reportRow align-items-center mb-3" data-index="${index}">
+                <input type="hidden" name="rowIndex[]" value="${index}">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Date of Event</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Name of Group</label>
+                        <select name="groupName[${index}]" class="form-control select2">
+                            <option selected>Select Group</option>
+                            <?php foreach ($weeklyGroups as $group): ?>
+                                <option value="<?php echo $group['id']; ?>" ${row.groupName == <?php echo $group['id']; ?> ? 'selected' : ''}>
+                                    <?php echo htmlspecialchars($group['groupName']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Leader</label>
+                        <select name="groupLeader[${index}]" class="form-control select2">
+                            <option selected>Select Leader</option>
+                            <?php foreach ($leaders as $leader): ?>
+                                <option value="<?php echo $leader['leaderId']; ?>" ${row.groupLeader == <?php echo $leader['leaderId']; ?> ? 'selected' : ''}>
+                                    <?php echo htmlspecialchars($leader['name_of_leader']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Attendance</label>
+                        <input class="form-control" type="text" name="groupAttendence[${index}]" placeholder="No of CGPF Meetings" value="${row.groupAttendance || ''}">
+                    </div>
+                </div>
+                <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                    <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
+                </div>
+                <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                    <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
+                </div>
+            </div>
+        `;
+                $('#reportContainer').append(newRow);
+            });
+
+            updateRowIndex();
+        }
+
+
+        function fetchData(monthYear) {
+            console.log('Month and Year:', monthYear);
+            $.ajax({
+                url: '<?php echo base_url('ReportController/getWeekDatabyYearandMonth'); ?>',
+                type: 'POST',
+                data: {
+                    monthYear: monthYear
+                },
+                success: function(response) {
+                    try {
+                        var data = JSON.parse(response);
+                        populateFields(data);
+                    } catch (e) {
+                        console.error('JSON Parsing Error:', e);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                    clearFields();
+                }
+            });
+        }
+
+
+        $('#monthSelect').on('change', function() {
+            var selectedMonthYear = $(this).val();
+            $('#reportMonth').val(selectedMonthYear);
+            $('.dispmnth').text(selectedMonthYear);
+            fetchData(selectedMonthYear);
+        });
+
+        var currentMonthYear = $('#monthSelect').val();
+        if (currentMonthYear) {
+            $('#reportMonth').val(currentMonthYear);
+            $('.dispmnth').text(currentMonthYear);
+            fetchData(currentMonthYear);
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        let rowIndex = 0;
+
+
+        function updateRowIndex() {
+            $('#reportContainer .reportRow').each(function(index) {
+                $(this).attr('data-index', index);
+                $(this).find('input[name^="dateOfEvent"]').attr('name', 'dateOfEvent[' + index + ']');
+                $(this).find('select[name^="groupName"]').attr('name', 'groupName[' + index + ']');
+                $(this).find('select[name^="groupLeader"]').attr('name', 'groupLeader[' + index + ']');
+                $(this).find('input[name^="groupAttendence"]').attr('name', 'groupAttendence[' + index + ']');
+                $(this).find('input[name="rowIndex[]"]').val(index);
+            });
+        }
+
+
+        $(document).on('click', '.addRow', function() {
+            rowIndex++;
+            let newRow = `
+        <div class="row reportRow align-items-center mb-3" data-index="${rowIndex}">
+            <input type="hidden" name="rowIndex[]" value="${rowIndex}">
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Date of Event</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="dateOfEvent[${rowIndex}]">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Name of Group</label>
+                    <select name="groupName[${rowIndex}]" class="form-control select2" placeholder="Name of Group">
+                        <option selected>Select Group</option>
+                        <?php foreach ($weeklyGroups as $group): ?>
+                            <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Leader</label>
+                    <select name="groupLeader[${rowIndex}]" class="form-control select2" placeholder="Leader of Group">
+                        <option selected>Select Leader</option>
+                        <?php foreach ($leaders as $leader): ?>
+                            <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Attendance</label>
+                    <input class="form-control" type="text" name="groupAttendence[${rowIndex}]" placeholder="No of CGPF Meetings">
+                </div>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
+            </div>
+        </div>
+        `;
+            $('#reportContainer').append(newRow);
+            updateRowIndex();
+        });
+
+
+        $(document).on('click', '.removeRow', function() {
+            $(this).closest('.reportRow').remove();
+            updateRowIndex();
+        });
+    });
+</script>
+
+<script>
+    $('#saveWeeklyReport').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        $.ajax({
+            url: '<?php echo base_url('ReportController/saveWeekReport'); ?>',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                try {
+                    if (response.status === 'success') {
+                        $('#reportMessage').html('<div class="alert alert-success">Month Report Successfully Created!</div>');
+                        $('#saveReport')[0].reset();
+                    } else {
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        if (response.message) {
+                            errorMessage += "<p>" + response.message + "</p>";
+                        }
+                        errorMessage += "</div>";
+                        $('#reportMessage').html(errorMessage);
+                    }
+                } catch (e) {
+                    console.error('Failed to process response', e);
+                    $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('AJAX request failed:', textStatus, errorThrown);
+                $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+            }
+        });
+
+    });
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var monthSelect = document.getElementById('monthSelect');
+        var reportMonthInput = document.getElementById('reportMonth');
+        var displayMonths = document.querySelectorAll('.dispmnth');
+
+        function updateMonth() {
+            var selectedMonth = monthSelect.value;
+            reportMonthInput.value = selectedMonth;
+            displayMonths.forEach(function(span) {
+                span.textContent = selectedMonth;
+            });
+        }
+
+
+        updateMonth();
+
+
+        monthSelect.addEventListener('change', updateMonth);
+    });
+
+
+
+
+
+    $(document).on('click', '.remove-event', function() {
+        if (confirm('Are you sure you want to delete this event?')) {
+            $(this).closest('.event1').remove();
+        }
+    });
+    $(document).ready(function() {
+        function updateMonth() {
+            var selectedMonth = $('#monthSelect').val();
+            $('#reportMonth').val(selectedMonth);
+            $('.dispmnth').text(selectedMonth);
+        }
+
+
+        updateMonth();
+
+
+        $('#monthSelect').change(updateMonth);
+    });
+</script>
 
 
 <script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>

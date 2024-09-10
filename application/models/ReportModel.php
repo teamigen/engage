@@ -53,6 +53,18 @@ class ReportModel extends CI_Model
             return null;
         }
     }
+    public function getWeekReportByMonthYear($monthYear)
+    {
+        $this->db->like('reportMonth', $monthYear, 'after');
+        $query = $this->db->get('eg_weekreport');
+
+        if ($query->num_rows() > 0) {
+            return $query->result(); // Change to result() to get an array of rows
+        } else {
+            return [];
+        }
+    }
+
 
     public function reportExists($reportMonth)
     {
@@ -66,6 +78,17 @@ class ReportModel extends CI_Model
         $this->db->where('reportId', $reportId);
         return $this->db->update('eg_report', $data);
     }
+    public function insertWeeklyReport($reportData)
+    {
 
+        $this->db->insert_batch('eg_weekreport', $reportData);
+    }
 
+    public function updateWeeklyReport($data)
+    {
+        $this->db->where('reportId', $data['reportId']);
+        $this->db->update('eg_weekreport', $data);
+    }
+
+    
 }
