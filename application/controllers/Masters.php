@@ -53,12 +53,14 @@ class Masters extends CI_Controller
 		$locationName = $this->security->xss_clean($this->input->post('locationName'));
 		$locationSlug = $this->security->xss_clean($this->input->post('locationSlug'));
 		$stationId = $_COOKIE['stationId'];
+		$staffId = $_COOKIE['staffId'];
 
 		$data = array(
 			'locationName' => $locationName,
 			'locationStatus' => 1,
 			'locationSlug' => $locationSlug,
-			'stationId' => $stationId
+			'stationId' => $stationId,
+			'staffId' => $staffId
 		);
 
 		$this->load->model('Station_model');
@@ -97,6 +99,7 @@ class Masters extends CI_Controller
 			echo json_encode(['success' => false, 'message' => 'Invalid request method or _method not received']);
 		}
 	}
+	
 	public function updateLocation()
 	{
 

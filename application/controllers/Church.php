@@ -39,10 +39,17 @@ class Church extends CI_Controller
 
     public function insertChurch()
     {
+        $churchSlug = $this->input->post('churchSlug');
+
+
+        if ($this->ChurchModel->isSlugExists($churchSlug)) {
+            echo json_encode(['success' => false, 'message' => 'Church already exists!']);
+            return;
+        }
 
         $churchData = [
             'churchName' => $this->input->post('churchName'),
-            'churchSlug' => $this->input->post('churchSlug'),
+            'churchSlug' => $churchSlug,
             'churchLocation' => $this->input->post('churchLocation'),
             'pastorName' => $this->input->post('pastorName'),
             'mobileNumber' => $this->input->post('mobileNumber'),
@@ -51,17 +58,14 @@ class Church extends CI_Controller
         $staffId = $this->input->cookie('staffId', true);
         $stationId = $this->input->cookie('stationId', true);
 
-
         $churchData['staffId'] = $staffId;
         $churchData['stationId'] = $stationId;
 
-
         $churchId = $this->ChurchModel->insertChurch($churchData);
 
-
+        
         $contactNames = $this->input->post('contactName');
         $contactPhones = $this->input->post('contactPhone');
-
 
         if (!empty($contactNames)) {
             foreach ($contactNames as $index => $name) {
@@ -73,7 +77,6 @@ class Church extends CI_Controller
                 $this->ChurchModel->insertContactPerson($contactData);
             }
         }
-
 
         echo json_encode(['success' => true, 'message' => 'Church added successfully!']);
     }

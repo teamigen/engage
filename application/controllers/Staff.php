@@ -85,6 +85,24 @@ class Staff extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function dailyreport()
+
+    {
+        $this->load->model('GroupModel');
+        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
+        //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
+        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
+        $this->load->model('LeaderModel'); // Load your model
+        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStations($_COOKIE['stationId']);
+        $this->load->model('Station_model');
+        $data['locations'] = $this->Station_model->getallactivelocationsArr();
+
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('reports/dailyreport', $data);
+        $this->load->view('templates/footer');
+    }
+
 
     public function previousreports()
     {
@@ -156,6 +174,7 @@ class Staff extends CI_Controller
 
 
     public function savecountry()
+    
     {
         // echo "hasdfs";
         // die();
@@ -181,6 +200,8 @@ class Staff extends CI_Controller
 
         echo json_encode($response);
     }
+
+
     public function savestate()
     {
         // echo "hasdfs";

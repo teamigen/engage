@@ -13,12 +13,23 @@ class ReportController extends CI_Controller
 
     public function getDatabyYearandMonth()
     {
+        
+        $currentUserId = $this->session->userdata('staffId'); 
+    
+       
+        if (!$currentUserId) {
+            echo json_encode([
+                'error' => 'User is not authenticated',
+                'events' => []
+            ]);
+            return;
+        }
+    
         $monthYear = $this->input->post('monthYear');
-
-
-        $reportData = $this->ReportModel->getReportByMonthYear($monthYear);
-
-
+    
+       
+        $reportData = $this->ReportModel->getReportByMonthYearAndUser($monthYear, $currentUserId);
+    
         if (!$reportData) {
             echo json_encode([
                 'error' => 'No report data found for the given month and year',
@@ -26,11 +37,10 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-
-
+    
+   
         $eventsData = $this->EventModel->getEventsByReportId($reportData->reportId);
-
-
+    
         echo json_encode([
             'CGPF_Number' => $reportData->CGPF_Number,
             'House_Visit_Number' => $reportData->House_Visit_Number,
@@ -53,6 +63,7 @@ class ReportController extends CI_Controller
             'events' => $eventsData
         ]);
     }
+    
 
 
 
@@ -184,6 +195,8 @@ class ReportController extends CI_Controller
         $reportData = array(
             'staffName' => $_COOKIE['staffName'],
             'stationName' => $_COOKIE['stationName'],
+            'stationId' => $_COOKIE['stationId'],
+            'staffId' => $_COOKIE['staffId'],
             'reportMonth' => $reportMonth,
             'CGPF_Number' => $this->input->post('CGPF_Number'),
             'House_Visit_Number' => $this->input->post('House_Visit_Number'),
@@ -263,20 +276,25 @@ class ReportController extends CI_Controller
 
         echo json_encode(array('status' => 'success', 'message' => 'Report successfully processed'));
     }
+    
 
     public function saveWeekReport()
     {
         $this->load->model('ReportModel');
         $this->load->helper('url');
         $this->load->library('form_validation');
-
+    
         $reportMonth = $this->input->post('reportMonth');
         $dateOfEvents = $this->input->post('dateOfEvent');
         $groupNames = $this->input->post('groupName');
         $groupLeaders = $this->input->post('groupLeader');
         $groupAttendances = $this->input->post('groupAttendence');
         $rowIndices = $this->input->post('rowIndex');
-
+    
+      
+        $stationId = isset($_COOKIE['stationId']) ? $_COOKIE['stationId'] : null;
+        $staffId = isset($_COOKIE['staffId']) ? $_COOKIE['staffId'] : null;
+    
         $reportData = [];
         foreach ($rowIndices as $index) {
             $reportData[] = [
@@ -284,15 +302,60 @@ class ReportController extends CI_Controller
                 'dateOfEvent'      => $dateOfEvents[$index],
                 'groupName'        => $groupNames[$index],
                 'groupLeader'      => $groupLeaders[$index],
-                'groupAttendance'  => $groupAttendances[$index]
+                'groupAttendance'  => $groupAttendances[$index],
+                'stationId'        => $stationId, 
+                'staffId'          => $staffId    
+            ];
+        }
+    
+        if (!empty($reportData)) {
+            $this->ReportModel->insertWeeklyReport($reportData);
+        }
+    
+    
+        $response = array(
+            'status'  => 'success',
+            'message' => 'Weekly report successfully processed'
+        );
+    
+        echo json_encode($response);
+        exit;
+    }
+    
+    public function saveDailyReport()
+    {
+        $this->load->model('ReportModel');
+        $this->load->helper('url');
+        $this->load->library('form_validation');
+
+        $reportMonth = $this->input->post('reportMonth');
+        $dateOfEvents = $this->input->post('dateOfEvent');
+        $event = $this->input->post('event');
+        $groupLocation = $this->input->post('groupLocation');
+        $resource = $this->input->post('resource');
+        $rowIndices = $this->input->post('rowIndex');
+
+        $stationId = isset($_COOKIE['stationId']) ? $_COOKIE['stationId'] : null;
+        $staffId = isset($_COOKIE['staffId']) ? $_COOKIE['staffId'] : null;
+
+        $reportData = [];
+        foreach ($rowIndices as $index) {
+            $reportData[] = [
+                'reportMonth'        => $reportMonth,
+                'dateOfEvent'        => $dateOfEvents[$index],
+                'event'              => $event[$index],
+                'groupLocation'      => $groupLocation[$index],
+                'resource'           => $resource[$index],
+                'stationId'          => $stationId, 
+                'staffId'            => $staffId    
             ];
         }
 
         if (!empty($reportData)) {
-            $this->ReportModel->insertWeeklyReport($reportData);
+            $this->ReportModel->insertDailyReport($reportData);
         }
 
-        // Prepare and send the JSON response
+       
         $response = array(
             'status'  => 'success',
             'message' => 'Weekly report successfully processed'
@@ -306,10 +369,23 @@ class ReportController extends CI_Controller
 
     public function getWeekDatabyYearandMonth()
     {
+        
+        $currentUserId = $this->session->userdata('staffId'); 
+    
+        
+        if (!$currentUserId) {
+            echo json_encode([
+                'error' => 'User is not authenticated',
+                'data' => []
+            ]);
+            return;
+        }
+    
         $monthYear = $this->input->post('monthYear');
-
-        $reportData = $this->ReportModel->getWeekReportByMonthYear($monthYear);
-
+    
+       
+        $reportData = $this->ReportModel->getWeekReportByMonthYearAndUser($monthYear, $currentUserId);
+    
         $response = [];
         foreach ($reportData as $data) {
             $response[] = [
@@ -319,7 +395,41 @@ class ReportController extends CI_Controller
                 'groupAttendance' => $data->groupAttendance,
             ];
         }
-
+    
         echo json_encode($response);
     }
+    
+
+    public function getDailyDatabyYearandMonth()
+    {
+        
+        $currentUserId = $this->session->userdata('staffId'); 
+    
+        // Check if the user is logged in
+        if (!$currentUserId) {
+            echo json_encode([
+                'error' => 'User is not authenticated',
+                'data' => []
+            ]);
+            return;
+        }
+    
+        $monthYear = $this->input->post('monthYear');
+    
+        
+        $reportData = $this->ReportModel->getDailyReportByMonthYearAndUser($monthYear, $currentUserId);
+    
+        $response = [];
+        foreach ($reportData as $data) {
+            $response[] = [
+                'dateOfEvent' => $data->dateOfEvent,
+                'event' => $data->event,
+                'groupLocation' => $data->groupLocation,
+                'resource' => $data->resource,
+            ];
+        }
+    
+        echo json_encode($response);
+    }
+    
 }

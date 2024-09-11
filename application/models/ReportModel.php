@@ -21,6 +21,8 @@ class ReportModel extends CI_Model
         $this->db->insert('eg_report', $data);
         return $this->db->insert_id();
     }
+
+    
     // public function getReportByMonthYear($month, $year)
     // {
     //     $this->db->select('*');
@@ -41,6 +43,8 @@ class ReportModel extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
+
+
     public function getReportByMonthYear($monthYear)
     {
 
@@ -53,17 +57,35 @@ class ReportModel extends CI_Model
             return null;
         }
     }
-    public function getWeekReportByMonthYear($monthYear)
+
+
+    public function getWeekReportByMonthYearAndUser($monthYear, $userId)
     {
         $this->db->like('reportMonth', $monthYear, 'after');
+        $this->db->where('staffId', $userId);
         $query = $this->db->get('eg_weekreport');
 
         if ($query->num_rows() > 0) {
-            return $query->result(); // Change to result() to get an array of rows
+            return $query->result();
         } else {
             return [];
         }
     }
+
+
+    public function getReportByMonthYearAndUser($monthYear, $userId)
+    {
+        $this->db->where('reportMonth', $monthYear);
+        $this->db->where('staffId', $userId);
+        $query = $this->db->get('eg_report');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+    }
+
 
 
     public function reportExists($reportMonth)
@@ -90,5 +112,24 @@ class ReportModel extends CI_Model
         $this->db->update('eg_weekreport', $data);
     }
 
-    
+
+    public function insertDailyReport($reportData)
+    {
+
+        $this->db->insert_batch('eg_dailyreport', $reportData);
+    }
+
+
+    public function getDailyReportByMonthYearAndUser($monthYear, $userId)
+    {
+        $this->db->like('reportMonth', $monthYear, 'after');
+        $this->db->where('staffId', $userId);
+        $query = $this->db->get('eg_dailyreport');
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return [];
+        }
+    }
 }

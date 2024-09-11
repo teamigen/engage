@@ -103,17 +103,17 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>&nbsp;</label>
-                                                
-                                                <button type="button" class="remove-contact-person"><i class="fas fa-trash-alt"></i></button>
+
+                                                <i class="remove-contact-person dripicons-cross" style="cursor: pointer; color:red;"></i>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-success waves-effect waves-light add-contact-person">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+
+                                    <i class=" add-contact-person  ri-user-add-line" style="cursor: pointer; color:green;"></i>
+
                                 </div>
 
                                 <div class="form-group">
@@ -202,7 +202,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>&nbsp;</label>
-                                <button type="button" class="remove-contact-person"><i class="fas fa-trash-alt"></i></button>
+                                <i class="remove-contact-person dripicons-cross" style="cursor: pointer; color:red;"></i>
                             </div>
                         </div>
                     </div>`;

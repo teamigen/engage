@@ -8,6 +8,14 @@ class ChurchModel extends CI_Model
         $this->load->database();
     }
 
+    public function isSlugExists($churchSlug)
+{
+    $this->db->where('churchSlug', $churchSlug);
+    $query = $this->db->get('churches');
+    return $query->num_rows() > 0;  
+}
+
+
     public function insertChurch($data)
     {
         $this->db->insert('churches', $data);
@@ -33,10 +41,22 @@ class ChurchModel extends CI_Model
 
     public function getAllChurches()
     {
-        $this->db->select('churches.churchId, churches.churchName, eg_location.locationName ,pastorName,mobileNumber,churchSlug');
+        
+        $this->load->library('session'); 
+        $userId = $this->session->userdata('staffId'); 
+
+        
+        if (!$userId) {
+            return []; 
+        }
+
+        
+        $this->db->select('churches.churchId, churches.churchName, eg_location.locationName, pastorName, mobileNumber, churchSlug');
         $this->db->from('churches');
         $this->db->join('eg_location', 'churches.churchLocation = eg_location.locationId', 'left');
+        $this->db->where('churches.staffId', $userId); 
         $query = $this->db->get();
+
         return $query->result();
     }
 
@@ -104,6 +124,8 @@ class ChurchModel extends CI_Model
             return null;
         }
     }
+
+
     public function getallactivechurchesbystation($stationId)
     {
         $this->db->select('*');

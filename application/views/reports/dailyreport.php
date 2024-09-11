@@ -68,6 +68,7 @@
                                 <div class="col-lg-6 text-end" style="font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?></div>
                             </div>
                             <hr>
+
                             <form action="#" id="saveReport" method="post">
                                 <div id="reportMessage"></div>
                                 <input type="hidden" id="reportMonth" name="reportMonth">
@@ -84,30 +85,26 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <label>Name of Group</label>
-                                                <select name="groupName[0]" class="form-control select2" placeholder="Name of Group">
-                                                    <option selected>Select Group</option>
-                                                    <?php foreach ($weeklyGroups as $group): ?>
-                                                        <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
+                                                <label>Events</label>
+                                                <input type="text" class="form-control" name="event[0]" placeholder="Events">
+                                             
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <select name="groupLocation[0]" class="form-control select2" placeholder="Location">
+                                                    <option selected>Select Location</option>
+                                                    <?php foreach ($locations as $location): ?>
+                                                        <option value="<?php echo $location['locationId']; ?>"><?php echo htmlspecialchars($location['locationName']); ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
-                                                <label>Leader</label>
-                                                <select name="groupLeader[0]" class="form-control select2" placeholder="Leader of Group">
-                                                    <option selected>Select Leader</option>
-                                                    <?php foreach ($leaders as $leader): ?>
-                                                        <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="form-group">
-                                                <label>Attendance</label>
-                                                <input class="form-control" type="text" name="groupAttendence[0]" placeholder="No of CGPF Meetings">
+                                                <label>Resource</label>
+                                                <input class="form-control" type="text" name="resource[0]" placeholder="Resource">
                                             </div>
                                         </div>
                                         <div class="col-lg-1 d-flex justify-content-center align-items-center">
@@ -134,6 +131,7 @@
         </div> <!-- End Container Fluid -->
     </div> <!-- End Page Content -->
 </div> <!-- End Main Content -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -155,7 +153,7 @@
                 return;
             }
 
-            clearFields(); // Clear only rows that are not marked for preservation
+            clearFields(); 
 
             data.forEach((row, index) => {
                 let newRow = `
@@ -165,40 +163,35 @@
                     <div class="form-group">
                         <label>Date of Event</label>
                         <div class="input-group">
-                            <input type="date" class="form-control" name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
+                            <input type="date" class="form-control"  name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
-                        <label>Name of Group</label>
-                        <select name="groupName[${index}]" class="form-control select2">
-                            <option selected>Select Group</option>
-                            <?php foreach ($weeklyGroups as $group): ?>
-                                <option value="<?php echo $group['id']; ?>" ${row.groupName == <?php echo $group['id']; ?> ? 'selected' : ''}>
-                                    <?php echo htmlspecialchars($group['groupName']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <label>Events</label>
+                          <input type="text" class="form-control" placeholder="Events" name="event[${index}]" value="${row.event || ''}">
+                     
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
-                        <label>Leader</label>
-                        <select name="groupLeader[${index}]" class="form-control select2">
-                            <option selected>Select Leader</option>
-                            <?php foreach ($leaders as $leader): ?>
-                                <option value="<?php echo $leader['leaderId']; ?>" ${row.groupLeader == <?php echo $leader['leaderId']; ?> ? 'selected' : ''}>
-                                    <?php echo htmlspecialchars($leader['name_of_leader']); ?>
+                        <label>Location</label>
+                        <select name="groupLocation[${index}]" class="form-control select2">
+                            <option selected>Select Location</option>
+                            <?php foreach ($locations as $location): ?>
+                                <option value="<?php echo $location['locationId']; ?>" ${row.groupLocation == <?php echo $location['locationId']; ?> ? 'selected' : ''}>
+                                    <?php echo htmlspecialchars($location['locationName']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
+                        
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="form-group">
-                        <label>Attendance</label>
-                        <input class="form-control" type="text" name="groupAttendence[${index}]" placeholder="No of CGPF Meetings" value="${row.groupAttendance || ''}">
+                        <label>Resource</label>
+                        <input class="form-control" type="text" name="resource[${index}]" placeholder="Resource" value="${row.resource || ''}">
                     </div>
                 </div>
                 <div class="col-lg-1 d-flex justify-content-center align-items-center">
@@ -219,7 +212,7 @@
         function fetchData(monthYear) {
             console.log('Month and Year:', monthYear);
             $.ajax({
-                url: '<?php echo base_url('ReportController/getWeekDatabyYearandMonth'); ?>',
+                url: '<?php echo base_url('ReportController/getDailyDatabyYearandMonth'); ?>',
                 type: 'POST',
                 data: {
                     monthYear: monthYear
@@ -255,26 +248,27 @@
         }
     });
 </script>
+
+
 <script>
-    $(document).ready(function() {
-        let rowIndex = 0;
+  $(document).ready(function() {
+    let rowIndex = 0;
+
+     function updateRowIndex() {
+        $('#reportContainer .reportRow').each(function(index) {
+            $(this).attr('data-index', index);
+            $(this).find('input[name^="dateOfEvent"]').attr('name', 'dateOfEvent[' + index + ']');
+            $(this).find('input[name^="event"]').attr('name', 'event[' + index + ']');
+            $(this).find('select[name^="groupLocation"]').attr('name', 'groupLocation[' + index + ']');
+            $(this).find('input[name^="resource"]').attr('name', 'resource[' + index + ']');
+            $(this).find('input[name="rowIndex[]"]').val(index);
+        });
+    }
 
 
-        function updateRowIndex() {
-            $('#reportContainer .reportRow').each(function(index) {
-                $(this).attr('data-index', index);
-                $(this).find('input[name^="dateOfEvent"]').attr('name', 'dateOfEvent[' + index + ']');
-                $(this).find('select[name^="groupName"]').attr('name', 'groupName[' + index + ']');
-                $(this).find('select[name^="groupLeader"]').attr('name', 'groupLeader[' + index + ']');
-                $(this).find('input[name^="groupAttendence"]').attr('name', 'groupAttendence[' + index + ']');
-                $(this).find('input[name="rowIndex[]"]').val(index);
-            });
-        }
-
-
-        $(document).on('click', '.addRow', function() {
-            rowIndex++;
-            let newRow = `
+    $(document).on('click', '.addRow', function() {
+        // console.log('Add Row button clicked!');
+        let newRow = `
         <div class="row reportRow align-items-center mb-3" data-index="${rowIndex}">
             <input type="hidden" name="rowIndex[]" value="${rowIndex}">
             <div class="col-lg-2">
@@ -287,30 +281,25 @@
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <label>Name of Group</label>
-                    <select name="groupName[${rowIndex}]" class="form-control select2" placeholder="Name of Group">
-                        <option selected>Select Group</option>
-                        <?php foreach ($weeklyGroups as $group): ?>
-                            <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
+                    <label>Event</label>
+                    <input type="text" class="form-control" placeholder="Events" name="event[${rowIndex}]"> 
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Location</label>
+                    <select name="groupLocation[${rowIndex}]" class="form-control select2" placeholder="">
+                        <option selected>Select Location</option>
+                        <?php foreach ($locations as $location): ?>
+                            <option value="<?php echo $location['locationId']; ?>"><?php echo htmlspecialchars($location['locationName']); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <label>Leader</label>
-                    <select name="groupLeader[${rowIndex}]" class="form-control select2" placeholder="Leader of Group">
-                        <option selected>Select Leader</option>
-                        <?php foreach ($leaders as $leader): ?>
-                            <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Attendance</label>
-                    <input class="form-control" type="text" name="groupAttendence[${rowIndex}]" placeholder="No of CGPF Meetings">
+                    <label>Resource</label>
+                    <input class="form-control" type="text" name="resource[${rowIndex}]" placeholder="Resource">
                 </div>
             </div>
             <div class="col-lg-1 d-flex justify-content-center align-items-center">
@@ -321,16 +310,17 @@
             </div>
         </div>
         `;
-            $('#reportContainer').append(newRow);
-            updateRowIndex();
-        });
-
-
-        $(document).on('click', '.removeRow', function() {
-            $(this).closest('.reportRow').remove();
-            updateRowIndex();
-        });
+        $('#reportContainer').append(newRow);
+        updateRowIndex();
+        $('.select2').select2(); 
     });
+
+    $(document).on('click', '.removeRow', function() {
+        $(this).closest('.reportRow').remove();
+        updateRowIndex();
+    });
+});
+
 </script>
 
 <script>
@@ -343,7 +333,7 @@
         }
 
         $.ajax({
-            url: '<?php echo base_url('ReportController/saveWeekReport'); ?>',
+            url: '<?php echo base_url('ReportController/saveDailyReport'); ?>',
             type: 'POST',
             data: formData,
             cache: false,
@@ -353,7 +343,7 @@
             success: function(response) {
                 try {
                     if (response.status === 'success') {
-                        $('#reportMessage').html('<div class="alert alert-success">Week Report Successfully Created!</div>');
+                        $('#reportMessage').html('<div class="alert alert-success">Daily Report Successfully Created!</div>');
                         $('#saveReport')[0].reset();
                     } else {
                         var errorMessage = "<div class='alert alert-danger'>";

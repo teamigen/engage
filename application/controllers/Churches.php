@@ -12,14 +12,13 @@ class Churches extends CI_Controller
 		// $data['stations'] = $this->Station_model->getallactivestations();
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 		$data['churches'] = $this->ChurchModel->getallactivechurchesbystation($_COOKIE['stationId']);
-		// 		$data['churches'] = $this->ChurchModel->getAllChurches();
+		// $data['churches'] = $this->ChurchModel->getAllChurches();
 
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/create', $data);
 		$this->load->view('templates/footer');
-		
 	}
 
 
@@ -54,7 +53,7 @@ class Churches extends CI_Controller
 	{
 		$this->load->model('ChurchModel');
 
-		$data['churches'] = $this->ChurchModel->getAllChurches();
+		$data['churches'] = $this->ChurchModel->getallactivechurchesbystation($_COOKIE['stationId']);
 
 
 		$data['church'] = $this->ChurchModel->getChurchBySlug($churchSlug);
@@ -62,14 +61,13 @@ class Churches extends CI_Controller
 		$data['contactPersons'] = $this->ChurchModel->getContactPersonsByChurchSlug($churchSlug);
 
 
-		$data['locations'] = $this->ChurchModel->getallactivelocations();
+		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/edit_church', $data);
 		$this->load->view('templates/footer');
-
 	}
 
 	public function update()
@@ -111,6 +109,6 @@ class Churches extends CI_Controller
 			}
 		}
 
-		redirect('churches/create');
+		redirect('churches/index');
 	}
 }

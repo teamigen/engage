@@ -69,6 +69,16 @@ class Station_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getallactivelocationsArr()
+{
+    $this->db->select('*');
+    $this->db->from('eg_location');
+    $this->db->where('locationStatus', 1);
+    $this->db->order_by('locationName', 'asc');
+    $query = $this->db->get();
+    return $query->result_array(); 
+}
+
     public function getallactivelocationsbystation($stationId)
     {
         $this->db->select('*');

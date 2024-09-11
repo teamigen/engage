@@ -47,12 +47,12 @@
                                 <h4 class="card-title">Student Council</h4>
                                 <p class="card-title-desc">Create New Student Council</p>
                                 <hr>
-<div class="row">
-                                <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
-                                <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
+                                <div class="row">
+                                    <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
+                                    <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
+                                <hr>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="form-group">
@@ -87,8 +87,8 @@
                                                 <option value="" selected>Select Institute</option>
                                                 <?php if (!empty($institutes)): ?>
                                                     <?php foreach ($institutes as $inst): ?>
-                                                <option value="<?= $inst->instituteId; ?>"><?= $inst->instituteName; ?></option>
-                                                <?php endforeach; ?>
+                                                        <option value="<?= $inst->instituteId; ?>"><?= $inst->instituteName; ?></option>
+                                                    <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </select>
                                         </div>
@@ -106,13 +106,13 @@
                                 <hr>
                                 <div id="memberContainer"></div>
                                 <div class="row">
-                                        <div class="col-lg-12" style="text-align: right;">
-                                            <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                     </div>
+                                </div>
 
-                                    <hr>
-                                   
+                                <hr>
+
                             </form>
 
                         </div>

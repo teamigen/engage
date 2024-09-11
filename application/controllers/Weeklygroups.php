@@ -115,7 +115,7 @@ class Weeklygroups extends CI_Controller
 
 
         $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
-        $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroups();
+        $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
 
 
         $data['group'] = $this->GroupModel->getGroupBySlug($groupId);

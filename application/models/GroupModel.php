@@ -45,12 +45,15 @@ class GroupModel extends CI_Model
         $this->db->where('groupSlug', $groupSlug);
         return $this->db->delete('groups');
     }
+
+
     public function isSlugUnique($slug)
     {
         $this->db->where('groupSlug', $slug);
         $query = $this->db->get('groups');
         return $query->num_rows() === 0;
     }
+
     public function getGroupById($groupId)
     {
 
@@ -58,6 +61,7 @@ class GroupModel extends CI_Model
         $query = $this->db->get('groups');
         return $query->row();
     }
+    
     public function getGroupBySlug($groupSlug)
     {
         $this->db->where('groupSlug', $groupSlug);
