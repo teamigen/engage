@@ -58,6 +58,7 @@
                                 <tbody>
                                     <?php if (!empty($staffs)) : ?>
                                         <?php foreach ($staffs as $staff) : ?>
+                                        <?php if(($staff['staffName'] == "Admin") || ($staff['staffName'] == "Super Admin") || ($staff['staffName'] == "Tim Thomas" )) { } else { ?>
                                             <tr id="row-<?= ($staff['staffId']) ?>">
                                                 <td><?= ($staff['staffName']) ?></td>
                                                 <td><?= ($staff["stationName"]) ?></td>
@@ -66,9 +67,11 @@
                                                 <td>
                                                     <a href="<?= base_url('Staff/edit/' . ($staff['staffSlug'])) ?>" class="edit-row" data-id="<?= ($staff['staffSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
                                                     <a href="javascript:void(0);" class="delete-row" data-id="<?= ($staff['staffId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
-
+                                                    <a href="javascript:void(0);" class="send-wa" data-id="<?= ($staff['staffId']) ?>"><i class="ri-whatsapp-line"></i></a>&nbsp;
+ 
                                                 </td>
                                             </tr>
+                                            <?php } ?>
                                         <?php endforeach; ?>
                                     <?php else : ?>
                                         <tr>
@@ -117,6 +120,28 @@
             });
         });
     });
+</script>
+<script>
+    $(document).on('click', '.send-wa', function(event) {
+    event.preventDefault();
+
+    var staffId = $(this).data('id');
+
+    $.ajax({
+        url: '<?= base_url(); ?>staff/sendsms', // Replace with the actual URL of your StaffController method
+        type: 'POST',
+        data: { staffId: staffId },
+        success: function(response) {
+            // Handle the response from the server (e.g., display a success message, update the UI)
+            alert('success');
+            console.log(response);
+        },
+        error: function(error) {
+            // Handle errors (e.g., display an error message)
+            console.error(error);
+        }
+    });
+});
 </script>
 
 <script>

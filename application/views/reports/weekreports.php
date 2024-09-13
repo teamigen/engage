@@ -78,7 +78,7 @@
                                             <div class="form-group">
                                                 <label>Date of Event</label>
                                                 <div class="input-group">
-                                                    <input type="date" class="form-control" name="dateOfEvent[0]">
+                                                    <input type="date" class="form-control" name="dateOfEvent[0]" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -140,7 +140,7 @@
         let rowIndex = 0;
 
         function clearFields() {
-            // Only clear the rows that should be replaced
+        
             $('#reportContainer .reportRow').each(function() {
                 if (!$(this).hasClass('preserve')) {
                     $(this).remove();
@@ -155,65 +155,106 @@
                 return;
             }
 
-            clearFields(); // Clear only rows that are not marked for preservation
+            clearFields();
 
             data.forEach((row, index) => {
                 let newRow = `
-            <div class="row reportRow align-items-center mb-3" data-index="${index}">
-                <input type="hidden" name="rowIndex[]" value="${index}">
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label>Date of Event</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
-                        </div>
+                
+        <div class="row reportRow align-items-center mb-3" data-index="${index}" data-id="${row.id}">
+            <input type="hidden" name="rowIndex[]" value="${index}">
+           
+            <div class="col-lg-2">
+            
+                <div class="form-group">
+                    <label>Date of Event</label>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
                     </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label>Name of Group</label>
-                        <select name="groupName[${index}]" class="form-control select2">
-                            <option selected>Select Group</option>
-                            <?php foreach ($weeklyGroups as $group): ?>
-                                <option value="<?php echo $group['id']; ?>" ${row.groupName == <?php echo $group['id']; ?> ? 'selected' : ''}>
-                                    <?php echo htmlspecialchars($group['groupName']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label>Leader</label>
-                        <select name="groupLeader[${index}]" class="form-control select2">
-                            <option selected>Select Leader</option>
-                            <?php foreach ($leaders as $leader): ?>
-                                <option value="<?php echo $leader['leaderId']; ?>" ${row.groupLeader == <?php echo $leader['leaderId']; ?> ? 'selected' : ''}>
-                                    <?php echo htmlspecialchars($leader['name_of_leader']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label>Attendance</label>
-                        <input class="form-control" type="text" name="groupAttendence[${index}]" placeholder="No of CGPF Meetings" value="${row.groupAttendance || ''}">
-                    </div>
-                </div>
-                <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                    <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
-                </div>
-                <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                    <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
                 </div>
             </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Name of Group</label>
+                    <select name="groupName[${index}]" class="form-control select2">
+                        <option selected>Select Group</option>
+                        <?php foreach ($weeklyGroups as $group): ?>
+                            <option value="<?php echo $group['id']; ?>" ${row.groupName == <?php echo $group['id']; ?> ? 'selected' : ''}>
+                                <?php echo htmlspecialchars($group['groupName']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Leader</label>
+                    <select name="groupLeader[${index}]" class="form-control select2">
+                        <option selected>Select Leader</option>
+                        <?php foreach ($leaders as $leader): ?>
+                            <option value="<?php echo $leader['leaderId']; ?>" ${row.groupLeader == <?php echo $leader['leaderId']; ?> ? 'selected' : ''}>
+                                <?php echo htmlspecialchars($leader['name_of_leader']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label>Attendance</label>
+                    <input class="form-control" type="text" name="groupAttendence[${index}]" placeholder="No of CGPF Meetings" value="${row.groupAttendance || ''}">
+                </div>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
+            </div>
+            <div class="col-lg-1 d-flex justify-content-center align-items-center">
+                <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
+            </div>
+        </div>
         `;
                 $('#reportContainer').append(newRow);
             });
 
             updateRowIndex();
         }
+
+
+        $(document).on('click', '.removeRow', function() {
+            var row = $(this).closest('.reportRow');
+            var id = row.data('id');
+            var monthYear = $('#reportMonth').val();
+
+            if (confirm('Are you sure you want to delete this event?')) {
+                $.ajax({
+                    url: '<?php echo base_url('ReportController/deleteEvent'); ?>',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        reportMonth: monthYear
+                    },
+                    success: function(response) {
+                        try {
+                            var data = JSON.parse(response);
+                            if (data.status === 'success') {
+                                row.remove();
+                                $('#reportMessage').html('<div class="alert alert-success">Event successfully deleted!</div>');
+                            } else {
+                                $('#reportMessage').html('<div class="alert alert-danger">Failed to delete event.</div>');
+                            }
+                        } catch (e) {
+                            console.error('Failed to process response', e);
+                            $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('AJAX request failed:', textStatus, errorThrown);
+                        $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                    }
+                });
+            }
+        });
+
+
 
 
         function fetchData(monthYear) {
@@ -255,6 +296,7 @@
         }
     });
 </script>
+
 <script>
     $(document).ready(function() {
         let rowIndex = 0;
@@ -353,7 +395,7 @@
             success: function(response) {
                 try {
                     if (response.status === 'success') {
-                        $('#reportMessage').html('<div class="alert alert-success">Week Report Successfully Created!</div>');
+                        $('#reportMessage').html('<div class="alert alert-success">Week Report Successfully Saved!</div>');
                         $('#saveReport')[0].reset();
                     } else {
                         var errorMessage = "<div class='alert alert-danger'>";

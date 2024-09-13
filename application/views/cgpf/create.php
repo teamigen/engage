@@ -44,56 +44,65 @@
                         <div class="card-body">
 
                             <h4 class="card-title">CGPF </h4>
-                            <p class="card-title-desc">Create New CGPF Team
-                            </p>
+
+                            <p class="card-title-desc">Create New CGPF Team</p>
                             <hr>
-                            <div class="row">
 
+                            <form action="#" id="saveCGPF">
+                                <div class="row" id="staffMessage" style="width:100%"></div>
+                                <div class="row">
 
-                                <form action="#" id="saveCGPF">
-                                    <div id="staffMessage"></div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label>Name of CGPF</label>
-                                                <input class="form-control" type="text" name="cgpf_name" placeholder="Name of CGPF" id="cgpf_name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Slug</label>
-                                                <input class="form-control" type="text" name="cgpf_slug" placeholder="Name of CGPF" id="cgpf_slug" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label>Location</label>
-                                                <select name="location_id" class="form-control select2" id="location_id">
-                                                    <option selected>Select Location</option>
-                                                    <?php if (!empty($locations)): ?>
-                                                        <?php foreach ($locations as $locns): ?>
-                                                            <option value="<?= $locns->locationId ?>"><?= $locns->locationName ?></option>
-                                                        <?php endforeach; ?>
-                                                    <?php endif; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label>Period Name</label>
-                                                <input class="form-control" type="text" name="period_name" placeholder="Period Name" id="period_name">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group">
-                                                <label>Date Range</label>
-                                                <div class="input-daterange input-group">
-                                                    <input type="date" class="form-control" name="start_date" placeholder="Start Date">
-                                                    <input type="date" class="form-control" name="end_date" placeholder="End Date">
-                                                </div>
-                                            </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Name of CGPF</label>
+                                            <input class="form-control" type="text" name="cgpf_name" placeholder="Name of CGPF" id="cgpf_name">
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div id="memberContainer">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Slug</label>
+                                            <input class="form-control" type="text" name="cgpf_slug" placeholder="Name of CGPF" id="cgpf_slug" readonly>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Location</label>
+                                            <select name="location_id" class="form-control select2" id="location_id">
+                                                <option selected>Select Location</option>
+                                                <?php if (!empty($locations)): ?>
+                                                    <?php foreach ($locations as $locns): ?>
+                                                        <option value="<?= $locns->locationId ?>"><?= $locns->locationName ?></option>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Period Name</label>
+                                            <input class="form-control" type="text" name="period_name" placeholder="Period Name" id="period_name">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Date Range</label>
+                                            <div class="input-daterange input-group">
+                                                <input type="date" class="form-control" name="start_date" placeholder="Start Date">
+                                                <input type="date" class="form-control" name="end_date" placeholder="End Date">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <hr>
+
+                                <div class="row">
+                                    <div class="container-fluid" id="memberContainer">
                                         <div class="row member-row">
                                             <div class="col-lg-3">
                                                 <div class="form-group">
@@ -131,18 +140,16 @@
                                                 <i class="mdi mdi-alarm-plus add-member" style="cursor: pointer;">&nbsp;</i>
                                                 <i class="ri-delete-bin-6-line remove-member" style="cursor: pointer;">&nbsp;</i>
                                             </div>
+
                                         </div>
                                     </div>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-lg-12" style="text-align: right;">
-                                            <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: right;">
+                                        <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
                                     </div>
-                                </form>
-
-
-                            </div>
+                                </div>
+                            </form>
 
 
 
@@ -239,7 +246,8 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.success) {
-                        $('#staffMessage').html('<div class="alert alert-success">CGPF created successfully!</div>');
+                        // $('#staffMessage').html('<div class="alert alert-success">CGPF created successfully!</div>');
+                        window.location.assign("manage");
                     } else {
                         $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
                     }

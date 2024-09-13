@@ -57,7 +57,7 @@
 
                                 <div class="form-group">
                                     <label for="churchSlug">Slug</label>
-                                    <input class="form-control" type="text" name="churchSlug" placeholder="Slug" id="churchSlug" required>
+                                    <input class="form-control" type="text" name="churchSlug" placeholder="Slug" id="churchSlug" required readonly>
                                 </div>
 
                                 <div class="form-group">

@@ -88,13 +88,15 @@ f<header id="page-topbar">
                             <i class="ri-store-2-line"></i>
                             <span>Reports</span>
                         </a>
-
+                        <?php
+if ($_COOKIE['staffName'] == "Tim Thomas") { ?>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url(); ?>staff/monthreport">Month Report</a></li>
                             <li><a href="<?= base_url(); ?>staff/weekreport">Weekly Report</a></li>
                             <li><a href="<?= base_url(); ?>staff/dailyreport">Daily Report</a></li>
                             <li><a href="<?= base_url(); ?>staff/previousreports">Previous Reports</a></li>
                         </ul>
+                        <?php } ?>
                     </li>
 
                     <li>
@@ -179,6 +181,7 @@ f<header id="page-topbar">
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url(); ?>staff/adminmonthreport">Staff Report</a></li>
                             <li><a href="#">Regional Staff Report</a></li>
+                            <li><a href="<?= base_url(); ?>logs">Login Logs</a></li>
                         </ul>
                     </li>
                     <li>

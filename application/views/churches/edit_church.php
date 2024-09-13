@@ -43,7 +43,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Create Church</h4>
+                            <h4 class="card-title">Edit Church</h4>
                             <p class="card-title-desc">Manage Churches in the Location</p>
 
                             <form action="<?= base_url('churches/update') ?>" method="post">

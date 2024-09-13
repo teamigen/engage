@@ -55,7 +55,6 @@ class Staff extends CI_Controller
 
     public function adminmonthreport()
 
-
     {
         $this->load->model('ChurchModel');
         $data["churches"] = $this->ChurchModel->getallchurches();
@@ -70,19 +69,21 @@ class Staff extends CI_Controller
 
 
 
-    public function weekreport()
+    public function weekreport( )
+
     {
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-        //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
-        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
-        $this->load->model('LeaderModel'); // Load your model
-        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStations($_COOKIE['stationId']);
+        
+        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystaff();
+        $this->load->model('LeaderModel'); 
+        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStaff($_COOKIE['staffId']);
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('reports/weekreports', $data);
         $this->load->view('templates/footer');
+        
     }
 
     public function dailyreport()
@@ -91,9 +92,9 @@ class Staff extends CI_Controller
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
         //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
-        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
+        $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystaff();
         $this->load->model('LeaderModel'); // Load your model
-        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStations($_COOKIE['stationId']);
+        $data['leaders'] = $this->LeaderModel->getAllLeadersbyStaff($_COOKIE['stationId']);
         $this->load->model('Station_model');
         $data['locations'] = $this->Station_model->getallactivelocationsArr();
 
@@ -161,7 +162,7 @@ class Staff extends CI_Controller
             'regionId' => $regionId,
             'stationActive' => 1
         );
-        // Save data using model
+        
         $stationName = $this->Common_model->insert('eg_station', $data);
 
         $response = array(

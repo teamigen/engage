@@ -36,6 +36,22 @@ class Common_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    function getall($table, $orderby, $ascdes)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->order_by($orderby, $ascdes);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function getbyid($table,$field, $id)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+        $this->db->where($field, $id);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
     function getvalue($table, $prime, $id, $orderby, $ascdes)
     {

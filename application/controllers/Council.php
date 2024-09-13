@@ -77,7 +77,8 @@ class Council extends CI_Controller
                     'designation' => $designations[$index],
                     'cgpfNumber' => $cgpfNumbers[$index],
                     'memberEmail' => $memberEmails[$index],
-                    'stationId' => $stationId
+                    'stationId' => $stationId,
+                    'staffId' =>  $staffId,
                 );
                 $this->CouncilModel->insertMember($memberData);
             }

@@ -22,17 +22,9 @@ class ReportModel extends CI_Model
         return $this->db->insert_id();
     }
 
-    
-    // public function getReportByMonthYear($month, $year)
-    // {
-    //     $this->db->select('*');
-    //     $this->db->from('eg_report');
-    //     $this->db->where('MONTH(created_at)', $month);
-    //     $this->db->where('YEAR(created_at)', $year);
 
-    //     $query = $this->db->get();
-    //     return $query->row_array();
-    // }
+
+
 
     public function getReportByMonth($month)
     {
@@ -95,22 +87,15 @@ class ReportModel extends CI_Model
         return $query->num_rows() > 0;
     }
 
+
     public function updateReport($reportId, $data)
     {
         $this->db->where('reportId', $reportId);
         return $this->db->update('eg_report', $data);
     }
-    public function insertWeeklyReport($reportData)
-    {
 
-        $this->db->insert_batch('eg_weekreport', $reportData);
-    }
 
-    public function updateWeeklyReport($data)
-    {
-        $this->db->where('reportId', $data['reportId']);
-        $this->db->update('eg_weekreport', $data);
-    }
+
 
 
     public function insertDailyReport($reportData)
@@ -130,6 +115,51 @@ class ReportModel extends CI_Model
             return $query->result();
         } else {
             return [];
+        }
+    }
+
+    public function getReportsByMonth($reportMonth)
+    {
+        $this->db->where('reportMonth', $reportMonth);
+        $query = $this->db->get('eg_weekreport');
+        return $query->result_array();
+    }
+
+    public function updateWeeklyReport($data, $reportMonth)
+    {
+        $this->db->where('reportMonth', $reportMonth);
+        $this->db->update('eg_weekreport', $data);
+    }
+
+    public function insertWeeklyReport($data)
+    {
+        $this->db->insert_batch('eg_weekreport', $data);
+    }
+
+    public function deleteEvent($id, $reportMonth)
+    {
+        $this->db->where('id', $id);
+        $this->db->where('reportMonth', $reportMonth);
+        return $this->db->delete('eg_weekreport');
+    }
+
+
+
+    public function getDailyReportByMonth($reportMonth)
+    {
+        $this->db->where('reportMonth', $reportMonth);
+        $query = $this->db->get('eg_dailyreport'); 
+        return $query->result_array(); 
+    }
+
+    public function updateDailyReport($reportMonth, $reportData)
+    {
+        
+
+        foreach ($reportData as $data) {
+            $this->db->where('reportMonth', $reportMonth);
+            $this->db->where('dateOfEvent', $data['dateOfEvent']);
+            $this->db->update('eg_dailyreport', $data); 
         }
     }
 }

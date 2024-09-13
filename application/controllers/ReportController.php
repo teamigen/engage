@@ -13,10 +13,10 @@ class ReportController extends CI_Controller
 
     public function getDatabyYearandMonth()
     {
-        
-        $currentUserId = $this->session->userdata('staffId'); 
-    
-       
+
+        $currentUserId = $this->session->userdata('staffId');
+
+
         if (!$currentUserId) {
             echo json_encode([
                 'error' => 'User is not authenticated',
@@ -24,12 +24,12 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
+
         $monthYear = $this->input->post('monthYear');
-    
-       
+
+
         $reportData = $this->ReportModel->getReportByMonthYearAndUser($monthYear, $currentUserId);
-    
+
         if (!$reportData) {
             echo json_encode([
                 'error' => 'No report data found for the given month and year',
@@ -37,10 +37,10 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
-   
+
+
         $eventsData = $this->EventModel->getEventsByReportId($reportData->reportId);
-    
+
         echo json_encode([
             'CGPF_Number' => $reportData->CGPF_Number,
             'House_Visit_Number' => $reportData->House_Visit_Number,
@@ -63,7 +63,6 @@ class ReportController extends CI_Controller
             'events' => $eventsData
         ]);
     }
-    
 
 
 
@@ -71,118 +70,9 @@ class ReportController extends CI_Controller
 
 
 
-    // public function saveReport()
-    // {
-    //     $reportMonth = $this->input->post('reportMonth');
-
-
-    //     if ($this->ReportModel->reportExists($reportMonth)) {
-    //         echo json_encode(array('status' => 'error', 'message' => 'Report for this month already exists'));
-    //         return;
-    //     }
-    //     $this->load->model('ReportModel');
-    //     $this->load->model('EventModel');
-    //     $this->load->library('upload');
-
-    //     $events = $this->input->post('events');
-    //     $hasFiles = false;
-
-    //     log_message('debug', json_encode($_FILES));
-
-    //     foreach ($_FILES['events']['name'] as $index => $eventPhotos) {
-    //         if (!empty($eventPhotos['eventPhotos'])) {
-    //             foreach ($eventPhotos['eventPhotos'] as $fileName) {
-    //                 if (!empty($fileName)) {
-    //                     $hasFiles = true;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     if (!$hasFiles) {
-    //         echo json_encode(array('status' => 'error', 'message' => 'No files uploaded'));
-    //         return;
-    //     }
-
-
-
-    //     $reportData = array(
-    //         'staffName' => $_COOKIE['staffName'],
-    //         'stationName' => $_COOKIE['stationName'],
-    //         'reportMonth' => $reportMonth,
-    //         'CGPF_Number' => $this->input->post('CGPF_Number'),
-    //         'House_Visit_Number' => $this->input->post('House_Visit_Number'),
-    //         'Hostel_Visit_Number' => $this->input->post('Hostel_Visit_Number'),
-    //         'Evangelisms_Number' => $this->input->post('Evangelisms_Number'),
-    //         'Accepted_Christ' => $this->input->post('Accepted_Christ'),
-    //         'Baptism_Decision' => $this->input->post('Baptism_Decision'),
-    //         'Baptism_Number' => $this->input->post('Baptism_Number'),
-    //         'Holyspirit_Received' => $this->input->post('Holyspirit_Received'),
-    //         'Ministry_Commitments' => $this->input->post('Ministry_Commitments'),
-    //         'Existing_Student_Councils' => $this->input->post('Existing_Student_Councils'),
-    //         'New_Student_Councils' => $this->input->post('New_Student_Councils'),
-    //         'Existing_CGPF' => $this->input->post('Existing_CGPF'),
-    //         'New_CGPF' => $this->input->post('New_CGPF'),
-    //         'first_sunday_church' => $this->input->post('first_sunday_church'),
-    //         'second_sunday_church' => $this->input->post('second_sunday_church'),
-    //         'third_sunday_church' => $this->input->post('third_sunday_church'),
-    //         'fourth_sunday_church' => $this->input->post('fourth_sunday_church'),
-    //         'fifth_sunday_church' => $this->input->post('fifth_sunday_church')
-    //     );
-
-    //     $reportId = $this->ReportModel->insertReport($reportData);
-
-    //     foreach ($events as $index => $event) {
-    //         $eventData = array(
-    //             'reportId' => $reportId,
-    //             'program_date' => $event['program_date'],
-    //             'event_name' => $event['event_name'],
-    //             'event_location' => $event['event_location'],
-    //             'resource_person' => $event['resource_person'],
-    //             'attendance' => $event['attendance']
-    //         );
-
-    //         $uploadPath = './uploads/images/reports/';
-    //         if (!is_dir($uploadPath)) {
-    //             mkdir($uploadPath, 0755, true);
-    //         }
-
-    //         $uploadedFiles = array();
-
-    //         if (!empty($_FILES['events']['name'][$index]['eventPhotos'])) {
-    //             foreach ($_FILES['events']['name'][$index]['eventPhotos'] as $key => $fileName) {
-    //                 if (!empty($fileName)) {
-    //                     $_FILES['file']['name'] = $_FILES['events']['name'][$index]['eventPhotos'][$key];
-    //                     $_FILES['file']['type'] = $_FILES['events']['type'][$index]['eventPhotos'][$key];
-    //                     $_FILES['file']['tmp_name'] = $_FILES['events']['tmp_name'][$index]['eventPhotos'][$key];
-    //                     $_FILES['file']['error'] = $_FILES['events']['error'][$index]['eventPhotos'][$key];
-    //                     $_FILES['file']['size'] = $_FILES['events']['size'][$index]['eventPhotos'][$key];
-
-    //                     $this->upload->initialize(array(
-    //                         'upload_path' => $uploadPath,
-    //                         'allowed_types' => 'jpg|jpeg|png|gif',
-    //                         'file_name' => uniqid() . '_' . $_FILES['file']['name']
-    //                     ));
-
-    //                     if ($this->upload->do_upload('file')) {
-    //                         $uploadData = $this->upload->data();
-    //                         $uploadedFiles[] = $uploadData['file_name'];
-    //                     } else {
-    //                         log_message('error', $this->upload->display_errors());
-    //                     }
-    //                 }
-    //             }
-    //         }
-
-    //         $eventData['eventPhotos'] = !empty($uploadedFiles) ? json_encode($uploadedFiles) : null;
-    //         $this->EventModel->insertEvent($eventData);
-    //     }
-
-    //     echo json_encode(array('status' => 'success', 'message' => 'Month Report Successfully Created'));
-    // }
 
     public function saveReport()
+
     {
         $reportMonth = $this->input->post('reportMonth');
 
@@ -276,25 +166,25 @@ class ReportController extends CI_Controller
 
         echo json_encode(array('status' => 'success', 'message' => 'Report successfully processed'));
     }
-    
+
 
     public function saveWeekReport()
     {
         $this->load->model('ReportModel');
         $this->load->helper('url');
         $this->load->library('form_validation');
-    
+
         $reportMonth = $this->input->post('reportMonth');
         $dateOfEvents = $this->input->post('dateOfEvent');
         $groupNames = $this->input->post('groupName');
         $groupLeaders = $this->input->post('groupLeader');
         $groupAttendances = $this->input->post('groupAttendence');
         $rowIndices = $this->input->post('rowIndex');
-    
-      
+
         $stationId = isset($_COOKIE['stationId']) ? $_COOKIE['stationId'] : null;
         $staffId = isset($_COOKIE['staffId']) ? $_COOKIE['staffId'] : null;
-    
+
+        // Prepare report data
         $reportData = [];
         foreach ($rowIndices as $index) {
             $reportData[] = [
@@ -303,41 +193,52 @@ class ReportController extends CI_Controller
                 'groupName'        => $groupNames[$index],
                 'groupLeader'      => $groupLeaders[$index],
                 'groupAttendance'  => $groupAttendances[$index],
-                'stationId'        => $stationId, 
-                'staffId'          => $staffId    
+                'stationId'        => $stationId,
+                'staffId'          => $staffId
             ];
         }
-    
+
         if (!empty($reportData)) {
-            $this->ReportModel->insertWeeklyReport($reportData);
+
+            $existingReports = $this->ReportModel->getReportsByMonth($reportMonth);
+
+            if ($existingReports) {
+
+                foreach ($reportData as $data) {
+                    $this->ReportModel->updateWeeklyReport($data, $reportMonth);
+                }
+            } else {
+
+                $this->ReportModel->insertWeeklyReport($reportData);
+            }
         }
-    
-    
+
         $response = array(
             'status'  => 'success',
             'message' => 'Weekly report successfully processed'
         );
-    
+
         echo json_encode($response);
         exit;
     }
-    
+
+
     public function saveDailyReport()
     {
         $this->load->model('ReportModel');
         $this->load->helper('url');
         $this->load->library('form_validation');
-
+    
         $reportMonth = $this->input->post('reportMonth');
         $dateOfEvents = $this->input->post('dateOfEvent');
         $event = $this->input->post('event');
         $groupLocation = $this->input->post('groupLocation');
         $resource = $this->input->post('resource');
         $rowIndices = $this->input->post('rowIndex');
-
+    
         $stationId = isset($_COOKIE['stationId']) ? $_COOKIE['stationId'] : null;
         $staffId = isset($_COOKIE['staffId']) ? $_COOKIE['staffId'] : null;
-
+    
         $reportData = [];
         foreach ($rowIndices as $index) {
             $reportData[] = [
@@ -346,33 +247,43 @@ class ReportController extends CI_Controller
                 'event'              => $event[$index],
                 'groupLocation'      => $groupLocation[$index],
                 'resource'           => $resource[$index],
-                'stationId'          => $stationId, 
-                'staffId'            => $staffId    
+                'stationId'          => $stationId,
+                'staffId'            => $staffId
             ];
         }
-
+    
         if (!empty($reportData)) {
-            $this->ReportModel->insertDailyReport($reportData);
+            
+            $existingReport = $this->ReportModel->getDailyReportByMonth($reportMonth);
+    
+            if ($existingReport) {
+                
+                $this->ReportModel->updateDailyReport($reportMonth, $reportData);
+            } else {
+                
+                $this->ReportModel->insertDailyReport($reportData);
+            }
         }
-
-       
+    
         $response = array(
             'status'  => 'success',
-            'message' => 'Weekly report successfully processed'
+            'message' => 'Report successfully processed'
         );
-
+    
         echo json_encode($response);
         exit;
     }
+    
 
 
 
     public function getWeekDatabyYearandMonth()
+
     {
-        
-        $currentUserId = $this->session->userdata('staffId'); 
-    
-        
+
+        $currentUserId = $this->session->userdata('staffId');
+
+
         if (!$currentUserId) {
             echo json_encode([
                 'error' => 'User is not authenticated',
@@ -380,12 +291,12 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
+
         $monthYear = $this->input->post('monthYear');
-    
-       
+
+
         $reportData = $this->ReportModel->getWeekReportByMonthYearAndUser($monthYear, $currentUserId);
-    
+
         $response = [];
         foreach ($reportData as $data) {
             $response[] = [
@@ -395,17 +306,18 @@ class ReportController extends CI_Controller
                 'groupAttendance' => $data->groupAttendance,
             ];
         }
-    
+
         echo json_encode($response);
     }
-    
+
 
     public function getDailyDatabyYearandMonth()
+
     {
-        
-        $currentUserId = $this->session->userdata('staffId'); 
-    
-        // Check if the user is logged in
+
+        $currentUserId = $this->session->userdata('staffId');
+
+
         if (!$currentUserId) {
             echo json_encode([
                 'error' => 'User is not authenticated',
@@ -413,12 +325,12 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
+
         $monthYear = $this->input->post('monthYear');
-    
-        
+
+
         $reportData = $this->ReportModel->getDailyReportByMonthYearAndUser($monthYear, $currentUserId);
-    
+
         $response = [];
         foreach ($reportData as $data) {
             $response[] = [
@@ -428,8 +340,180 @@ class ReportController extends CI_Controller
                 'resource' => $data->resource,
             ];
         }
-    
+
         echo json_encode($response);
     }
-    
+
+    public function deleteEvent()
+    {
+        $this->load->model('ReportModel');
+
+        $id = $this->input->post('id');
+        $reportMonth = $this->input->post('reportMonth');
+
+        if ($id && $reportMonth) {
+            $result = $this->ReportModel->deleteEvent($id, $reportMonth);
+
+            if ($result) {
+                $response = array(
+                    'status'  => 'success',
+                    'message' => 'Event successfully deleted'
+                );
+            } else {
+                $response = array(
+                    'status'  => 'error',
+                    'message' => 'Failed to delete event'
+                );
+            }
+        } else {
+            $response = array(
+                'status'  => 'error',
+                'message' => 'Invalid request'
+            );
+        }
+
+        echo json_encode($response);
+        exit;
+    }
+
+
+    // public function saveReport()
+    // {
+
+    //     $this->load->model('ReportModel');
+    //     $this->load->model('EventModel');
+    //     $this->load->library('upload');
+
+    //     $reportMonth = $this->input->post('reportMonth');
+
+    //     $reportData = $this->prepareReportData($reportMonth);
+
+    //     $existingReport = $this->ReportModel->getReportByMonth($reportMonth);
+
+    //     if ($existingReport) {
+    //         $reportId = $this->updateExistingReport($existingReport['reportId'], $reportData);
+    //     } else {
+    //         $reportId = $this->createNewReport($reportData);
+    //     }
+
+
+    //     $this->processEvents($reportId);
+
+    //     echo json_encode(array('status' => 'success', 'message' => 'Report successfully processed'));
+    // }
+
+    // private function prepareReportData($reportMonth)
+    // {
+
+    //     return array(
+    //         'staffName' => $_COOKIE['staffName'],
+    //         'stationName' => $_COOKIE['stationName'],
+    //         'stationId' => $_COOKIE['stationId'],
+    //         'staffId' => $_COOKIE['staffId'],
+    //         'reportMonth' => $reportMonth,
+    //         'CGPF_Number' => $this->input->post('CGPF_Number'),
+    //         'House_Visit_Number' => $this->input->post('House_Visit_Number'),
+    //         'Hostel_Visit_Number' => $this->input->post('Hostel_Visit_Number'),
+    //         'Evangelisms_Number' => $this->input->post('Evangelisms_Number'),
+    //         'Accepted_Christ' => $this->input->post('Accepted_Christ'),
+    //         'Baptism_Decision' => $this->input->post('Baptism_Decision'),
+    //         'Baptism_Number' => $this->input->post('Baptism_Number'),
+    //         'Holyspirit_Received' => $this->input->post('Holyspirit_Received'),
+    //         'Ministry_Commitments' => $this->input->post('Ministry_Commitments'),
+    //         'Existing_Student_Councils' => $this->input->post('Existing_Student_Councils'),
+    //         'New_Student_Councils' => $this->input->post('New_Student_Councils'),
+    //         'Existing_CGPF' => $this->input->post('Existing_CGPF'),
+    //         'New_CGPF' => $this->input->post('New_CGPF'),
+    //         'first_sunday_church' => $this->input->post('first_sunday_church'),
+    //         'second_sunday_church' => $this->input->post('second_sunday_church'),
+    //         'third_sunday_church' => $this->input->post('third_sunday_church'),
+    //         'fourth_sunday_church' => $this->input->post('fourth_sunday_church'),
+    //         'fifth_sunday_church' => $this->input->post('fifth_sunday_church')
+    //     );
+    // }
+
+    // private function updateExistingReport($reportId, $reportData)
+    // {
+
+    //     $this->ReportModel->updateReport($reportId, $reportData);
+    //     $this->EventModel->deleteEventsByReportId($reportId);
+    //     return $reportId;
+    // }
+
+    // private function createNewReport($reportData)
+    // {
+
+    //     return $this->ReportModel->insertReport($reportData);
+    // }
+
+    // private function processEvents($reportId)
+    // {
+
+    //     $events = $this->input->post('events');
+    //     $uploadPath = './uploads/images/reports/';
+
+
+    //     if (!is_dir($uploadPath)) {
+    //         mkdir($uploadPath, 0755, true);
+    //     }
+
+
+    //     foreach ($events as $index => $event) {
+    //         $eventData = $this->prepareEventData($reportId, $event);
+    //         $eventData['eventPhotos'] = $this->handleFileUploads($index);
+    //         $this->EventModel->insertEvent($eventData);
+    //     }
+    // }
+
+    // private function prepareEventData($reportId, $event)
+    // {
+
+    //     return array(
+    //         'reportId' => $reportId,
+    //         'program_date' => $event['program_date'],
+    //         'event_name' => $event['event_name'],
+    //         'event_location' => $event['event_location'],
+    //         'resource_person' => $event['resource_person'],
+    //         'attendance' => $event['attendance']
+    //     );
+    // }
+
+    // private function handleFileUploads($index)
+    // {
+    //     $uploadedFiles = array();
+    //     $files = $_FILES['events']['name'][$index]['eventPhotos'];
+    //     $uploadPath = './uploads/images/reports/';
+
+
+    //     if (!empty($files)) {
+    //         foreach ($files as $key => $fileName) {
+    //             if (!empty($fileName)) {
+
+    //                 $_FILES['file']['name'] = $fileName;
+    //                 $_FILES['file']['type'] = $_FILES['events']['type'][$index]['eventPhotos'][$key];
+    //                 $_FILES['file']['tmp_name'] = $_FILES['events']['tmp_name'][$index]['eventPhotos'][$key];
+    //                 $_FILES['file']['error'] = $_FILES['events']['error'][$index]['eventPhotos'][$key];
+    //                 $_FILES['file']['size'] = $_FILES['events']['size'][$index]['eventPhotos'][$key];
+
+    //                 $this->upload->initialize(array(
+    //                     'upload_path' => $uploadPath,
+    //                     'allowed_types' => 'jpg|jpeg|png|gif',
+    //                     'file_name' => uniqid() . '_' . $fileName
+    //                 ));
+
+
+    //                 if ($this->upload->do_upload('file')) {
+    //                     $uploadData = $this->upload->data();
+    //                     $uploadedFiles[] = $uploadData['file_name'];
+    //                 } else {
+
+    //                     log_message('error', $this->upload->display_errors());
+    //                 }
+    //             }
+    //         }
+    //     }
+
+
+    //     return !empty($uploadedFiles) ? json_encode($uploadedFiles) : null;
+    // }
 }

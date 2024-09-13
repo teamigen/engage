@@ -1,6 +1,16 @@
 <?php
 class LeaderModel extends CI_Model {
 
+    
+
+
+    public function slugExists($slug)
+    {
+        $this->db->where('leaderSlug', $slug);
+        $query = $this->db->get('leaders');
+        return $query->num_rows() > 0;
+    }
+
     public function saveLeader($data) {
         return $this->db->insert('leaders', $data);
     }
@@ -27,6 +37,14 @@ class LeaderModel extends CI_Model {
         $query = $this->db->get('leaders');
         return $query->result_array();
     }
+
+    public function getAllLeadersbyStaff($staffId) {
+        $this->db->where('staffId', $staffId);
+        $query = $this->db->get('leaders');
+        return $query->result_array();
+    }
+
+    
 
     public function updateLeader($slug, $data) {
         $this->db->where('leaderId', $slug);

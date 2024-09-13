@@ -34,10 +34,9 @@ class Leaders extends CI_Controller
 
 	public function saveLeader()
 	{
-
 		$this->load->library('form_validation');
-
-
+		$this->load->model('LeaderModel'); // Ensure the model is loaded for database operations
+	
 		$this->form_validation->set_rules('name_of_leader', 'Name of Leader', 'required|trim');
 		$this->form_validation->set_rules('courseclass_of_leader', 'Course & Class', 'required|trim');
 		$this->form_validation->set_rules('home_location', 'Home Location', 'required|trim');
@@ -45,10 +44,8 @@ class Leaders extends CI_Controller
 		$this->form_validation->set_rules('email_of_leader', 'Email', 'required|trim|valid_email');
 		$this->form_validation->set_rules('joining_as_leader', 'Year of Joining', 'required|trim');
 		$this->form_validation->set_rules('year_of_graduation', 'Year of Graduation', 'required|trim');
-
-
+	
 		if ($this->form_validation->run() === FALSE) {
-
 			$errors = array(
 				'name_of_leader' => form_error('name_of_leader'),
 				'courseclass_of_leader' => form_error('courseclass_of_leader'),
@@ -58,14 +55,15 @@ class Leaders extends CI_Controller
 				'joining_as_leader' => form_error('joining_as_leader'),
 				'year_of_graduation' => form_error('year_of_graduation')
 			);
-
-
+	
 			echo json_encode(['success' => false, 'errors' => $errors]);
 		} else {
-
+			$name_of_leader = $this->input->post('name_of_leader');
+			$leaderSlug = $this->generateUniqueSlug($this->input->post('leaderSlug'));
+	
 			$data = array(
-				'name_of_leader' => $this->input->post('name_of_leader'),
-				'leaderSlug' => $this->input->post('leaderSlug'),
+				'name_of_leader' => $name_of_leader,
+				'leaderSlug' => $leaderSlug,
 				'courseclass_of_leader' => $this->input->post('courseclass_of_leader'),
 				'Institute' => $this->input->post('Institute'),
 				'home_location' => $this->input->post('home_location'),
@@ -76,26 +74,38 @@ class Leaders extends CI_Controller
 				'staffId' => $_COOKIE['staffId'],
 				'stationId' => $_COOKIE['stationId']
 			);
-
-
+	
 			$inserted = $this->LeaderModel->saveLeader($data);
-
-
+	
 			if ($inserted) {
-
 				echo json_encode(['success' => true]);
 			} else {
-
 				echo json_encode(['success' => false, 'error' => 'An error occurred while saving the leader.']);
 			}
 		}
 	}
+	
+	private function generateUniqueSlug($slug)
+	{
+		$slug = strtolower(url_title($slug, 'dash', true));
+		$originalSlug = $slug;
+		$i = 1;
+	
+		
+		while ($this->LeaderModel->slugExists($slug)) {
+			$slug = $originalSlug . '-' . $i;
+			$i++;
+		}
+	
+		return $slug;
+	}
+	
 
 	public function edit($slug)
 	{
 		$this->load->model('LeaderModel');
 		$this->load->model('InstituteModel');
-		$data['leaders'] = $this->LeaderModel->getAllLeaders();
+		$data['leaders'] = $this->LeaderModel->getAllLeadersbyStation($_COOKIE['stationId']);
 		$data['institutes'] = $this->InstituteModel->getallactiveinstitutessbystation($_COOKIE['stationId']);
 
 

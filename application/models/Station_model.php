@@ -89,6 +89,16 @@ class Station_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getallactivelocationsbystaff($staffId)
+    {
+        $this->db->select('*');
+        $this->db->from('eg_location');
+        $this->db->where('locationStatus', 1);
+        $this->db->where('staffId', $staffId);
+        $this->db->order_by('locationName', 'asc');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     public function getallactiveoffices()
 
