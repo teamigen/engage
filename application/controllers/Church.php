@@ -66,6 +66,7 @@ class Church extends CI_Controller
         
         $contactNames = $this->input->post('contactName');
         $contactPhones = $this->input->post('contactPhone');
+        $contactTypes = $this->input->post('contactType');
 
         if (!empty($contactNames)) {
             foreach ($contactNames as $index => $name) {
@@ -73,6 +74,7 @@ class Church extends CI_Controller
                     'churchId' => $churchId,
                     'contactName' => $name,
                     'contactPhone' => $contactPhones[$index],
+                    'contactType' => $contactTypes[$index],
                 ];
                 $this->ChurchModel->insertContactPerson($contactData);
             }

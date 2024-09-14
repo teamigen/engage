@@ -135,26 +135,36 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    var response = JSON.parse(response);
+                    try {
+                        var response = JSON.parse(response);
 
-                    if (response.success) {
-                        $('#locationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
-                        $('#saveLocation').trigger("reset");
-                    } else {
-                        var errorMessage = "<div class='alert alert-danger'>";
-                        for (var key in response.error) {
-                            if (response.error.hasOwnProperty(key)) {
-                                errorMessage += "<p>" + response.error[key] + "</p>";
+                        if (response.success) {
+                            $('#locationMessage').html('<div class="alert alert-success">' + response.success + '</div>');
+                            $('#saveLocation').trigger("reset");
+
+
+                            setTimeout(function() {
+                                location.reload();
+                            }, 900);
+                        } else {
+                            var errorMessage = "<div class='alert alert-danger'>";
+                            for (var key in response.error) {
+                                if (response.error.hasOwnProperty(key)) {
+                                    errorMessage += "<p>" + response.error[key] + "</p>";
+                                }
                             }
+                            errorMessage += "</div>";
+                            $('#locationMessage').html(errorMessage);
                         }
-                        errorMessage += "</div>";
-                        $('#locationMessage').html(errorMessage);
+                    } catch (e) {
+                        $('#locationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     $('#locationMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
                 }
             });
+
         });
 
         $('#locationName').keyup(function() {

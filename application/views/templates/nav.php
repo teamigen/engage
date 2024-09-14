@@ -107,10 +107,10 @@ if ($_COOKIE['staffName'] == "Tim Thomas") { ?>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url(); ?>council/createnew">Create New Council</a></li>
                             <li><a href="<?= base_url(); ?>council/manage">Manage Council</a></li>
-                            <!--<li><a href="<?= base_url(); ?>council/createareacouncil">Create Area Council</a></li>-->
-                            <!--<li><a href="<?= base_url(); ?>council/manageareacouncil">Manage Area Council</a></li>-->
-                            <!--<li><a href="<?= base_url(); ?>council/createareacouncil">Create District Council</a></li>-->
-                            <!--<li><a href="<?= base_url(); ?>council/manageareacouncil">Manage District Council</a></li>-->
+                            <li><a href="<?= base_url(); ?>council/createareacouncil">Create Area Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/manageareacouncil">Manage Area Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/createdistrictcouncil">Create District Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/managedistrictcouncil">Manage District Council</a></li>
                         </ul>
                     </li>
                     <li>

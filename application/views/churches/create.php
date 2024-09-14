@@ -88,19 +88,29 @@
 
                                 <div id="contactPersonsContainer">
                                     <div class="row contact-person">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Contact Person</label>
                                                 <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Mobile Number</label>
                                                 <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Contact Type</label>
+                                                <select class="form-control" name="contactType[]" required>
+                                                    <!-- <option value="" disabled selected>Select Contact Type</option> -->
+                                                    <option value="senior">Senior</option>
+                                                    <option value="student">Student</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
                                             <div class="form-group">
                                                 <label>&nbsp;</label>
 
@@ -187,18 +197,28 @@
         function addContactPerson() {
             const contactHtml = `
                     <div class="row contact-person">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Contact Person</label>
                                 <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Mobile Number</label>
                                 <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
                             </div>
                         </div>
+                             <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Contact Type</label>
+                                                <select class="form-control" name="contactType[]" required>
+                                                    
+                                                    <option value="senior">Senior</option>
+                                                    <option value="student">Student</option>
+                                                </select>
+                                            </div>
+                                        </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>&nbsp;</label>

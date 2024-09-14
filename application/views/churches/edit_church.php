@@ -86,61 +86,52 @@
                                     <input class="form-control" type="text" name="mobileNumber" placeholder="Mobile Number" id="mobileNumber" value="<?= $church->mobileNumber ?>" required>
                                 </div>
 
-                                <hr>
-
                                 <div id="contactPersonsContainer">
                                     <?php if (!empty($contactPersons)): ?>
                                         <?php foreach ($contactPersons as $contactPerson): ?>
                                             <div class="row contact-person">
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Contact Person</label>
-                                                        <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" value="<?= $contactPerson->contactName ?>" required>
+                                                        <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" value="<?= htmlspecialchars($contactPerson->contactName) ?>" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Mobile Number</label>
-                                                        <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" value="<?= $contactPerson->contactPhone ?>" required>
+                                                        <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" value="<?= htmlspecialchars($contactPerson->contactPhone) ?>" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
+                                                        <label>Contact Type</label>
+                                                        <select class="form-control" name="contactType[]" required>
+                                                            <option value="" disabled>Select Contact Type</option>
+                                                            <option value="senior" <?= $contactPerson->contactType === 'senior' ? 'selected' : '' ?>>Senior</option>
+                                                            <option value="student" <?= $contactPerson->contactType === 'student' ? 'selected' : '' ?>>Student</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 d-flex align-items-end">
+                                                    <div class="form-group mb-0">
                                                         <label>&nbsp;</label>
                                                         <i class="remove-contact-person dripicons-cross" style="cursor: pointer; color:red;"></i>
                                                     </div>
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
-                                    <?php else: ?>
-                                        <div class="row contact-person">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Contact Person</label>
-                                                    <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Mobile Number</label>
-                                                    <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>&nbsp;</label>
-                                                    <i class="remove-contact-person dripicons-cross" style="cursor: pointer; color:red;"></i>
-                                                </div>
-                                            </div>
-                                        </div>
                                     <?php endif; ?>
+                                    <div class="form-group">
+                                        <i class=" add-contact-person  ri-user-add-line" style="cursor: pointer; color:green;"></i>
+                                    </div>
+
+
                                 </div>
 
 
 
-                                <div class="form-group">
-                                    <i class=" add-contact-person  ri-user-add-line" style="cursor: pointer; color:green;"></i>
-                                </div>
+
+
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Save</button>
@@ -212,7 +203,7 @@
         function addContactPerson() {
             const contactHtml = `
                 <div class="row contact-person">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Contact Person</label>
                             <input class="form-control" type="text" name="contactName[]" placeholder="Contact Person Name" required>
@@ -224,7 +215,17 @@
                             <input class="form-control" type="text" name="contactPhone[]" placeholder="Phone of Contact Person" required>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                       <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label>Contact Type</label>
+                                                <select class="form-control" name="contactType[]" required>
+                                                    
+                                                    <option value="senior">Senior</option>
+                                                    <option value="student">Student</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                    <div class="col-md-1">
                         <div class="form-group">
                             <label>&nbsp;</label>
                             <i class="remove-contact-person dripicons-cross" style="cursor: pointer; color:red;"></i>
