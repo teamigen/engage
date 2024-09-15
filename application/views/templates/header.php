@@ -34,3 +34,9 @@
 
         <!-- Begin page -->
         <div id="layout-wrapper">
+        <?php
+                if(!isset($_COOKIE['stafftype']) || ($_COOKIE['stafftype'] == '')) { 
+    $loginloc = base_url('login');
+    header('Location: ' . $loginloc);
+                }
+            ?>

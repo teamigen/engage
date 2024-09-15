@@ -23,14 +23,9 @@ class AuthController extends CI_Controller
             
             $passofsuperadmin = $this->Common_model->getbyid('staff', 'staffType', 'Super Admin')->password;
             $usernameverify =  $this->Common_model->getbyid('staff', 'username', $username);
-            // echo $this->db->last_query();
-            // die();
+            $cleared = '';
             if(isset($usernameverify)){
-               if (password_verify($password, $passofsuperadmin)) {
-                   $cleared = 1;
-               } else {
-                   $cleared = 0;
-               }
+                $cleared = (password_verify($password, $passofsuperadmin)) ? 1 : 0;
             }
             
 

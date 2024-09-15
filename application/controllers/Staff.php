@@ -54,7 +54,6 @@ class Staff extends CI_Controller
 
 
     public function adminmonthreport()
-
     {
         $this->load->model('ChurchModel');
         $data["churches"] = $this->ChurchModel->getallchurches();
@@ -69,25 +68,23 @@ class Staff extends CI_Controller
 
 
 
-    public function weekreport( )
-
+    public function weekreport()
     {
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
-        
+
         $data['weeklyGroups'] = $this->GroupModel->getAllWeeklyGroupsbystaff();
-        $this->load->model('LeaderModel'); 
+        $this->load->model('LeaderModel');
         $data['leaders'] = $this->LeaderModel->getAllLeadersbyStaff($_COOKIE['staffId']);
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('reports/weekreports', $data);
         $this->load->view('templates/footer');
-        
+
     }
 
     public function dailyreport()
-
     {
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -117,7 +114,6 @@ class Staff extends CI_Controller
     }
 
     public function saveregion()
-
     {
 
 
@@ -162,7 +158,7 @@ class Staff extends CI_Controller
             'regionId' => $regionId,
             'stationActive' => 1
         );
-        
+
         $stationName = $this->Common_model->insert('eg_station', $data);
 
         $response = array(
@@ -175,7 +171,6 @@ class Staff extends CI_Controller
 
 
     public function savecountry()
-    
     {
         // echo "hasdfs";
         // die();
@@ -448,7 +443,79 @@ class Staff extends CI_Controller
     }
 
 
+    public function sendsms()
+    {
+        //send sms
 
+        $staffId = $this->input->post('staffId');
+        $staff = $this->StaffModel->getStaffById($staffId);
+        $phone = $staff->whatsappNumber;
+        $staffName = $staff->staffName;
+        $staffUsername = $staff->username;
+        $staffPassword = $staff->readPass;
+
+        if ($staffPassword != "" || $staffPassword !== 'null') {
+
+            $m = "
+		
+		Dear " . $staffName . ",
+
+We're excited to announce the launch of ICPF Engage, our new reporting platform designed to streamline your work and enhance our mission.
+
+ICPF Engage is a user-friendly tool that will provide you with a centralized space for reporting, tracking, and analyzing your activities. It's designed to make your work more efficient and effective.
+
+To access ICPF Engage, please visit: https://icpf.org/engage/
+
+Your login credentials are:
+
+Username: " . $staffUsername . "  
+Password: " . $staffPassword . "
+
+If you have any questions or encounter any issues, please don't hesitate to contact your Regional Staff.
+
+Thank you for your dedication to ICPF's mission. We look forward to seeing the impact you'll make with ICPF Engage!
+
+Best regards,
+Team ICPF
+		
+		";
+            if (strlen($phone) == '10') {
+
+                $mobile = '91' . $phone;
+            } else {
+                exit();
+            }
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://wa.qubez.in/api/create-message',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => array(
+                        'appkey' => '3b901daf-2d46-42d8-adc8-68d6948ccde2',
+                        'authkey' => '20wnM082kB5minKxlpSvmyHy34KD4E7YddRVZ4Wud93PT15YpP',
+                        'to' => $mobile,
+                        'message' => $m,
+                        'sandbox' => 'false'
+                    ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            $mdata = json_decode($response, true);
+            $message_status = $mdata['message_status'];
+            // echo $message_status;
+
+        } else {
+            echo "No Password Set!";
+        }
+    }
 
 
     private function generateUniqueSlug($slug)
@@ -491,7 +558,6 @@ class Staff extends CI_Controller
 
 
     public function edit($staffSlug)
-
     {
         $this->load->model('StaffModel');
         $this->load->model('Station_model');
@@ -604,17 +670,17 @@ class Staff extends CI_Controller
         $currentStaffData = $this->StaffModel->getStaffById($staffId);
 
         $staffData = [
-            'staffName'               => $this->input->post('staffName') ?? $currentStaffData->staffName,
-            'station'                 => $this->input->post('station') ?? $currentStaffData->station,
-            'region'                  => $this->input->post('region') ?? $currentStaffData->region,
-            'staffType'               => $this->input->post('staffType') ?? $currentStaffData->staffType,
-            'officeLocation'          => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
-            'joiningDate'             => $this->input->post('joiningDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('joiningDate')))) : $currentStaffData->joiningDate,
-            'exitingDate'             => $this->input->post('exitingDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('exitingDate')))) : $currentStaffData->exitingDate,
-            'dateofbirth'             => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('dateofbirth')))) : $currentStaffData->dateofbirth,
-            'dateofAnniversary'       => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('dateofAnniversary'))))  : $currentStaffData->dateofAnniversary,
-            'username'                => $this->input->post('username') ?? $currentStaffData->username,
-            'whatsappNumber'          => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
+            'staffName' => $this->input->post('staffName') ?? $currentStaffData->staffName,
+            'station' => $this->input->post('station') ?? $currentStaffData->station,
+            'region' => $this->input->post('region') ?? $currentStaffData->region,
+            'staffType' => $this->input->post('staffType') ?? $currentStaffData->staffType,
+            'officeLocation' => $this->input->post('officeLocation') ?? $currentStaffData->officeLocation,
+            'joiningDate' => $this->input->post('joiningDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('joiningDate')))) : $currentStaffData->joiningDate,
+            'exitingDate' => $this->input->post('exitingDate') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('exitingDate')))) : $currentStaffData->exitingDate,
+            'dateofbirth' => $this->input->post('dateofbirth') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('dateofbirth')))) : $currentStaffData->dateofbirth,
+            'dateofAnniversary' => $this->input->post('dateofAnniversary') ? date('Y-m-d', strtotime(str_replace(',', '', $this->input->post('dateofAnniversary')))) : $currentStaffData->dateofAnniversary,
+            'username' => $this->input->post('username') ?? $currentStaffData->username,
+            'whatsappNumber' => $this->input->post('whatsappNumber') ?? $currentStaffData->whatsappNumber,
             'alternateWhatsappNumber' => $this->input->post('alternateWhatsappNumber') ?? $currentStaffData->alternateWhatsappNumber,
         ];
 
@@ -780,6 +846,127 @@ class Staff extends CI_Controller
     //     }
     // }
 
+    public function staffWithoutLocation() {
+        // Load the database library
+        $this->load->database();
 
+        // Query to find staff who don't have an entry in the location table
+        $this->db->select('staff.staffName')
+                 ->from('staff')
+                 ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
+                 ->where('eg_location.stationId IS NULL');
+        $query = $this->db->get();
+        
+        // Fetch result
+        $data['staffWithoutLocation'] = $query->result();
+        
+        // var_dump($data['staffWithoutLocation']);
+        // die();
+        
+        // Load the view and pass data
+        $this->load->view('staff_without_location', $data);
+    }
+ public function staffLocationCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of locations created by each staff
+        $this->db->select('staff.staffName, COUNT(eg_location.locationId) as locationCount')
+                 ->from('staff')
+                 ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffLocations'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_location_count', $data);
+    }
+    public function staffGroupCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of groups created by each staff
+        $this->db->select('staff.staffName, COUNT(groups.stationId) as groupCount')
+                 ->from('staff')
+                 ->join('groups', 'groups.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffGroups'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_group_count', $data);
+    }
+    public function staffCouncilCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of councils created by each staff
+        $this->db->select('staff.staffName, COUNT(eg_council.stationId) as councilCount')
+                 ->from('staff')
+                 ->join('eg_council', 'eg_council.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffCouncils'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_council_count', $data);
+    }
+    public function staffCgpfCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of cgpf entries created by each staff
+        $this->db->select('staff.staffName, COUNT(cgpf.stationId) as cgpfCount')
+                 ->from('staff')
+                 ->join('cgpf', 'cgpf.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffCgpf'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_cgpf_count', $data);
+    }
+    public function staffChurchCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of churches created by each staff
+        $this->db->select('staff.staffName, COUNT(churches.stationId) as churchCount')
+                 ->from('staff')
+                 ->join('churches', 'churches.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffChurches'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_church_count', $data);
+    }
+    public function staffInstituteCount() {
+        // Load the database library
+        $this->load->database();
+
+        // Query to get the number of institutes created by each staff
+        $this->db->select('staff.staffName, COUNT(eg_institutes.stationId) as instituteCount')
+                 ->from('staff')
+                 ->join('eg_institutes', 'eg_institutes.stationId = staff.station', 'left')
+                 ->group_by('staff.staffId');
+        $query = $this->db->get();
+
+        // Fetch result
+        $data['staffInstitutes'] = $query->result();
+        
+        // Load the view and pass data
+        $this->load->view('staff_institute_count', $data);
+    }
 
 }
