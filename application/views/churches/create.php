@@ -284,6 +284,8 @@
         $('#churchSlug').val(filteredText.toLowerCase());
     });
 </script>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {

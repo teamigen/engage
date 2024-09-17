@@ -182,26 +182,29 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
             deleteButton.addEventListener('click', function() {
-                var slug = this.getAttribute('data-id');
-                var row = this.closest('tr');
+                var leaderSlug = this.getAttribute('data-id');
 
-                if (confirm('Are you sure you want to delete this row?')) {
-                    fetch('<?= base_url(); ?>Leaders/delete/' + slug, {
-                            method: 'GET',
+                if (confirm('Are you sure you want to delete this Leader?')) {
+                    fetch('<?= base_url(); ?>Leaders/delete/' + leaderSlug, {
+                            method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
                             },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
                         })
-                        .then(response => {
-                            if (response.redirected) {
-                                window.location.href = response.url;
-                            }
-                            return response.text();
-                        })
+                        .then(response => response.json())
                         .then(data => {
-
-                            row.remove();
-                            alert('Leader deleted successfully!');
+                            console.log('Response Data:', data); 
+                            if (data.success) {
+                                alert('Leader deleted successfully.');
+                                window.location.reload(); 
+                            } else if (data.redirect) {
+                                window.location.href = '<?= base_url(); ?>Leaders/index';
+                            } else {
+                                alert('Failed to delete the Leader.');
+                            }
                         })
                         .catch(error => console.error('Error:', error));
                 }
@@ -209,6 +212,7 @@
         });
     });
 </script>
+
 
 
 

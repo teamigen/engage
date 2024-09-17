@@ -1,3 +1,4 @@
+
 <link href="<?= base_url(); ?>assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= base_url(); ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="<?= base_url(); ?>assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
@@ -121,6 +122,7 @@
 
 
                                         <input type="hidden" id="reportMonth" name="reportMonth">
+                                        
                                         <!-- <span class="dispmnth" id="selectedMonth"></span> -->
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
@@ -475,7 +477,7 @@
             if (data.events && data.events.length) {
                 data.events.forEach(function(event, index) {
                     $('#eventsContainer').append(`
-                <div class="event${index + 1} events default">
+                <div class="event1 event${index + 1} events default">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -547,10 +549,12 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
+
                         <div class="form-group">
                             <label>Resource Person</label>
                             <input class="form-control" type="text" name="events[0][resource_person]" placeholder="Resource Person">
                         </div>
+                        
                         <div class="form-group">
                             <label>Attendance</label>
                             <input class="form-control" type="text" name="events[0][attendance]" placeholder="Attendance">
@@ -616,6 +620,7 @@
 
 
 <script>
+    
     function displayImages(input) {
         var files = input.files;
         var previewContainer = $(input).closest('.event1').find('[id^="imagePreviewContainer_"]');

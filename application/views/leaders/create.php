@@ -162,6 +162,7 @@
         });
     });
 </script>
+
 <script>
     $(document).ready(function() {
         $('#saveLeader').submit(function(e) {
@@ -175,11 +176,13 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    //alert(response);
-                    var response = JSON.parse(response)
+                    var response = JSON.parse(response);
                     if (response.success) {
                         $('#saveLeader').trigger("reset");
                         $('#leaderMessage').html('<p>Leader Successfully Created!</p>').addClass('alert alert-success');
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
                     } else {
                         var errors = response.error;
                         var errorMessage = "";
@@ -191,10 +194,7 @@
                         $('#leaderMessage').html(errorMessage).addClass('alert alert-danger');
                     }
                 },
-
-
                 error: function(jqXHR, textStatus, errorThrown) {
-
                     console.error('AJAX Error:', textStatus, errorThrown);
                     $('#leaderMessage').html('<hr><h6 style="color:red; margin-top:10px; margin-bottom:10px">There is an error! Please try later!</h6><hr>');
                 }
@@ -208,11 +208,11 @@
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
             deleteButton.addEventListener('click', function() {
                 var slug = this.getAttribute('data-id');
-                var row = this.closest('tr'); 
+                var row = this.closest('tr');
 
                 if (confirm('Are you sure you want to delete this row?')) {
                     fetch('<?= base_url(); ?>Leaders/delete/' + slug, {
-                            method: 'GET', 
+                            method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
@@ -221,10 +221,10 @@
                             if (response.redirected) {
                                 window.location.href = response.url;
                             }
-                            return response.text(); 
+                            return response.text();
                         })
                         .then(data => {
-                            
+
                             row.remove();
                             alert('Leader deleted successfully!');
                         })

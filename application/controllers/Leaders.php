@@ -112,7 +112,9 @@ class Leaders extends CI_Controller
 		$data['leader'] = $this->LeaderModel->getLeaderBySlug($slug);
 
 		if (!$data['leader']) {
-			show_404();
+
+			$this->session->set_flashdata('message', 'The Leader you were editing has been deleted.');
+			redirect('Leaders/index');
 		}
 
 		$this->load->view('templates/header');
@@ -172,4 +174,7 @@ class Leaders extends CI_Controller
 
 		redirect('Leaders');
 	}
+
+
+	
 }

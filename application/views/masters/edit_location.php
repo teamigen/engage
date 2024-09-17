@@ -148,14 +148,12 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                var row = document.getElementById('row-' + locationSlug);
-                                if (row) {
-                                    row.remove();
-                                } else {
-                                    console.error('Row not found in DOM');
-                                }
+                                alert('Church deleted successfully.');
+                                window.location.href = '<?= base_url(); ?>Masters/locations';
+                            } else if (data.redirect) {
+                                window.location.href = '<?= base_url(); ?>Masters/locations';
                             } else {
-                                alert('Failed to delete the row.');
+                                alert('Failed to delete the church.');
                             }
                         })
                         .catch(error => console.error('Error:', error));

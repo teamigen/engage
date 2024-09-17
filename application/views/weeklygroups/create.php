@@ -171,6 +171,13 @@
                 success: function(response) {
                     if (response.success) {
                         $('#groupMessage').html('<div class="alert alert-success">Group details saved successfully!</div>');
+
+
+                        setTimeout(function() {
+
+                            location.reload();
+                        }, 1000);
+
                     } else {
                         $('#groupMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
                     }
@@ -179,6 +186,7 @@
                     $('#groupMessage').html('<div class="alert alert-danger">Error occurred: ' + textStatus + '</div>');
                 }
             });
+
         });
     });
 
@@ -213,7 +221,7 @@
                             if (data.success) {
                                 var row = document.getElementById('row-' + groupSlug);
                                 if (row) {
-                                    row.remove(); 
+                                    row.remove();
                                 } else {
                                     console.error('Row not found in DOM');
                                 }

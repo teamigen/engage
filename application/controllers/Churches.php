@@ -49,26 +49,30 @@ class Churches extends CI_Controller
 	}
 
 	public function edit($churchSlug)
-
 	{
 		$this->load->model('ChurchModel');
 
-		$data['churches'] = $this->ChurchModel->getallactivechurchesbystation($_COOKIE['stationId']);
 
+		$data['churches'] = $this->ChurchModel->getallactivechurchesbystation($_COOKIE['stationId']);
 
 		$data['church'] = $this->ChurchModel->getChurchBySlug($churchSlug);
 
+		if (!$data['church']) {
+
+			$this->session->set_flashdata('message', 'The church you were editing has been deleted.');
+			redirect('churches/index');
+		}
+
 		$data['contactPersons'] = $this->ChurchModel->getContactPersonsByChurchSlug($churchSlug);
 
-
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
-
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/nav');
 		$this->load->view('churches/edit_church', $data);
 		$this->load->view('templates/footer');
 	}
+
 
 	public function update()
 	{
@@ -107,7 +111,7 @@ class Churches extends CI_Controller
 					'contactType' => $contactTypes[$index],
 					'contactPhone' => $contactPhones[$index]
 				);
-				
+
 				$this->ChurchModel->insertContactPerson($contactData);
 			}
 		}

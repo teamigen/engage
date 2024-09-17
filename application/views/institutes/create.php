@@ -194,10 +194,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
             deleteButton.addEventListener('click', function() {
-                var instituteId = this.getAttribute('data-id');
+                var instituteSlug = this.getAttribute('data-id');
 
                 if (confirm('Are you sure you want to delete this row?')) {
-                    fetch('<?= base_url(); ?>Institutes/delete/' + instituteId, {
+                    fetch('<?= base_url(); ?>Institutes/delete/' + instituteSlug, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -210,7 +210,7 @@
                         .then(data => {
                             if (data.success) {
 
-                                var row = document.getElementById('row-' + instituteId);
+                                var row = document.getElementById('row-' + instituteSlug);
                                 if (row) {
                                     row.remove();
                                 } else {

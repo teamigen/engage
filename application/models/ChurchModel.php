@@ -113,6 +113,7 @@ class ChurchModel extends CI_Model
         $this->db->where('churchSlug', $churchSlug);
         return $this->db->delete('churches');
     }
+    
     public function getChurchById($churchId)
     {
         $this->db->where('churchId', $churchId);

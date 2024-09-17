@@ -117,6 +117,13 @@ class Weeklygroups extends CI_Controller
         $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
         $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
 
+        
+		if (!$data['weekly_groups']) {
+
+			$this->session->set_flashdata('message', 'The Group you were editing has been deleted.');
+			redirect('Weeklygroups/index');
+		}
+
 
         $data['group'] = $this->GroupModel->getGroupBySlug($groupId);
 

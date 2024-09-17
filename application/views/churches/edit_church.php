@@ -257,7 +257,7 @@
             deleteButton.addEventListener('click', function() {
                 var churchSlug = this.getAttribute('data-id');
 
-                if (confirm('Are you sure you want to delete this row?')) {
+                if (confirm('Are you sure you want to delete this church?')) {
                     fetch('<?= base_url(); ?>Churches/delete/' + churchSlug, {
                             method: 'POST',
                             headers: {
@@ -270,14 +270,12 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                var row = document.getElementById('row-' + churchSlug);
-                                if (row) {
-                                    row.remove();
-                                } else {
-                                    console.error('Row not found in DOM');
-                                }
+                                alert('Church deleted successfully.');
+                                window.location.href = '<?= base_url(); ?>churches/index';
+                            } else if (data.redirect) {
+                                window.location.href = '<?= base_url(); ?>churches/index';
                             } else {
-                                alert('Failed to delete the row.');
+                                alert('Failed to delete the church.');
                             }
                         })
                         .catch(error => console.error('Error:', error));
@@ -286,6 +284,7 @@
         });
     });
 </script>
+
 
 
 

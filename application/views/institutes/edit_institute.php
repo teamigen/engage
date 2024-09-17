@@ -105,7 +105,7 @@
 
                                             <td>
                                                 <a href="<?= base_url('Institutes/edit/' . ($it->instituteSlug)) ?>" class="edit-row" data-id="<?= ($it->instituteSlug) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
-                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= ($it->instituteId) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
+                                                <a href="javascript:void(0);" class="delete-row" data-id="<?= ($it->instituteSlug) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
 
                                             </td>
 
@@ -142,27 +142,29 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
-
             deleteButton.addEventListener('click', function() {
+                var instituteSlug = this.getAttribute('data-id');
 
-                var instituteId = this.getAttribute('data-id');
-
-                if (confirm('Are you sure you want to delete this row?')) {
-
-                    fetch('<?= base_url(); ?>Institutes/delete/' + instituteId, {
-                            method: 'DELETE',
+                if (confirm('Are you sure you want to delete this church?')) {
+                    fetch('<?= base_url(); ?>Institutes/delete/' + instituteSlug, {
+                            method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded',
                             },
+                            body: new URLSearchParams({
+                                _method: 'DELETE'
+                            }).toString()
                         })
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                document.getElementById('row-' + instituteId).remove();
+                                alert('Institute deleted successfully.');
+                                window.location.href = '<?= base_url(); ?>Institutes/index';
+                            } else if (data.redirect) {
+                                window.location.href = '<?= base_url(); ?>Institutes/index';
                             } else {
-                                alert('Failed to delete the row.');
+                                alert('Failed to delete the Institute.');
                             }
                         })
                         .catch(error => console.error('Error:', error));

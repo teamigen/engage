@@ -31,10 +31,11 @@ class InstituteModel extends CI_Model
         return $query->result();
     }
 
-    public function delete_institute($instituteId)
+  
+    public function delete_institute($instituteSlug)
     {
 
-        $this->db->where('instituteId', $instituteId);
+        $this->db->where('instituteSlug', $instituteSlug);
         return $this->db->delete('eg_institutes');
     }
 

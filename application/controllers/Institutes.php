@@ -25,31 +25,34 @@ class Institutes extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function delete($instituteId)
-    {
+  
+	public function delete($instituteSlug)
 
-        log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
-        log_message('debug', '_method: ' . $this->input->post('_method'));
+	{
+		log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
+		log_message('debug', '_method: ' . $this->input->post('_method'));
+		log_message('debug', 'Received Group slug: ' . $instituteSlug);
 
-        if ($this->input->server('REQUEST_METHOD') === 'POST' && $this->input->post('_method') === 'DELETE') {
+		if ($this->input->server('REQUEST_METHOD') === 'POST' && $this->input->post('_method') === 'DELETE') {
+			$this->load->model('InstituteModel');
 
-            $this->load->model('InstituteModel');
+			if (!empty($instituteSlug)) {
+				$result = $this->InstituteModel->delete_institute($instituteSlug);
 
-            if (is_numeric($instituteId)) {
-                $result = $this->InstituteModel->delete_institute($instituteId);
+				if ($result) {
+					echo json_encode(['success' => true]);
+				} else {
+					echo json_encode(['success' => false, 'message' => 'Failed to delete record']);
+				}
+			} else {
+				echo json_encode(['success' => false, 'message' => 'Invalid Institute slug']);
+			}
+		} else {
+			echo json_encode(['success' => false, 'message' => 'Invalid request method or _method not received']);
+		}
 
-                if ($result) {
-                    echo json_encode(['success' => true]);
-                } else {
-                    echo json_encode(['success' => false]);
-                }
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Invalid institute ID']);
-            }
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Invalid request method or _method not received']);
-        }
-    }
+        
+	}
 
 
 
@@ -61,13 +64,21 @@ class Institutes extends CI_Controller
 
 
 
-        $data['institute'] = $this->InstituteModel->get_Institute_by_slug($instituteSlug);
+        $data['institute'] = $this->InstituteModel->get_institute_by_slug($instituteSlug);
+
+        if (!$data['institute']) {
+
+			$this->session->set_flashdata('message', 'The Institute you were editing has been deleted.');
+			redirect('institutes/index');
+		}
 
         $this->load->view('templates/header');
         $this->load->view('templates/nav');
         $this->load->view('institutes/edit_institute', $data);
         $this->load->view('templates/footer');
     }
+
+    
     public function update()
     {
 

@@ -29,6 +29,15 @@ class Masters extends CI_Controller
 		$this->load->model('Station_model');
 
 		$data['location'] = $this->Station_model->get_location_by_slug($locationSlug);
+
+
+		if (!$data['location']) {
+
+			$this->session->set_flashdata('message', 'The location you were editing has been deleted.');
+			redirect('Masters/index');
+		}
+
+		
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 
 		if (empty($data['location'])) {
