@@ -9,11 +9,21 @@ class ChurchModel extends CI_Model
     }
 
     public function isSlugExists($churchSlug)
-{
-    $this->db->where('churchSlug', $churchSlug);
-    $query = $this->db->get('churches');
-    return $query->num_rows() > 0;  
-}
+    {
+        $this->db->where('churchSlug', $churchSlug);
+        $query = $this->db->get('churches');
+        return $query->num_rows() > 0;
+    }
+    public function isChurchSlugExists($slug, $excludeId = null)
+    {
+        $this->db->where('churchSlug', $slug);
+        if ($excludeId) {
+            $this->db->where('churchId !=', $excludeId);
+        }
+        $query = $this->db->get('churches');
+        return $query->num_rows() > 0;
+    }
+
 
 
     public function insertChurch($data)
@@ -41,20 +51,20 @@ class ChurchModel extends CI_Model
 
     public function getAllChurches()
     {
-        
-        $this->load->library('session'); 
-        $userId = $this->session->userdata('staffId'); 
 
-        
+        $this->load->library('session');
+        $userId = $this->session->userdata('staffId');
+
+
         if (!$userId) {
-            return []; 
+            return [];
         }
 
-        
+
         $this->db->select('churches.churchId, churches.churchName, eg_location.locationName, pastorName, mobileNumber, churchSlug');
         $this->db->from('churches');
         $this->db->join('eg_location', 'churches.churchLocation = eg_location.locationId', 'left');
-        $this->db->where('churches.staffId', $userId); 
+        $this->db->where('churches.staffId', $userId);
         $query = $this->db->get();
 
         return $query->result();
@@ -113,7 +123,7 @@ class ChurchModel extends CI_Model
         $this->db->where('churchSlug', $churchSlug);
         return $this->db->delete('churches');
     }
-    
+
     public function getChurchById($churchId)
     {
         $this->db->where('churchId', $churchId);

@@ -103,7 +103,7 @@ class CGPFModel extends CI_Model
         return $this->db->get_where('cgpf', ['cgpf_slug' => $cgpf_slug])->row();
     }
     public function getMembersByCgpfId($cgpf_id)
-{
-    return $this->db->get_where('cgpf_members', ['cgpf_id' => $cgpf_id])->result();
-}
+    {
+        return $this->db->get_where('cgpf_members', ['cgpf_id' => $cgpf_id])->result();
+    }
 }

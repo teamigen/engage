@@ -47,7 +47,8 @@
                             <p class="card-title-desc">Edit Location</p>
 
                             <form id="updateLocation" method="post" action="<?php echo site_url('Masters/updateLocation'); ?>">
-                                <div id="locationMessage"></div>
+                               
+
 
 
                                 <input type="hidden" name="locationId" value="<?php echo htmlspecialchars($location['locationId']); ?>">
@@ -148,7 +149,7 @@
                         .then(response => response.json())
                         .then(data => {
                             if (data.success) {
-                                alert('Church deleted successfully.');
+                                alert('location deleted successfully.');
                                 window.location.href = '<?= base_url(); ?>Masters/locations';
                             } else if (data.redirect) {
                                 window.location.href = '<?= base_url(); ?>Masters/locations';
@@ -167,6 +168,7 @@
         $('#locationSlug').val(filteredText.toLowerCase());
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {

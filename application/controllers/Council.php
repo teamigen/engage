@@ -143,54 +143,57 @@ class Council extends CI_Controller
 
     public function updateCouncil()
     {
-
         $stationId = $_COOKIE['stationId'];
         $staffId = $_COOKIE['staffId'];
-
-
         $councilId = $this->input->post('councilId');
-        $councilData = array(
-            'councilName' => $this->input->post('councilName'),
-            'councilSlug' => $this->input->post('councilSlug'),
-            'councilLocation' => $this->input->post('councilLocation'),
-            'councilInstitute' => $this->input->post('councilInstitute'),
-            'startDate' => $this->input->post('startDate'),
-            'endDate' => $this->input->post('endDate'),
-            'stationId' => $stationId,
-            'staffId' => $staffId
-        );
 
+        $councilName = $this->input->post('councilName');
 
-        $this->CouncilModel->updateCouncil($councilId, $councilData);
-
-
-        $this->CouncilModel->deleteMembersByCouncilId($councilId);
-
-
-        $memberNames = $this->input->post('memberName');
-        $designations = $this->input->post('designation');
-        $cgpfNumbers = $this->input->post('cgpfNumber');
-        $memberEmails = $this->input->post('memberEmail');
-
-
-        foreach ($memberNames as $key => $name) {
-            $memberData = array(
-                'councilId' => $councilId,
-                'memberName' => $name,
-                'designation' => $designations[$key],
-                'cgpfNumber' => $cgpfNumbers[$key],
-                'memberEmail' => $memberEmails[$key],
+        if ($this->CouncilModel->isCouncilNameUnique($councilName, $councilId)) {
+            $councilData = array(
+                'councilName' => $councilName,
+                'councilSlug' => $this->input->post('councilSlug'),
+                'councilLocation' => $this->input->post('councilLocation'),
+                'councilInstitute' => $this->input->post('councilInstitute'),
+                'startDate' => $this->input->post('startDate'),
+                'endDate' => $this->input->post('endDate'),
                 'stationId' => $stationId,
                 'staffId' => $staffId
             );
 
 
-            $this->CouncilModel->insertMember($memberData);
+            $this->CouncilModel->updateCouncil($councilId, $councilData);
+
+
+            $this->CouncilModel->deleteMembersByCouncilId($councilId);
+
+
+            $memberNames = $this->input->post('memberName');
+            $designations = $this->input->post('designation');
+            $cgpfNumbers = $this->input->post('cgpfNumber');
+            $memberEmails = $this->input->post('memberEmail');
+
+            foreach ($memberNames as $key => $name) {
+                $memberData = array(
+                    'councilId' => $councilId,
+                    'memberName' => $name,
+                    'designation' => $designations[$key],
+                    'cgpfNumber' => $cgpfNumbers[$key],
+                    'memberEmail' => $memberEmails[$key],
+                    'stationId' => $stationId,
+                    'staffId' => $staffId
+                );
+
+                $this->CouncilModel->insertMember($memberData);
+            }
+
+            redirect('council/manage');
+        } else {
+            $this->session->set_flashdata('error', 'Council name must be unique.');
+            redirect('council/manage/');
         }
-
-
-        redirect('council/manage');
     }
+
 
 
 
@@ -343,57 +346,63 @@ class Council extends CI_Controller
 
     public function updateAreaCouncil()
     {
-
         $stationId = $_COOKIE['stationId'];
         $staffId = $_COOKIE['staffId'];
 
         $councilId = $this->input->post('councilId');
-        $councilData = array(
-            'councilName' => $this->input->post('councilName'),
-            'councilSlug' => $this->input->post('councilSlug'),
-            'councilLocation' => $this->input->post('councilLocation'),
-            'councilArea' => $this->input->post('councilArea'),
-            'startDate' => $this->input->post('startDate'),
-            'endDate' => $this->input->post('endDate'),
-            'stationId' => $stationId,
-            'staffId' => $staffId
-        );
+        $councilName = $this->input->post('councilName');
 
 
-        $this->CouncilModel->updateAreaCouncil($councilId, $councilData);
+        if ($this->CouncilModel->isAreaCouncilNameUnique($councilName, $councilId)) {
+            $councilData = array(
+                'councilName' => $councilName,
+                'councilSlug' => $this->input->post('councilSlug'),
+                'councilLocation' => $this->input->post('councilLocation'),
+                'councilArea' => $this->input->post('councilArea'),
+                'startDate' => $this->input->post('startDate'),
+                'endDate' => $this->input->post('endDate'),
+                'stationId' => $stationId,
+                'staffId' => $staffId
+            );
 
-        $this->CouncilModel->deleteAreaMembersByCouncilId($councilId);
-
-        $memberNames = $this->input->post('memberId');
-        $designations = $this->input->post('designation');
-        $cgpfNumbers = $this->input->post('cgpfNumber');
-        $memberEmails = $this->input->post('memberEmail');
-
-        foreach ($memberNames as $key => $name) {
-            if (!empty($name) && !empty($designations[$key]) && $designations[$key] !== 'Select Designation') {
-
-
-                $existingMember = $this->CouncilModel->checkMemberExists($councilId, $name);
-                if (!$existingMember) {
-                    $memberData = array(
-                        'councilId' => $councilId,
-                        'memberId' => $name,
-                        'designation' => $designations[$key],
-                        'cgpfNumber' => $cgpfNumbers[$key],
-                        'memberEmail' => $memberEmails[$key],
-                        'stationId' => $stationId,
-                        'staffId' => $staffId
-                    );
+            $this->CouncilModel->updateAreaCouncil($councilId, $councilData);
 
 
-                    $this->CouncilModel->insertAreaMember($memberData);
+            $this->CouncilModel->deleteAreaMembersByCouncilId($councilId);
+
+            $memberNames = $this->input->post('memberId');
+            $designations = $this->input->post('designation');
+            $cgpfNumbers = $this->input->post('cgpfNumber');
+            $memberEmails = $this->input->post('memberEmail');
+
+            foreach ($memberNames as $key => $name) {
+                if (!empty($name) && !empty($designations[$key]) && $designations[$key] !== 'Select Designation') {
+                    $existingMember = $this->CouncilModel->checkMemberExists($councilId, $name);
+                    if (!$existingMember) {
+                        $memberData = array(
+                            'councilId' => $councilId,
+                            'memberId' => $name,
+                            'designation' => $designations[$key],
+                            'cgpfNumber' => $cgpfNumbers[$key],
+                            'memberEmail' => $memberEmails[$key],
+                            'stationId' => $stationId,
+                            'staffId' => $staffId
+                        );
+
+                        $this->CouncilModel->insertAreaMember($memberData);
+                    }
                 }
             }
+
+            redirect('council/manageareacouncil');
+        } else {
+
+            $this->session->set_flashdata('error', 'Council name must be unique.');
+
+            redirect('council/manageareacouncil/');
         }
-
-
-        redirect('council/manageareacouncil');
     }
+
 
 
 
@@ -543,17 +552,28 @@ class Council extends CI_Controller
         $councilName = $this->input->post('councilName');
         $councilSlug = $this->input->post('councilSlug');
         $councilLocation = $this->input->post('councilLocation');
-        $councilInstitute = $this->input->post('councilArea');
+        $councilArea = $this->input->post('councilArea');
         $startDate = $this->input->post('startDate');
         $endDate = $this->input->post('endDate');
         $staffId = $_COOKIE['staffId'];
         $stationId = $_COOKIE['stationId'];
 
+
+        if (!$this->CouncilModel->isDistrictCouncilNameUnique($councilSlug, $councilId)) {
+            $this->session->set_flashdata('error', 'Council Name must be unique.');
+            redirect('council/managedistrictcouncil/');
+            return;
+        } else {
+            $this->session->set_flashdata('success', 'Council updated successfully.');
+            redirect('council/managedistrictcouncil/');
+        }
+        
+
         $councilData = array(
             'councilName' => $councilName,
             'councilSlug' => $councilSlug,
             'councilLocation' => $councilLocation,
-            'councilArea' => $councilInstitute,
+            'councilArea' => $councilArea,
             'startDate' => $startDate,
             'endDate' => $endDate,
             'staffId' => $staffId,
@@ -583,7 +603,6 @@ class Council extends CI_Controller
                 $this->CouncilModel->insertDistrictMember($memberData);
             }
 
-        
             redirect('Council/managedistrictcouncil');
         } else {
             echo json_encode(array('success' => false, 'message' => 'Failed to update council.'));

@@ -48,6 +48,18 @@
 
                             <form action="#" id="saveChurch" method="post">
                                 <div id="staffMessage"></div>
+                                <?php if ($this->session->flashdata('error')): ?>
+                                    <div class="alert alert-danger">
+                                        <?= $this->session->flashdata('error'); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->session->flashdata('success')): ?>
+                                    <div class="alert alert-success">
+                                        <?= $this->session->flashdata('success'); ?>
+                                    </div>
+                                <?php endif; ?>
+
 
                                 <div class="form-group">
                                     <label for="churchName">Name of Church</label>
@@ -257,11 +269,13 @@
                         $('#staffMessage').html('<div class="alert alert-success">' + response.message + '</div>');
 
                         $('#saveChurch')[0].reset();
-
-
                         $('#contactPersonsContainer').html('');
-
                         $('#churchLocation').val(null).trigger('change');
+
+                        
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
                     } else {
                         $('#staffMessage').html('<div class="alert alert-danger">' + response.message + '</div>');
                     }
@@ -271,6 +285,7 @@
                 }
             });
         });
+
 
 
     });

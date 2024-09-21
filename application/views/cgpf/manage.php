@@ -57,12 +57,23 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <?php if ($this->session->flashdata('error')): ?>
+                                <div class="alert alert-danger">
+                                    <?= $this->session->flashdata('error'); ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-success">
+                                    <?= $this->session->flashdata('success'); ?>
+                                </div>
+                            <?php endif; ?>
 
                             <h4 class="card-title">LIST OF CGPF GROUPS</h4>
                             <p class="card-title-desc">List of all CGPF groups
                             </p>
-                           <hr>
-<div class="row">
+                            <hr>
+                            <div class="row">
                                 <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
                                 <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
                                 </div>
@@ -135,7 +146,7 @@
                             if (data.success) {
                                 var row = document.getElementById('row-' + cgpf_slug);
                                 if (row) {
-                                    row.remove(); 
+                                    row.remove();
                                 } else {
                                     console.error('Row not found in DOM');
                                 }

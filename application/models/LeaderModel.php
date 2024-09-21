@@ -63,6 +63,16 @@ class LeaderModel extends CI_Model {
         $this->db->where('leaderSlug', $slug);
         return $this->db->delete('leaders');
     }
+
+    public function isSlugUnique($slug, $currentLeaderSlug)
+{
+    $this->db->where('leaderSlug', $slug);
+    $this->db->where('leaderId !=', $currentLeaderSlug); 
+    $query = $this->db->get('leaders'); 
+
+    return $query->num_rows() === 0; 
+}
+
     
     
 }

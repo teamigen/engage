@@ -37,7 +37,7 @@ class Masters extends CI_Controller
 			redirect('Masters/index');
 		}
 
-		
+
 		$data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
 
 		if (empty($data['location'])) {
@@ -84,6 +84,7 @@ class Masters extends CI_Controller
 
 		echo json_encode($response);
 	}
+
 	public function deletelocation($locationSlug)
 	{
 		log_message('debug', 'Request method: ' . $this->input->server('REQUEST_METHOD'));
@@ -108,16 +109,21 @@ class Masters extends CI_Controller
 			echo json_encode(['success' => false, 'message' => 'Invalid request method or _method not received']);
 		}
 	}
-	
+
 	public function updateLocation()
 	{
-
 		$this->load->model('Station_model');
-
 
 		$locationId = $this->input->post('locationId');
 		$locationName = $this->input->post('locationName');
 		$locationSlug = $this->input->post('locationSlug');
+
+
+		if ($this->Station_model->check_location_slug_exists($locationSlug, $locationId)) {
+			$this->session->set_flashdata('error', 'Location slug already exists.');
+			redirect('masters/locations');
+			return;
+		}
 
 
 		$data = array(
@@ -134,7 +140,6 @@ class Masters extends CI_Controller
 			$this->session->set_flashdata('error', 'Failed to update location.');
 		}
 
-		
-		redirect('masters/locations'); 
+		redirect('masters/locations');
 	}
 }

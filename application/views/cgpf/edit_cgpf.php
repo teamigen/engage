@@ -223,6 +223,12 @@
             $(this).closest('.member-row').remove();
         });
     });
+
+    $('#cgpf_name').keyup(function() {
+        var originalText = $(this).val();
+        var filteredText = originalText.replace(/[^a-zA-Z0-9]/g, '');
+        $('#cgpf_slug').val(filteredText.toLowerCase());
+    });
 </script>
 
 

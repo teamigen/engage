@@ -77,29 +77,35 @@ class Churches extends CI_Controller
 	public function update()
 	{
 		$this->load->model('ChurchModel');
-
+	
 		$churchId = $this->input->post('churchId');
-
 		$church = $this->ChurchModel->getChurchById($churchId);
-
+	
 		if ($church === null) {
 			show_error('Church not found', 404);
 			return;
 		}
-
+	
+		$churchSlug = $this->input->post('churchSlug');
+		
+		
+		if ($this->ChurchModel->isChurchSlugExists($churchSlug, $churchId)) {
+			$this->session->set_flashdata('error', 'Church slug already exists.');
+			redirect('churches/index/'); 
+			return;
+		}
+	
 		$data = array(
 			'churchName' => $this->input->post('churchName'),
 			'churchLocation' => $this->input->post('churchLocation'),
 			'pastorName' => $this->input->post('pastorName'),
 			'mobileNumber' => $this->input->post('mobileNumber'),
-			'churchSlug' => $this->input->post('churchSlug'),
-
+			'churchSlug' => $churchSlug,
 		);
-
+	
 		$this->ChurchModel->updateChurch($churchId, $data);
-
 		$this->ChurchModel->deleteContactPersonsByChurchId($churchId);
-
+	
 		$contactNames = $this->input->post('contactName');
 		$contactPhones = $this->input->post('contactPhone');
 		$contactTypes = $this->input->post('contactType');
@@ -111,11 +117,12 @@ class Churches extends CI_Controller
 					'contactType' => $contactTypes[$index],
 					'contactPhone' => $contactPhones[$index]
 				);
-
+	
 				$this->ChurchModel->insertContactPerson($contactData);
 			}
 		}
-
+	
 		redirect('churches/index');
 	}
+	
 }

@@ -48,6 +48,12 @@
 
                             <form action="<?= base_url('churches/update') ?>" method="post">
                                 <input type="hidden" name="churchId" value="<?= $church->churchId ?>">
+                                <?php if ($this->session->flashdata('error')): ?>
+                                    <div class="alert alert-danger">
+                                        <?php echo $this->session->flashdata('error'); ?>
+                                    </div>
+                                <?php endif; ?>
+
 
                                 <div class="form-group">
                                     <label for="churchName">Name of Church</label>

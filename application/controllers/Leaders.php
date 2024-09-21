@@ -126,31 +126,39 @@ class Leaders extends CI_Controller
 	public function update()
 	{
 		$this->load->model('LeaderModel');
-
+	
 		$leaderSlug = $this->input->post('leaderId');
-
-		$data = array(
-			'name_of_leader' => $this->input->post('name_of_leader'),
-			'leaderSlug' => $this->input->post('leaderSlug'),
-			'courseclass_of_leader' => $this->input->post('courseclass_of_leader'),
-			'Institute' => $this->input->post('Institute'),
-			'home_location' => $this->input->post('home_location'),
-			'phone_of_leader' => $this->input->post('phone_of_leader'),
-			'email_of_leader' => $this->input->post('email_of_leader'),
-			'joining_as_leader' => $this->input->post('joining_as_leader'),
-			'year_of_graduation' => $this->input->post('year_of_graduation')
-		);
-
-		$result = $this->LeaderModel->updateLeader($leaderSlug, $data);
-
-		if ($result) {
-			$this->session->set_flashdata('success', 'Leader information updated successfully.');
-			redirect('leaders'); // Redirecting to the index method
+		$newSlug = $this->input->post('leaderSlug');
+	
+		
+		if ($this->LeaderModel->isSlugUnique($newSlug, $leaderSlug)) {
+			$data = array(
+				'name_of_leader' => $this->input->post('name_of_leader'),
+				'leaderSlug' => $newSlug,
+				'courseclass_of_leader' => $this->input->post('courseclass_of_leader'),
+				'Institute' => $this->input->post('Institute'),
+				'home_location' => $this->input->post('home_location'),
+				'phone_of_leader' => $this->input->post('phone_of_leader'),
+				'email_of_leader' => $this->input->post('email_of_leader'),
+				'joining_as_leader' => $this->input->post('joining_as_leader'),
+				'year_of_graduation' => $this->input->post('year_of_graduation')
+			);
+	
+			$result = $this->LeaderModel->updateLeader($leaderSlug, $data);
+	
+			if ($result) {
+				$this->session->set_flashdata('success', 'Leader information updated successfully.');
+				redirect('leaders/index'); 
+			} else {
+				$this->session->set_flashdata('error', 'Failed to update leader information.');
+				redirect('leaders/index');
+			}
 		} else {
-			$this->session->set_flashdata('error', 'Failed to update leader information.');
-			redirect('leaders/edit_leader/' . $leaderSlug);
+			$this->session->set_flashdata('error', 'The slug must be unique. Please choose another slug.');
+			redirect('leaders/index');
 		}
 	}
+	
 
 
 

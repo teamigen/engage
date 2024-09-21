@@ -64,7 +64,7 @@ class Weeklygroups extends CI_Controller
     }
 
 
-    
+
 
 
     public function check_slug_unique($slug)
@@ -117,12 +117,12 @@ class Weeklygroups extends CI_Controller
         $data['locations'] = $this->Station_model->getallactivelocationsbystation($_COOKIE['stationId']);
         $data['weekly_groups'] = $this->GroupModel->getAllWeeklyGroupsbystationId();
 
-        
-		if (!$data['weekly_groups']) {
 
-			$this->session->set_flashdata('message', 'The Group you were editing has been deleted.');
-			redirect('Weeklygroups/index');
-		}
+        if (!$data['weekly_groups']) {
+
+            $this->session->set_flashdata('message', 'The Group you were editing has been deleted.');
+            redirect('Weeklygroups/index');
+        }
 
 
         $data['group'] = $this->GroupModel->getGroupBySlug($groupId);
@@ -143,12 +143,13 @@ class Weeklygroups extends CI_Controller
         $this->form_validation->set_rules('meetingPlace', 'Meeting Place', 'required');
         $this->form_validation->set_rules('groupLocation', 'Group Location', 'required');
         $this->form_validation->set_rules('groupType', 'Group Type', 'required');
+        $this->form_validation->set_rules('groupSlug', 'Group Slug', 'required|callback_check_slug');
 
         if ($this->form_validation->run() === FALSE) {
-
-            $this->edit($groupId);
+            $this->session->set_flashdata('error', 'Group already exists.');
+            redirect('Weeklygroups/index');
+            return;
         } else {
-
             $data = array(
                 'groupName' => $this->input->post('groupName'),
                 'groupSlug' => $this->input->post('groupSlug'),
@@ -157,10 +158,18 @@ class Weeklygroups extends CI_Controller
                 'groupType' => $this->input->post('groupType'),
             );
 
-
             $this->GroupModel->updateGroup($groupId, $data);
-
             redirect('Weeklygroups/index');
         }
+    }
+
+    public function check_slug($slug)
+    {
+        $this->load->model('GroupModel');
+        if ($this->GroupModel->slug_exists($slug)) {
+            $this->form_validation->set_message('check_slug', 'The {field} already exists.');
+            return FALSE;
+        }
+        return TRUE;
     }
 }

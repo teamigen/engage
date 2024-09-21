@@ -7,9 +7,9 @@ class InstituteModel extends CI_Model
     public function insertInstitute($data)
     {
         $this->db->insert('eg_institutes', $data);
-        return $this->db->insert_id(); 
+        return $this->db->insert_id();
     }
-    
+
 
     public function getAllInstitutes()
     {
@@ -31,7 +31,7 @@ class InstituteModel extends CI_Model
         return $query->result();
     }
 
-  
+
     public function delete_institute($instituteSlug)
     {
 
@@ -56,5 +56,15 @@ class InstituteModel extends CI_Model
     {
         $this->db->where('instituteId', $instituteId);
         return $this->db->update('eg_institutes', $data);
+    }
+
+    public function slugExists($slug, $exclude_id = null)
+    {
+        $this->db->where('instituteSlug', $slug);
+        if ($exclude_id) {
+            $this->db->where('instituteId !=', $exclude_id);
+        }
+        $query = $this->db->get('eg_institutes');
+        return $query->num_rows() > 0;
     }
 }

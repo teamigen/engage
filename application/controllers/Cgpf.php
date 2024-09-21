@@ -111,30 +111,36 @@ class Cgpf extends CI_Controller
 	public function update($cgpf_slug)
 	{
 		$this->load->model('CGPFModel');
-
-
+	
 		$cgpf = $this->CGPFModel->getCgpfBySlug($cgpf_slug);
 		if (!$cgpf) {
 			show_404();
 		}
-
-
+	
+		$new_slug = $this->input->post('cgpf_slug');
+	
+	
+		$existing_cgpf = $this->CGPFModel->getCgpfBySlug($new_slug);
+		if ($existing_cgpf && $existing_cgpf->cgpf_id !== $cgpf->cgpf_id) {
+			$this->session->set_flashdata('error', 'Slug must be unique.');
+			redirect('cgpf/manage');
+			return;
+		}
+	
+	
 		$cgpf_data = [
 			'cgpf_name'     => $this->input->post('cgpf_name'),
-			'cgpf_slug'     => $this->input->post('cgpf_slug'),
+			'cgpf_slug'     => $new_slug,
 			'location_id'   => $this->input->post('location_id'),
 			'period_name'   => $this->input->post('period_name'),
 			'start_date'    => $this->input->post('start_date'),
 			'end_date'      => $this->input->post('end_date')
 		];
-
-
+	
 		$this->CGPFModel->updateCgpf($cgpf->cgpf_id, $cgpf_data);
-
-
+	
 		$this->CGPFModel->deleteMembersByCgpfId($cgpf->cgpf_id);
-
-
+	
 		$members = $this->input->post('members');
 		foreach ($members as $member) {
 			$member_data = [
@@ -146,8 +152,8 @@ class Cgpf extends CI_Controller
 			];
 			$this->CGPFModel->insertMember($member_data);
 		}
-
-
+	
 		redirect('cgpf/manage');
 	}
+	
 }

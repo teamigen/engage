@@ -273,21 +273,44 @@ class CouncilModel extends CI_Model
 
     // public function deleteDistrictMembersByCouncilId($councilId)
     // {
-        
+
     //     $this->db->where('councilId', $councilId);
     //     return $this->db->delete('eg_districtcouncil_member');
     // }
     public function deleteDistrictMembersByCouncilId($councilId)
-{
-    if (empty($councilId)) {
-        return false;
+    {
+        if (empty($councilId)) {
+            return false;
+        }
+        $this->db->where('councilId', $councilId);
+        return $this->db->delete('eg_districtcouncil_member');
     }
-    $this->db->where('councilId', $councilId);
-    return $this->db->delete('eg_districtcouncil_member'); 
-}
 
 
+    public function isCouncilNameUnique($councilName, $councilId)
+    {
+        $this->db->where('councilName', $councilName);
+        $this->db->where('councilId !=', $councilId);
+        $query = $this->db->get('eg_council');
 
+        return $query->num_rows() === 0;
+    }
 
- 
+    public function isAreaCouncilNameUnique($councilName, $councilId)
+    {
+        $this->db->where('councilName', $councilName);
+        $this->db->where('councilId !=', $councilId);
+        $query = $this->db->get('eg_areacouncil');
+
+        return $query->num_rows() === 0;
+    }
+
+    public function isDistrictCouncilNameUnique($councilName, $councilId)
+    {
+        $this->db->where('councilSlug', $councilName);
+        $this->db->where('councilId !=', $councilId);
+        $query = $this->db->get('eg_districtcouncil');
+
+        return $query->num_rows() === 0;
+    }
 }

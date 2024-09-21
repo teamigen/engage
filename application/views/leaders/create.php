@@ -48,6 +48,17 @@
 
                             <form action="#" id="saveLeader">
                                 <div id="leaderMessage"></div>
+                                <?php if ($this->session->flashdata('error')): ?>
+                                    <div class="alert alert-danger">
+                                        <?= $this->session->flashdata('error'); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->session->flashdata('success')): ?>
+                                    <div class="alert alert-success">
+                                        <?= $this->session->flashdata('success'); ?>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="form-group">
                                     <label>Name of Student Leader</label>
                                     <input class="form-control" type="text" name="name_of_leader"

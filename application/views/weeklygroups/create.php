@@ -47,6 +47,18 @@
                             <p class="card-title-desc">Manage Groups in the Location</p>
 
                             <form action="#" id="saveGroup" method="post">
+                            <?php if ($this->session->flashdata('error')): ?>
+                                    <div class="alert alert-danger">
+                                        <?= $this->session->flashdata('error'); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->session->flashdata('success')): ?>
+                                    <div class="alert alert-success">
+                                        <?= $this->session->flashdata('success'); ?>
+                                    </div>
+                                <?php endif; ?>
+                                
                                 <div id="groupMessage"></div>
                                 <div class="form-group">
                                     <label>Name of Group</label>

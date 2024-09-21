@@ -70,14 +70,14 @@ class Station_model extends CI_Model
         return $query->result();
     }
     public function getallactivelocationsArr()
-{
-    $this->db->select('*');
-    $this->db->from('eg_location');
-    $this->db->where('locationStatus', 1);
-    $this->db->order_by('locationName', 'asc');
-    $query = $this->db->get();
-    return $query->result_array(); 
-}
+    {
+        $this->db->select('*');
+        $this->db->from('eg_location');
+        $this->db->where('locationStatus', 1);
+        $this->db->order_by('locationName', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
     public function getallactivelocationsbystation($stationId)
     {
@@ -136,7 +136,7 @@ class Station_model extends CI_Model
     }
 
 
-    
+
     public function get_region_by_slug($regionSlug)
     {
         return $this->db->select('*')
@@ -176,19 +176,41 @@ class Station_model extends CI_Model
         return $query->result_array();
     }
 
-      
-      public function get_location_by_slug($locationSlug)
-      {
-          $this->db->where('locationSlug', $locationSlug);
-          $query = $this->db->get('eg_location');
-          return $query->row_array();
-      }
 
-      public function update_location($locationId, $data)
-      {
-          $this->db->where('locationId', $locationId);
-          return $this->db->update('eg_location', $data);
-      }
+    public function get_location_by_slug($locationSlug)
+    {
+        $this->db->where('locationSlug', $locationSlug);
+        $query = $this->db->get('eg_location');
+        return $query->row_array();
+    }
 
+    public function update_location($locationId, $data)
+    {
+        $this->db->where('locationId', $locationId);
+        return $this->db->update('eg_location', $data);
+    }
 
+    public function isSlugExists($churchSlug)
+    {
+        $this->db->where('locationSlug', $churchSlug);
+        $query = $this->db->get('eg_location');
+        return $query->num_rows() > 0;
+    }
+
+    public function check_location_slug_exists($locationSlug, $locationId = null)
+    {
+        $this->db->from('eg_location');
+        $this->db->where('locationSlug', $locationSlug);
+        if ($locationId) {
+
+            $this->db->where('locationId !=', $locationId);
+        }
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

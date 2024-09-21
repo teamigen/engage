@@ -57,12 +57,24 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <?php if ($this->session->flashdata('error')): ?>
+                                <div class="alert alert-danger">
+                                    <?= $this->session->flashdata('error'); ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-success">
+                                    <?= $this->session->flashdata('success'); ?>
+                                </div>
+                            <?php endif; ?>
+
 
                             <h4 class="card-title">LIST OF STUDENT COUNCILS</h4>
                             <p class="card-title-desc">List of all Student Councils
                             </p>
                             <hr>
-<div class="row">
+                            <div class="row">
                                 <div class="col-lg-6" style="font-weight: bold;">Staff Name: <?= $_COOKIE['staffName']; ?></div>
                                 <div class="col-lg-6" style="text-align: right; font-weight: bold;">Station Name: <?= $_COOKIE['stationName']; ?>
                                 </div>
@@ -90,7 +102,7 @@
                                                 <td><?= ($coucil['locationName']) ?></td>
                                                 <!-- <td><?= ($coucil["instituteName"]) ?></td> -->
                                                 <td><?= ($coucil["endDate"]) ?></td>
-                                                
+
                                                 <td>
                                                     <a href="<?= base_url('Council/edit/' . ($coucil['councilSlug'])) ?>" class="edit-row" data-id="<?= ($coucil['councilSlug']) ?>"><i class="ri-pencil-line"></i></a>&nbsp;
                                                     <a href="javascript:void(0);" class="delete-row" data-id="<?= ($coucil['councilId']) ?>"><i class="ri-delete-bin-line"></i></a>&nbsp;
@@ -118,18 +130,17 @@
 <!-- End Page-content -->
 
 <script>
-    
     document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
 
             deleteButton.addEventListener('click', function() {
 
-                var councilId  = this.getAttribute('data-id');
+                var councilId = this.getAttribute('data-id');
 
                 if (confirm('Are you sure you want to delete this row?')) {
 
-                    fetch('<?= base_url(); ?>Council/delete/' + councilId , {
+                    fetch('<?= base_url(); ?>Council/delete/' + councilId, {
                             method: 'DELETE',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -139,7 +150,7 @@
                         .then(data => {
                             if (data.success) {
 
-                                document.getElementById('row-' + councilId ).remove();
+                                document.getElementById('row-' + councilId).remove();
                             } else {
                                 alert('Failed to delete the row.');
                             }
@@ -149,7 +160,6 @@
             });
         });
     });
-
 </script>
 
 
