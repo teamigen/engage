@@ -134,6 +134,7 @@
 
 
 <script>
+    
     $(document).ready(function() {
         $('#saveLocation').submit(function(e) {
             e.preventDefault();
@@ -185,9 +186,11 @@
             $('#locationSlug').val(filteredText.toLowerCase());
         });
     });
+
 </script>
 
 <script>
+
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.delete-row').forEach(function(deleteButton) {
             deleteButton.addEventListener('click', function() {
@@ -221,6 +224,7 @@
             });
         });
     });
+
 </script>
 <!-- JAVASCRIPT -->
 

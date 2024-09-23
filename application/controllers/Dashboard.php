@@ -22,6 +22,7 @@ class Dashboard extends CI_Controller {
 	 public function index(){
 
 	 }
+	 
 	public function staff()
 	{
 		$this->load->view('templates/header');
@@ -29,6 +30,8 @@ class Dashboard extends CI_Controller {
 		$this->load->view('staffdashboard');
 		$this->load->view('templates/footer');
 	}
+
+	
 	public function admin()
 	{
 		$this->load->view('templates/header');

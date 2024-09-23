@@ -20,7 +20,7 @@ class StaffModel extends CI_Model
             return false;
         }
     }
-    
+
     public function insertTransferDetails($transferData)
     {
         $this->db->insert('staff_transfers', $transferData);
@@ -31,7 +31,7 @@ class StaffModel extends CI_Model
             return false;
         }
     }
-    
+
 
     public function getallstaffdetails()
     {
@@ -101,7 +101,19 @@ class StaffModel extends CI_Model
         return $query->num_rows() > 0;
     }
 
-    public function getStaffByUsername($username) {
+    public function getStaffByUsername($username)
+    {
         return $this->db->get_where('staff', ['username' => $username])->row();
+    }
+
+
+    public function getStaffById_Report($staffId)
+    {
+        return $this->db->get_where('staff', ['staffId' => $staffId])->row_array();
+    }
+
+    public function getAllStaff()
+    {
+        return $this->db->get('staff')->result_array();
     }
 }

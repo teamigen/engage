@@ -73,6 +73,8 @@ f<header id="page-topbar">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
+
+
                 <?php
                 if ($_COOKIE['stafftype'] == "Station Staff") {
                 ?>
@@ -164,6 +166,8 @@ if ($_COOKIE['staffName'] == "Tim Thomas") { ?>
 
                 <?php
                 }
+
+
                 if ($_COOKIE['stafftype'] == "Admin Staff") {
                 ?>
                     <li class="menu-title">Admin Level</li>
@@ -214,6 +218,117 @@ if ($_COOKIE['staffName'] == "Tim Thomas") { ?>
                         </a>
                     </li>
                 <?php } ?>
+
+                <?php 
+
+                if ($_COOKIE['stafftype'] == "Regional Staff") {
+                ?>  <li class="menu-title">Regional Level</li>
+                   <li>
+                        <a href="<?= base_url(); ?>dashboard/staff" class="waves-effect">
+                            <i class="ri-dashboard-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-store-2-line"></i>
+                            <span>Reports</span>
+                        </a>
+                        <?php
+if ($_COOKIE['staffName'] == "Tim Thomas") { ?>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url(); ?>staff/adminmonthreport">Staff Report</a></li>
+                            <li><a href="<?= base_url(); ?>staff/weekreport">Weekly Report</a></li>
+                            <li><a href="<?= base_url(); ?>staff/dailyreport">Daily Report</a></li>
+                            <li><a href="<?= base_url(); ?>staff/previousreports">Previous Reports</a></li>
+                        </ul>
+                        <?php } ?>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-folder-user-line"></i>
+                            <span>Student Council</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url(); ?>council/createnew">Create New Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/manage">Manage Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/createareacouncil">Create Area Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/manageareacouncil">Manage Area Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/createdistrictcouncil">Create District Council</a></li>
+                            <li><a href="<?= base_url(); ?>council/managedistrictcouncil">Manage District Council</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="<?= base_url(); ?>leaders" class=" waves-effect">
+                            <i class="ri-folder-user-line"></i>
+                            <span>Student Leaders</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?= base_url(); ?>institutes" class=" waves-effect">
+                            <i class="ri-team-fill"></i>
+                            <span>Institutes</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-group-line"></i>
+                            <span>CGPF</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href="<?= base_url(); ?>cgpf/createnew">Create New</a></li>
+                            <li><a href="<?= base_url(); ?>cgpf/manage">Manage</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="<?= base_url(); ?>weeklygroups" class=" waves-effect">
+                            <i class="ri-todo-line"></i>
+                            <span>Weekly Groups</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?= base_url(); ?>churches" class=" waves-effect">
+                            <i class="ri-price-tag-2-line"></i>
+                            <span>Churches</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="<?= base_url(); ?>masters/locations" class=" waves-effect">
+                            <i class="ri-map-pin-user-line"></i>
+                            <span>Locations</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class=" waves-effect">
+                            <i class="ri-attachment-line"></i>
+                            <span>Notices</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="ri-store-2-line"></i>
+                            <span>Region Reports</span>
+                        </a>
+                       
+
+                        <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="<?= base_url(); ?>staff/regionmonthreport">Staff Report</a></li>
+                            <!-- <li><a href="<?= base_url(); ?>staff/weekreport">Weekly Report</a></li>
+                            <li><a href="<?= base_url(); ?>staff/dailyreport">Daily Report</a></li>
+                            <li><a href="<?= base_url(); ?>staff/previousreports">Previous Reports</a></li> -->
+                        </ul>
+                        
+                    </li>
+                <?php }?>
             </ul>
         </div>
         <!-- Sidebar -->

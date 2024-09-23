@@ -162,4 +162,10 @@ class ReportModel extends CI_Model
             $this->db->update('eg_dailyreport', $data); 
         }
     }
+
+
+
+
+
+    
 }

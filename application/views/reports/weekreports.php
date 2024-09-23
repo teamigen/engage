@@ -70,33 +70,34 @@
                             <hr>
                             <form action="#" id="saveReport" method="post">
                                 <div id="reportMessage"></div>
+                                <div id="reportContainer"></div>
                                 <input type="hidden" id="reportMonth" name="reportMonth">
-                                <div id="reportContainer">
                                     <div class="row reportRow align-items-center mb-3 preserve" data-index="0">
-                                        <input type="hidden" name="rowIndex[]" value="0">
-                                        <div class="col-lg-2">
+                                        <input type="hidden" name="rowId[]" value="0" class="rowId">
+                                    <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label>Date of Event</label>
                                                 <div class="input-group">
-                                                    <input type="date" class="form-control" name="dateOfEvent[0]" value="">
+                                                    <input type="date" class="form-control" name="dateOfEvent[]" value="<?php echo date("Y-m-d") ?>">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label>Name of Group</label>
-                                                <select name="groupName[0]" class="form-control select2" placeholder="Name of Group">
-                                                    <option selected>Select Group</option>
+                                                <select name="groupName[]" class="form-control select2" placeholder="Name of Group">
+                                                    <option value="">Select Group</option>
                                                     <?php foreach ($weeklyGroups as $group): ?>
                                                         <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label>Leader</label>
-                                                <select name="groupLeader[0]" class="form-control select2" placeholder="Leader of Group">
+                                                <select name="groupLeader[]" class="form-control select2" placeholder="Leader of Group">
                                                     <option selected>Select Leader</option>
                                                     <?php foreach ($leaders as $leader): ?>
                                                         <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
@@ -107,22 +108,20 @@
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label>Attendance</label>
-                                                <input class="form-control" type="text" name="groupAttendence[0]" placeholder="No of CGPF Meetings">
+                                                <input class="form-control" type="text" name="groupAttendance[]" placeholder="No of CGPF Meetings">
                                             </div>
                                         </div>
                                         <div class="col-lg-1 d-flex justify-content-center align-items-center">
                                             <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
                                         </div>
-                                        <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                                            <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
-                                        </div>
-                                    </div>
+
+                                    
                                 </div>
                                 <hr>
                                 <div class="row">
                                     <div class="col-lg-12 d-flex justify-content-end">
                                         <button type="submit" class="btn btn-success waves-effect waves-light me-2" id="saveButton">Save</button>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light" id="submitButton">Submit for Review</button>
+                                        <button type="button" onclick="reviewSubmit()" class="btn btn-primary waves-effect waves-light" id="submitButton">Submit for Review</button>
                                     </div>
                                 </div>
                             </form>
@@ -134,127 +133,159 @@
         </div> <!-- End Container Fluid -->
     </div> <!-- End Page Content -->
 </div> <!-- End Main Content -->
-
 <script>
-    $(document).ready(function() {
-        let rowIndex = 0;
 
-        function clearFields() {
-        
-            $('#reportContainer .reportRow').each(function() {
-                if (!$(this).hasClass('preserve')) {
-                    $(this).remove();
-                }
-            });
-        }
+function reviewSubmit()
+    {
+       var result = confirm("Are you sure want to submit this?"); 
+       var reportMonth = $("#reportMonth").val();
+       if(result==true)
+       {
+        $.ajax({
+            url: '<?php echo base_url('ReportController/reviewSubmit'); ?>',
+            type: 'POST',
+            data: {"reportMonth":reportMonth},
+            dataType: 'json',
 
+            success: function(response) {
 
-        function populateFields(data) {
-            if (!data || $.isEmptyObject(data)) {
-                clearFields();
-                return;
-            }
-
-            clearFields();
-
-            data.forEach((row, index) => {
-                let newRow = `
-                
-        <div class="row reportRow align-items-center mb-3" data-index="${index}" data-id="${row.id}">
-            <input type="hidden" name="rowIndex[]" value="${index}">
-           
-            <div class="col-lg-2">
-            
-                <div class="form-group">
-                    <label>Date of Event</label>
-                    <div class="input-group">
-                        <input type="date" class="form-control" name="dateOfEvent[${index}]" value="${row.dateOfEvent || ''}">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Name of Group</label>
-                    <select name="groupName[${index}]" class="form-control select2">
-                        <option selected>Select Group</option>
-                        <?php foreach ($weeklyGroups as $group): ?>
-                            <option value="<?php echo $group['id']; ?>" ${row.groupName == <?php echo $group['id']; ?> ? 'selected' : ''}>
-                                <?php echo htmlspecialchars($group['groupName']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Leader</label>
-                    <select name="groupLeader[${index}]" class="form-control select2">
-                        <option selected>Select Leader</option>
-                        <?php foreach ($leaders as $leader): ?>
-                            <option value="<?php echo $leader['leaderId']; ?>" ${row.groupLeader == <?php echo $leader['leaderId']; ?> ? 'selected' : ''}>
-                                <?php echo htmlspecialchars($leader['name_of_leader']); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Attendance</label>
-                    <input class="form-control" type="text" name="groupAttendence[${index}]" placeholder="No of CGPF Meetings" value="${row.groupAttendance || ''}">
-                </div>
-            </div>
-            <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
-            </div>
-            <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
-            </div>
-        </div>
-        `;
-                $('#reportContainer').append(newRow);
-            });
-
-            updateRowIndex();
-        }
-
-
-        $(document).on('click', '.removeRow', function() {
-            var row = $(this).closest('.reportRow');
-            var id = row.data('id');
-            var monthYear = $('#reportMonth').val();
-
-            if (confirm('Are you sure you want to delete this event?')) {
-                $.ajax({
-                    url: '<?php echo base_url('ReportController/deleteEvent'); ?>',
-                    type: 'POST',
-                    data: {
-                        id: id,
-                        reportMonth: monthYear
-                    },
-                    success: function(response) {
-                        try {
-                            var data = JSON.parse(response);
-                            if (data.status === 'success') {
-                                row.remove();
-                                $('#reportMessage').html('<div class="alert alert-success">Event successfully deleted!</div>');
-                            } else {
-                                $('#reportMessage').html('<div class="alert alert-danger">Failed to delete event.</div>');
-                            }
-                        } catch (e) {
-                            console.error('Failed to process response', e);
-                            $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
+                if (response.status === 'success') {
+                    var successMessage = "<div class='alert alert-success'>";
+                        if (response.message) {
+                            successMessage += "<p>" + response.message + "</p>";
                         }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.error('AJAX request failed:', textStatus, errorThrown);
-                        $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                        successMessage += "</div>";
+                        $(".form-control,.btn").attr("disabled",true);
+                        $(".addRow,.removeRow").hide();
+
+                        $("#monthSelect").attr("disabled",false);
+
+                        $('#reportMessage').html(successMessage);
+                    } else {
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        if (response.message) {
+                            errorMessage += "<p>" + response.message + "</p>";
+                        }
+                        errorMessage += "</div>";
+                        $('#reportMessage').html(errorMessage);
                     }
-                });
+
+               
             }
+        });
+       }
+    }
+
+
+
+    let rowIndex = 1;
+    $(document).on('click', '.addRow', function() {
+        rowIndex++;
+        var newRow = ' <div class="row reportRow align-items-center mb-3" data-index="'+rowIndex+'">'+
+                        '<input type="hidden" name="rowId[]" class="rowId" value="0"><div class="col-lg-2"><div class="form-group"><label>Date of Event</label>'+
+                     '<div class="input-group"><input type="date" class="form-control" name="dateOfEvent[]" value="<?php echo date("Y-m-d") ?>">'+
+                      '</div></div></div><div class="col-lg-2"><div class="form-group"><label>Name of Group</label>'+
+                       '<select name="groupName[]" class="form-control select2" placeholder="Name of Group">'+
+                        '<option value="">Select Group</option><?php foreach ($weeklyGroups as $group): ?><option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option><?php endforeach; ?></select>'+
+                         '</div></div><div class="col-lg-2"> <div class="form-group"><label>Leader</label>'+
+                        '<select name="groupLeader[]" class="form-control select2" placeholder="Leader of Group">'+
+                         '<option value="">Select Leader</option><?php foreach ($leaders as $leader): ?><option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option><?php endforeach; ?></select>'+
+                        '</div></div><div class="col-lg-2"><div class="form-group"><label>Attendance</label>'+
+                        '<input class="form-control" type="text" name="groupAttendance[]" placeholder="No of CGPF Meetings">'+
+                        '</div></div>'+
+                        '<div class="col-lg-1 d-flex justify-content-center align-items-center">'+
+                        '<i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>'+
+                        '</div></div>';
+        $('#reportContainer').append(newRow);
+
+    });
+    $(document).on('click', '.removeRow', function() {
+            
+
+            var rowId = $(this).closest(".reportRow").find("input[name='rowId[]']").val();
+          if(rowId!=0){
+            $.ajax({
+            url: '<?php echo base_url('ReportController/deleteWeekReport'); ?>',
+            type: 'POST',
+            data: {"rowId":rowId},
+            success: function(response) {
+                $(this).closest('.reportRow').remove();
+                var currentMonthYear = $('#monthSelect').val();     
+                    fetchData(currentMonthYear);
+            }
+        });
+            
+          }
+          else
+          {
+            $(this).closest('.reportRow').remove();
+          }
+            // updateRowIndex();
         });
 
 
+        $('#saveReport').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        $.ajax({
+            url: '<?php echo base_url('ReportController/saveWeekReport'); ?>',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(response) {
+                try {
+                    if (response.status === 'success') {
+                        $('#reportMessage').html('<div class="alert alert-success">Week Report Successfully Saved!</div>');
+                        $('#saveReport')[0].reset();
+                        location.reload();
+                    } else {
+                        var errorMessage = "<div class='alert alert-danger'>";
+                        if (response.message) {
+                            errorMessage += "<p>" + response.message + "</p>";
+                        }
+                        errorMessage += "</div>";
+                        $('#reportMessage').html(errorMessage);
+                    }
+                } catch (e) {
+                    console.error('Failed to process response', e);
+                    $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('AJAX request failed:', textStatus, errorThrown);
+                $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+            }
+        });
+
+    });
+
+
+    $('#monthSelect').on('change', function() {
+        var disabled='';
+                            var hide ='display:inline';
+                            $(".btn").attr("disabled",false);
+                            $(".addRow").show();
+
+            var selectedMonthYear = $(this).val();
+            $('#reportMonth').val(selectedMonthYear);
+            $('.dispmnth').text(selectedMonthYear);
+            fetchData(selectedMonthYear);
+        });
+
+        var currentMonthYear = $('#monthSelect').val();
+        if (currentMonthYear) {
+            $('#reportMonth').val(currentMonthYear);
+            $('.dispmnth').text(currentMonthYear);
+            fetchData(currentMonthYear);
+        }
 
 
         function fetchData(monthYear) {
@@ -280,206 +311,83 @@
             });
         }
 
-
-        $('#monthSelect').on('change', function() {
-            var selectedMonthYear = $(this).val();
-            $('#reportMonth').val(selectedMonthYear);
-            $('.dispmnth').text(selectedMonthYear);
-            fetchData(selectedMonthYear);
-        });
-
-        var currentMonthYear = $('#monthSelect').val();
-        if (currentMonthYear) {
-            $('#reportMonth').val(currentMonthYear);
-            $('.dispmnth').text(currentMonthYear);
-            fetchData(currentMonthYear);
-        }
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        let rowIndex = 0;
-
-
-        function updateRowIndex() {
-            $('#reportContainer .reportRow').each(function(index) {
-                $(this).attr('data-index', index);
-                $(this).find('input[name^="dateOfEvent"]').attr('name', 'dateOfEvent[' + index + ']');
-                $(this).find('select[name^="groupName"]').attr('name', 'groupName[' + index + ']');
-                $(this).find('select[name^="groupLeader"]').attr('name', 'groupLeader[' + index + ']');
-                $(this).find('input[name^="groupAttendence"]').attr('name', 'groupAttendence[' + index + ']');
-                $(this).find('input[name="rowIndex[]"]').val(index);
-            });
-        }
-
-
-        $(document).on('click', '.addRow', function() {
-            rowIndex++;
-            let newRow = `
-        <div class="row reportRow align-items-center mb-3" data-index="${rowIndex}">
-            <input type="hidden" name="rowIndex[]" value="${rowIndex}">
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Date of Event</label>
-                    <div class="input-group">
-                        <input type="date" class="form-control" name="dateOfEvent[${rowIndex}]">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Name of Group</label>
-                    <select name="groupName[${rowIndex}]" class="form-control select2" placeholder="Name of Group">
-                        <option selected>Select Group</option>
-                        <?php foreach ($weeklyGroups as $group): ?>
-                            <option value="<?php echo $group['id']; ?>"><?php echo htmlspecialchars($group['groupName']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Leader</label>
-                    <select name="groupLeader[${rowIndex}]" class="form-control select2" placeholder="Leader of Group">
-                        <option selected>Select Leader</option>
-                        <?php foreach ($leaders as $leader): ?>
-                            <option value="<?php echo $leader['leaderId']; ?>"><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-                    <label>Attendance</label>
-                    <input class="form-control" type="text" name="groupAttendence[${rowIndex}]" placeholder="No of CGPF Meetings">
-                </div>
-            </div>
-            <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                <i class="mdi mdi-alarm-plus addRow" style="font-weight: bold; font-size:18px; cursor:pointer;"></i>
-            </div>
-            <div class="col-lg-1 d-flex justify-content-center align-items-center">
-                <i class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>
-            </div>
-        </div>
-        `;
-            $('#reportContainer').append(newRow);
-            updateRowIndex();
-        });
-
-
-        $(document).on('click', '.removeRow', function() {
-            $(this).closest('.reportRow').remove();
-            updateRowIndex();
-        });
-    });
-</script>
-
-<script>
-    $('#saveReport').on('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-
-        for (var pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
-
-        $.ajax({
-            url: '<?php echo base_url('ReportController/saveWeekReport'); ?>',
-            type: 'POST',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            success: function(response) {
-                try {
-                    if (response.status === 'success') {
-                        $('#reportMessage').html('<div class="alert alert-success">Week Report Successfully Saved!</div>');
-                        $('#saveReport')[0].reset();
-                    } else {
-                        var errorMessage = "<div class='alert alert-danger'>";
-                        if (response.message) {
-                            errorMessage += "<p>" + response.message + "</p>";
-                        }
-                        errorMessage += "</div>";
-                        $('#reportMessage').html(errorMessage);
-                    }
-                } catch (e) {
-                    console.error('Failed to process response', e);
-                    $('#reportMessage').html('<div class="alert alert-danger">Failed to process response.</div>');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('AJAX request failed:', textStatus, errorThrown);
-                $('#reportMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+        function clearFields() {
+        
+        $('#reportContainer .reportRow').each(function() {
+            if (!$(this).hasClass('preserve')) {
+                $(this).remove();
             }
         });
+    }
+    
+        function populateFields(data) {
 
-    });
+            if (!data || $.isEmptyObject(data)) {
+                clearFields();
+                return;
+            }
 
+            
+            clearFields();
 
+            var newRow='';
+            data.forEach((row, index) => {
+                // alert(row.dateOfEvent);
+                var leader=groupName='';
+                <?php foreach ($leaders as $leader): ?>
+                    var selected=''; 
+                    if(row.groupLeader==<?php echo $leader['leaderId'] ?>){
+                        selected='selected';
+                        // alert(selected);
+                    }
+                        leader =leader+'<option value="<?php echo $leader['leaderId']; ?>" '+selected+'><?php echo htmlspecialchars($leader['name_of_leader']); ?></option>';
+                    <?php endforeach; ?>
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var monthSelect = document.getElementById('monthSelect');
-        var reportMonthInput = document.getElementById('reportMonth');
-        var displayMonths = document.querySelectorAll('.dispmnth');
+                    <?php foreach ($weeklyGroups as $group){ ?>
+                        var selected1=''; 
+                    if(row.groupName==<?php echo $group['id']; ?>){
+                        selected1='selected';
+                        // alert(selected);
+                    }
+                        groupName=groupName+'<option value="<?php echo $group['id']; ?>" '+selected1+'><?php echo htmlspecialchars($group['groupName']); ?></option>';
+                        <?php } ?>
 
-        function updateMonth() {
-            var selectedMonth = monthSelect.value;
-            reportMonthInput.value = selectedMonth;
-            displayMonths.forEach(function(span) {
-                span.textContent = selectedMonth;
+                        if(row.submitReviewt==1){
+                            var disabled='disabled';
+                            var hide ='display:none';
+                            $(".addRow").hide();
+                            $(".btn").attr("disabled",true);
+                        }
+                        else
+                        {
+                            var disabled='';
+                            var hide ='display:inline';
+                            $(".btn").attr("disabled",false);
+                            $(".addRow").show();
+
+                        }
+                    
+                    // {"'+row.groupLeader+' == <?php echo $leader['leaderId']; ?>" ? "selected" : ""} >
+                newRow = newRow+' <div class="row reportRow align-items-center mb-3">'+
+                        '<input type="hidden" name="rowId[]"  class="rowId" value="'+row.id+'"><div class="col-lg-2"><div class="form-group"><label>Date of Event</label>'+
+                     '<div class="input-group"><input '+disabled+' type="date" class="form-control" name="dateOfEvent[]" value="'+row.dateOfEvent+'">'+
+                      '</div></div></div><div class="col-lg-2"><div class="form-group"><label>Name of Group</label>'+
+                       '<select '+disabled+' name="groupName[]" class="form-control select2" placeholder="Name of Group">'+
+                        '<option value="">Select Group</option>'+groupName+'</select>'+
+                         '</div></div><div class="col-lg-2"> <div class="form-group"><label>Leader</label>'+
+                        '<select '+disabled+' name="groupLeader[]" class="form-control select2" placeholder="Leader of Group">'+
+                         '<option value="">Select Leader</option>'+leader+'</select>'+
+                        '</div></div><div class="col-lg-2"><div class="form-group"><label>Attendance</label>'+
+                        '<input '+disabled+' class="form-control" type="text" name="groupAttendance[]" placeholder="No of CGPF Meetings" value="'+row.groupAttendance+'">'+
+                        '</div></div>'+
+                        '<div class="col-lg-1 d-flex justify-content-center align-items-center">'+
+                        '<i style="'+hide+'" class="ri-delete-bin-6-line removeRow" style="font-weight: bold; font-size:18px; color:red; cursor:pointer;"></i>'+
+                        '</div></div>';
+
+                
             });
+            $('#reportContainer').append(newRow);
+
         }
 
-
-        updateMonth();
-
-
-        monthSelect.addEventListener('change', updateMonth);
-    });
-
-
-
-
-
-    $(document).on('click', '.remove-event', function() {
-        if (confirm('Are you sure you want to delete this event?')) {
-            $(this).closest('.event1').remove();
-        }
-    });
-    $(document).ready(function() {
-        function updateMonth() {
-            var selectedMonth = $('#monthSelect').val();
-            $('#reportMonth').val(selectedMonth);
-            $('.dispmnth').text(selectedMonth);
-        }
-
-
-        updateMonth();
-
-
-        $('#monthSelect').change(updateMonth);
-    });
 </script>
-
-
-<script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
-<!-- JAVASCRIPT -->
-<script src="<?= base_url(); ?>assets/libs/jquery/jquery.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/metismenu/metisMenu.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/simplebar/simplebar.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/node-waves/waves.min.js"></script>
-
-<script src="<?= base_url(); ?>assets/libs/select2/js/select2.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
-<script src="<?= base_url(); ?>assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
-
-<script src="<?= base_url(); ?>assets/js/pages/form-advanced.init.js"></script>
-<!-- Plugins js -->
-<script src="<?= base_url(); ?>assets/libs/dropzone/min/dropzone.min.js"></script>
-<script src="<?= base_url(); ?>assets/js/app.js"></script>

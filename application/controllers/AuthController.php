@@ -55,13 +55,20 @@ class AuthController extends CI_Controller
                     );
                     
                 if($cleared != 1) { 
+
                 $this->Common_model->insert('loginLogs', $data);
                 }
+
                 if ($staff->staffType == "Station Staff") {
                     redirect('dashboard/staff');
+
                 } else if ($staff->staffType == "Admin Staff") {
                     redirect('dashboard/admin');
+                    
+                }else if ($staff->staffType == "Regional Staff") {
+                    redirect('dashboard/staff');
                 }
+
             } else {
 
                 $this->session->set_flashdata('error', 'Invalid Username or Password');
@@ -130,6 +137,8 @@ class AuthController extends CI_Controller
                     redirect('dashboard/staff');
                 } else if ($staff->staffType == "Admin Staff") {
                     redirect('dashboard/admin');
+                }else if ($staff->staffType == "Regional Staff") {
+                    redirect('dashboard/staff');
                 }
             } else {
 

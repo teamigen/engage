@@ -162,4 +162,17 @@ class ReportModel extends CI_Model
             $this->db->update('eg_dailyreport', $data); 
         }
     }
+
+    public function getMonthReportByMonthYearAndUser($monthYear, $userId)
+    {
+        $this->db->where('reportMonth', $monthYear);
+        $this->db->where('staffId', $userId);
+        $query = $this->db->get('eg_report');
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+    }
 }

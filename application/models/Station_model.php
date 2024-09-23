@@ -69,6 +69,7 @@ class Station_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
     public function getallactivelocationsArr()
     {
         $this->db->select('*');
@@ -213,4 +214,10 @@ class Station_model extends CI_Model
             return false;
         }
     }
+
+    public function getStationById($stationId)
+{
+    return $this->db->get_where('eg_station', ['stationId' => $stationId])->row_array();
+}
+
 }

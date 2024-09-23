@@ -2,6 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Staff extends CI_Controller
+
 {
     public function create()
     {
@@ -10,9 +11,6 @@ class Staff extends CI_Controller
         $data['regions'] = $this->Station_model->getallactiveregions();
         $data['stations'] = $this->Station_model->getallactivestations();
         $data['locations'] = $this->Station_model->getallactivelocations();
-
-
-
         // var_dump($data);
 
         $this->load->view('templates/header');
@@ -22,6 +20,7 @@ class Staff extends CI_Controller
     }
 
     public function manage()
+
     {
         $this->load->model('StaffModel');
 
@@ -66,9 +65,26 @@ class Staff extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function regionmonthreport()
+    {
+        $this->load->model('StaffModel');
+        $this->load->model('ChurchModel');
+    
+        $data["churches"] = $this->ChurchModel->getallchurches();
+        $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
+        $data['staff'] = $this->StaffModel->getAllStaff(); 
+    
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav');
+        $this->load->view('reports/regionmonthreports', $data);
+        $this->load->view('templates/footer');
+    }
+    
+
 
 
     public function weekreport()
+
     {
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -81,10 +97,10 @@ class Staff extends CI_Controller
         $this->load->view('templates/nav');
         $this->load->view('reports/weekreports', $data);
         $this->load->view('templates/footer');
-
     }
 
     public function dailyreport()
+
     {
         $this->load->model('GroupModel');
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
@@ -93,6 +109,7 @@ class Staff extends CI_Controller
         $this->load->model('LeaderModel'); // Load your model
         $data['leaders'] = $this->LeaderModel->getAllLeadersbyStaff($_COOKIE['stationId']);
         $this->load->model('Station_model');
+        $this->db->where("stationId", $_COOKIE['stationId']);
         $data['locations'] = $this->Station_model->getallactivelocationsArr();
 
         $this->load->view('templates/header');
@@ -103,6 +120,7 @@ class Staff extends CI_Controller
 
 
     public function previousreports()
+
     {
         $data['countries'] = $this->Common_model->getallactive('eg_country', 'countryActive', 'countryName', 'asc');
         //$data['regions'] = $this->Common_model->getallactive('eg_region', 'regionActive', 'regionName', 'asc');
@@ -114,8 +132,8 @@ class Staff extends CI_Controller
     }
 
     public function saveregion()
-    {
 
+    {
 
         if (!$this->input->is_ajax_request()) {
             exit('No direct script access allowed');
@@ -153,6 +171,7 @@ class Staff extends CI_Controller
         $regionId = $this->security->xss_clean($this->input->post('regionId')); // Sanitize input
 
         $data = array(
+
             'stationName' => $stationName,
             'districtId' => $districtId,
             'regionId' => $regionId,
@@ -497,12 +516,12 @@ Team ICPF
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => array(
-                        'appkey' => '3b901daf-2d46-42d8-adc8-68d6948ccde2',
-                        'authkey' => '20wnM082kB5minKxlpSvmyHy34KD4E7YddRVZ4Wud93PT15YpP',
-                        'to' => $mobile,
-                        'message' => $m,
-                        'sandbox' => 'false'
-                    ),
+                    'appkey' => '3b901daf-2d46-42d8-adc8-68d6948ccde2',
+                    'authkey' => '20wnM082kB5minKxlpSvmyHy34KD4E7YddRVZ4Wud93PT15YpP',
+                    'to' => $mobile,
+                    'message' => $m,
+                    'sandbox' => 'false'
+                ),
             ));
 
             $response = curl_exec($curl);
@@ -846,127 +865,133 @@ Team ICPF
     //     }
     // }
 
-    public function staffWithoutLocation() {
+    public function staffWithoutLocation()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to find staff who don't have an entry in the location table
         $this->db->select('staff.staffName')
-                 ->from('staff')
-                 ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
-                 ->where('eg_location.stationId IS NULL');
+            ->from('staff')
+            ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
+            ->where('eg_location.stationId IS NULL');
         $query = $this->db->get();
-        
+
         // Fetch result
         $data['staffWithoutLocation'] = $query->result();
-        
+
         // var_dump($data['staffWithoutLocation']);
         // die();
-        
+
         // Load the view and pass data
         $this->load->view('staff_without_location', $data);
     }
- public function staffLocationCount() {
+    public function staffLocationCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of locations created by each staff
         $this->db->select('staff.staffName, COUNT(eg_location.locationId) as locationCount')
-                 ->from('staff')
-                 ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('eg_location', 'eg_location.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffLocations'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_location_count', $data);
     }
-    public function staffGroupCount() {
+    public function staffGroupCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of groups created by each staff
         $this->db->select('staff.staffName, COUNT(groups.stationId) as groupCount')
-                 ->from('staff')
-                 ->join('groups', 'groups.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('groups', 'groups.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffGroups'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_group_count', $data);
     }
-    public function staffCouncilCount() {
+    public function staffCouncilCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of councils created by each staff
         $this->db->select('staff.staffName, COUNT(eg_council.stationId) as councilCount')
-                 ->from('staff')
-                 ->join('eg_council', 'eg_council.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('eg_council', 'eg_council.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffCouncils'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_council_count', $data);
     }
-    public function staffCgpfCount() {
+    public function staffCgpfCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of cgpf entries created by each staff
         $this->db->select('staff.staffName, COUNT(cgpf.stationId) as cgpfCount')
-                 ->from('staff')
-                 ->join('cgpf', 'cgpf.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('cgpf', 'cgpf.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffCgpf'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_cgpf_count', $data);
     }
-    public function staffChurchCount() {
+    public function staffChurchCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of churches created by each staff
         $this->db->select('staff.staffName, COUNT(churches.stationId) as churchCount')
-                 ->from('staff')
-                 ->join('churches', 'churches.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('churches', 'churches.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffChurches'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_church_count', $data);
     }
-    public function staffInstituteCount() {
+    public function staffInstituteCount()
+    {
         // Load the database library
         $this->load->database();
 
         // Query to get the number of institutes created by each staff
         $this->db->select('staff.staffName, COUNT(eg_institutes.stationId) as instituteCount')
-                 ->from('staff')
-                 ->join('eg_institutes', 'eg_institutes.stationId = staff.station', 'left')
-                 ->group_by('staff.staffId');
+            ->from('staff')
+            ->join('eg_institutes', 'eg_institutes.stationId = staff.station', 'left')
+            ->group_by('staff.staffId');
         $query = $this->db->get();
 
         // Fetch result
         $data['staffInstitutes'] = $query->result();
-        
+
         // Load the view and pass data
         $this->load->view('staff_institute_count', $data);
     }
-
 }

@@ -1,4 +1,3 @@
-
 <link href="<?= base_url(); ?>assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= base_url(); ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="<?= base_url(); ?>assets/libs/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
@@ -324,6 +323,8 @@
                                                 <div class="form-group">
                                                     <label>Event Photos</label>
                                                     <div class="custom-file">
+                                                    <input class="form-control rowId" type="hidden"  name="rowId[]" value="0">
+
                                                         <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
                                                         <label class="custom-file-label">Choose files</label>
                                                     </div>
@@ -506,6 +507,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Event Photos</label>
+                                <input class="form-control rowId" type="hidden"  name="rowId[]" value="${event.eventId}">
+                                <input class="form-control" type="hidden"  name="events[${index}][eventId]" value="${event.eventId}">
+
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="events[${index}][eventPhotos][]" multiple onchange="displayImages(this)">
                                     <label class="custom-file-label">Choose files</label>
@@ -561,6 +565,9 @@
                         </div>
                         <div class="form-group">
                             <label>Event Photos</label>
+                             <input class="form-control rowId" type="hidden"  name="rowId[]" value="0">
+                            <input class="form-control" type="hidden" name="events[0][eventId]" value="0">
+
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
                                 <label class="custom-file-label">Choose files</label>
@@ -612,6 +619,8 @@
             var selectedMonthYear = $(this).val();
             fetchData(selectedMonthYear);
         });
+
+        
     });
 </script>
 
@@ -661,7 +670,27 @@
         });
 
         $(document).on('click', '.remove-event', function() {
+           
+            var rowId = $(this).closest(".event1").find("input[name='rowId[]']").val();
+            // alert(rowId)
+          if(rowId!=0){
+            $.ajax({
+            url: '<?php echo base_url('ReportController/delete_events'); ?>',
+            type: 'POST',
+            data: {"rowId":rowId},
+            success: function(response) {
+                $(this).closest('.event1').remove();
+                
+                var currentMonthYear = $('#monthSelect').val();     
+                    fetchData(currentMonthYear);
+            }
+        });
+            
+          }
+          else
+          {
             $(this).closest('.event1').remove();
+          }
         });
 
 
@@ -687,6 +716,7 @@
                         if (parsedResponse.status === 'success') {
                             $('#reportMessage').html('<div class="alert alert-success">Month Report Successfully Created!</div>');
                             $('#saveReport')[0].reset();
+                            location.reload();
 
                         } else {
                             var errorMessage = "<div class='alert alert-danger'>";
