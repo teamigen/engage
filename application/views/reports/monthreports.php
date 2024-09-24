@@ -121,7 +121,7 @@
 
 
                                         <input type="hidden" id="reportMonth" name="reportMonth">
-                                        
+
                                         <!-- <span class="dispmnth" id="selectedMonth"></span> -->
                                         <div class="form-group">
                                             <label>Number of CGPF Meetings</label>
@@ -323,7 +323,7 @@
                                                 <div class="form-group">
                                                     <label>Event Photos</label>
                                                     <div class="custom-file">
-                                                    <input class="form-control rowId" type="hidden"  name="rowId[]" value="0">
+                                                        <input class="form-control rowId" type="hidden" name="rowId[]" value="0">
 
                                                         <input type="file" class="custom-file-input" name="events[0][eventPhotos][]" multiple onchange="displayImages(this)">
                                                         <label class="custom-file-label">Choose files</label>
@@ -346,7 +346,7 @@
                                 <div class="row">
                                     <div class="col-lg-12" style="text-align: right;">
                                         <button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-                                        <button type="button" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
+                                        <button type="button" onclick="reviewSubmit()" class="btn btn-primary waves-effect waves-light">Submit for Review</button>
                                     </div>
                                 </div>
                             </form>
@@ -620,8 +620,50 @@
             fetchData(selectedMonthYear);
         });
 
-        
+   
+
+
     });
+    function reviewSubmit() {
+            var result = confirm("Are you sure want to submit this?");
+            var monthSelect = $("#monthSelect").val();
+            if (result == true) {
+                $.ajax({
+                    url: '<?php echo base_url('ReportController/monthlyreviewSubmit'); ?>',
+                    type: 'POST',
+                    data: {
+                        "monthSelect": monthSelect
+                    },
+                    dataType: 'json',
+
+                    success: function(response) {
+
+                        if (response.status === 'success') {
+                            var successMessage = "<div class='alert alert-success'>";
+                            if (response.message) {
+                                successMessage += "<p>" + response.message + "</p>";
+                            }
+                            successMessage += "</div>";
+                            $(".form-control,.btn").attr("disabled", true);
+                            $("#addFamilyRow,.remove-event").hide();
+
+                            $("#monthSelect").attr("disabled", false);
+
+                            $('#reportMessage').html(successMessage);
+                        } else {
+                            var errorMessage = "<div class='alert alert-danger'>";
+                            if (response.message) {
+                                errorMessage += "<p>" + response.message + "</p>";
+                            }
+                            errorMessage += "</div>";
+                            $('#reportMessage').html(errorMessage);
+                        }
+
+
+                    }
+                });
+            }
+        }
 </script>
 
 
@@ -629,7 +671,6 @@
 
 
 <script>
-    
     function displayImages(input) {
         var files = input.files;
         var previewContainer = $(input).closest('.event1').find('[id^="imagePreviewContainer_"]');
@@ -670,27 +711,27 @@
         });
 
         $(document).on('click', '.remove-event', function() {
-           
+
             var rowId = $(this).closest(".event1").find("input[name='rowId[]']").val();
             // alert(rowId)
-          if(rowId!=0){
-            $.ajax({
-            url: '<?php echo base_url('ReportController/delete_events'); ?>',
-            type: 'POST',
-            data: {"rowId":rowId},
-            success: function(response) {
+            if (rowId != 0) {
+                $.ajax({
+                    url: '<?php echo base_url('ReportController/delete_events'); ?>',
+                    type: 'POST',
+                    data: {
+                        "rowId": rowId
+                    },
+                    success: function(response) {
+                        $(this).closest('.event1').remove();
+
+                        var currentMonthYear = $('#monthSelect').val();
+                        fetchData(currentMonthYear);
+                    }
+                });
+
+            } else {
                 $(this).closest('.event1').remove();
-                
-                var currentMonthYear = $('#monthSelect').val();     
-                    fetchData(currentMonthYear);
             }
-        });
-            
-          }
-          else
-          {
-            $(this).closest('.event1').remove();
-          }
         });
 
 

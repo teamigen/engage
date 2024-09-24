@@ -61,11 +61,13 @@ class ReportController extends CI_Controller
             'third_sunday_church' => $reportData->third_sunday_church,
             'fourth_sunday_church' => $reportData->fourth_sunday_church,
             'fifth_sunday_church' => $reportData->fifth_sunday_church,
-            'events' => $eventsData
+            'events' => $eventsData,
+            'submitReviewt' => $reportData->submitReviewt
         ]);
     }
 
     public function getStationByStaff()
+
     {
         $staffId = $this->input->post('staffId');
         $this->load->model('StaffModel');
@@ -188,11 +190,11 @@ class ReportController extends CI_Controller
                     }
                 }
             }
-            // echo $this->db->last_query();
         }
 
         echo json_encode(array('status' => 'success', 'message' => 'Report successfully processed'));
     }
+
 
     public function reviewSubmit()
     {
@@ -223,6 +225,25 @@ class ReportController extends CI_Controller
             echo json_encode(array('status' => 'danger', 'message' => 'There is no data related this month!'));
         }
     }
+
+
+    public function monthlyreviewSubmit()
+    {
+        $this->db->where('reportMonth', $this->input->post("monthSelect"));
+        $query = $this->db->get('eg_report');
+        if ($query->num_rows() > 0) {
+            $data['submitReviewt'] = 1;
+            $this->db->where('reportMonth', $this->input->post("monthSelect"));
+            $this->db->update('eg_report', $data);
+
+            echo json_encode(array('status' => 'success', 'message' => 'Successfully  !'));
+        } else {
+            echo json_encode(array('status' => 'danger', 'message' => 'There is no data related this month!'));
+        }
+    }
+
+
+
     public function saveWeekReport()
     {
 
@@ -402,7 +423,7 @@ class ReportController extends CI_Controller
     }
 
     public function deleteEvent()
-    
+
     {
         $this->load->model('ReportModel');
 
@@ -435,12 +456,13 @@ class ReportController extends CI_Controller
     }
 
     public function monthDatabyYearandMonth()
+
     {
         $this->load->model('ReportModel');
-    
+
         $currentUserId = $this->input->post('staffId');
         $monthYear = $this->input->post('monthYear');
-    
+
         if (!$currentUserId) {
             echo json_encode([
                 'error' => 'User is not authenticated',
@@ -448,9 +470,9 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
+
         $reportData = $this->ReportModel->getMonthReportByMonthYearAndUser($monthYear, $currentUserId);
-    
+
         if (!$reportData) {
             echo json_encode([
                 'error' => 'No report data found for the given month and year',
@@ -458,7 +480,8 @@ class ReportController extends CI_Controller
             ]);
             return;
         }
-    
+        $events = $this->EventModel->getEventsByReportId($reportData->reportId);
+
         echo json_encode([
             'CGPF_Number' => $reportData->CGPF_Number,
             'House_Visit_Number' => $reportData->House_Visit_Number,
@@ -472,14 +495,16 @@ class ReportController extends CI_Controller
             'New_Student_Councils' => $reportData->New_Student_Councils,
             'Existing_CGPF' => $reportData->Existing_CGPF,
             'New_CGPF' => $reportData->New_CGPF,
-            'first_sunday_church' => $reportData->first_sunday_church,
-            'second_sunday_church' => $reportData->second_sunday_church,
-            'third_sunday_church' => $reportData->third_sunday_church,
-            'fourth_sunday_church' => $reportData->fourth_sunday_church,
-            'fifth_sunday_church' => $reportData->fifth_sunday_church
+            'first_sunday_church_name' => $reportData->first_sunday_church_name,
+            'second_sunday_church_name' => $reportData->second_sunday_church_name,
+            'third_sunday_church_name' => $reportData->third_sunday_church_name,
+            'fourth_sunday_church_name' => $reportData->fourth_sunday_church_name,
+            'fifth_sunday_church_name' => $reportData->fifth_sunday_church_name,
+            'events' => $events,
+            'submitReviewt' => $reportData->submitReviewt,
         ]);
     }
-    
+
 
 
 
@@ -622,4 +647,6 @@ class ReportController extends CI_Controller
 
     //     return !empty($uploadedFiles) ? json_encode($uploadedFiles) : null;
     // }
+
+
 }

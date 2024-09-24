@@ -165,14 +165,26 @@ class ReportModel extends CI_Model
 
     public function getMonthReportByMonthYearAndUser($monthYear, $userId)
     {
-        $this->db->where('reportMonth', $monthYear);
-        $this->db->where('staffId', $userId);
-        $query = $this->db->get('eg_report');
-
-        if ($query->num_rows() > 0) {
-            return $query->row();
-        } else {
-            return null;
-        }
+        $this->db->select('
+            eg_report.*,
+            c1.churchName AS first_sunday_church_name,
+            c2.churchName AS second_sunday_church_name,
+            c3.churchName AS third_sunday_church_name,
+            c4.churchName AS fourth_sunday_church_name,
+            c5.churchName AS fifth_sunday_church_name,
+            eg_report.submitReviewt
+        ');
+        $this->db->from('eg_report');
+        $this->db->join('churches c1', 'eg_report.first_sunday_church = c1.churchId', 'left');
+        $this->db->join('churches c2', 'eg_report.second_sunday_church = c2.churchId', 'left');
+        $this->db->join('churches c3', 'eg_report.third_sunday_church = c3.churchId', 'left');
+        $this->db->join('churches c4', 'eg_report.fourth_sunday_church = c4.churchId', 'left');
+        $this->db->join('churches c5', 'eg_report.fifth_sunday_church = c5.churchId', 'left');
+        $this->db->where('eg_report.reportMonth', $monthYear);
+        $this->db->where('eg_report.staffId', $userId);
+        $query = $this->db->get();
+    
+        return $query->row();
     }
+    
 }
